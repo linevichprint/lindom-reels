@@ -1,0 +1,8 @@
+node_modules/
+# media: footage, photos, generated music and voice-over stay local (family footage is private)
+public/
+out/
+*.mp4
+*.mov
+*.wav
+.DS_Store
