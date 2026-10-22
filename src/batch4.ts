@@ -24,6 +24,8 @@ const LEN: Record<string, number> = {
   t_blue1: 14.4, t_blue2: 10.7, t_blue3: 11.6, t_bluepull: 8.6, t_sup1: 12.4, t_sup3: 11, t_purple: 2.3, t_purplepull: 18.8, t_arch1: 7.3, t_arch2: 27.4, t_arch3: 4.5,
   f_kids1: 2.3, f_drawing: 2.6, f_tools: 3.1, w_8983: 3.1, w_8985: 4.1, w_8984: 9.2, w_8987: 7.3,
   fail: 4.4,
+  pk_9336: 13.4, pk_9337: 8.5, pk_9338: 21.2, pk_9339: 7.1, pk_9340: 52.2, pk_9342: 24.3, pk_9360: 22.9, pk_9361: 13.4, pk_9362: 26, pk_9366: 9.4, pk_9367: 13.1, pk_9368: 10.2, pk_9369: 9.3, pk_9370: 13.1, pk_9371: 6.9,
+  mp_9372: 10.6, mp_9373: 11.2, mp_9374: 8.3, mp_9375: 9.8, mp_9376: 5.4, mp_9377: 8.7, mp_9378: 10.1,
   t_long: 108, t_unpack: 11, t_load: 22, t_sup2: 2.1, t_bluewide: 1.5,
   t_fit: 18.1, t_join2: 8.4, t_join3: 7.3, t_join4: 9.1, t_close: 3.5, t_steel1: 5.9, t_steel2: 6.4, t_steel3: 6.7, th_join: 9.6,
   c_orange: 2.5, c_blue: 3, c_green: 3, c_mint: 2.4, c_diag: 2.5, c_pyr: 3, box: 1.55, p_mint_tall: 3, n_phoebe: 3.7, n_orange: 4.5, n_blue2: 4.3, n_green: 4.5, n_mint: 4.5, n_pinkbg: 5,
@@ -1850,4 +1852,35 @@ export const batch22: Record<string, ReelConfig> = {
     [["t_close", 0, 0.8, 45], ["t_blue1", 3, 3], ["th_p2", 4, 3], ["t_sup3", 1, 2], ["th_join", 4.2, 1], ["b_yp", 0.5, 1], ["k_orange", 1.07, 1], ["k_bp2", 0.88, 1]], { size: 100, end: "Yes or no?" }),
   H50NextWeek: H("h50", ["What should I print next week?", "*The most-liked idea becomes an STL."],
     [["w_8803", 0, 1.6, 45], ["p_cad_green", 0, 1.5], ["print_close", 1, 2], ["p_yellow", 150, 3], ["th_p2", 4, 3], ["r_olive", 2, 1.8], ["p_lineup", 0.5, 1.2, 45]], { size: 80, end: "Comment your idea." }),
+};
+
+// ---- Batch 23: pumpkin (orange filament → model → print → off the bed → steel bowl in), new stars on the map ----
+// pk_9371 spool in hand, pk_9370 unwrapping, pk_9340 spool on the printer, pk_9337–9339 model on the laptop, pk_9336 bed prep,
+// pk_9342 first layers, pk_9360/61/62 the pumpkin growing, pk_9366/67 off the bed, pk_9368 in hand, pk_9369 steel bowl drops in at ~3.5 s
+const PK_FULL: Cut3[] = [["pk_9371", 0.5, 1.4], ["pk_9370", 2, 2], ["pk_9340", 8, 3], ["pk_9337", 1, 1.5], ["pk_9336", 4, 1.6], ["pk_9342", 2, 3], ["pk_9342", 14, 3],
+  ["pk_9360", 2, 3], ["pk_9362", 6, 3], ["pk_9361", 4, 2], ["pk_9360", 14, 3], ["pk_9366", 3, 1.4, 45], ["pk_9368", 1, 1, 45], ["pk_9369", 2.5, 1, 45]];
+
+export const batch23: Record<string, ReelConfig> = {
+  PkCozy: H("pk1", ["Your dog also needs", "*a cozy autumn vibe."],
+    [["d_sofa", 1.5, 0.6, 45], ["pk_9342", 3, 3], ["pk_9360", 3, 3], ["pk_9362", 8, 3], ["pk_9366", 3, 1.4, 45], ["pk_9369", 2.5, 1, 60], ["d_tongue", 0, 0.6, 45]], { size: 88, end: "Pumpkin bowl season." }),
+  PkFromSpool: H("pk2", ["From a spool of orange…", "*to a pumpkin."], PK_FULL, { size: 88 }),
+  PkThreeUses: mk("pk3", [
+    LAB("pk_9360", 60, 2, 2.5, "One pumpkin."),
+    LAB("pk_9362", 45, 8, 3, "Three jobs."),
+    { ...{ d: 75, v: ["pk_9369", { startFrom: 60, rate: 1, snapAt: 45, zoom: [1.03, 1.08] }] as V }, c: L("x", "1", "A dog bowl.", undefined, { size: 100 }) },
+    { d: 60, v: ["pk_9368", { startFrom: 15, zoom: [1.03, 1.08] }], c: L("x", "2", "Storage.", "Treats, toys, leads.", { size: 92 }) },
+    { d: 60, v: ["pk_9367", { startFrom: 240, rate: 1.2, zoom: [1.03, 1.08] }], c: L("x", "3", "Autumn decor.", undefined, { size: 100 }) },
+    LAB("pk_9368", 60, 5, 0.8, "Which one is yours?"),
+  ]),
+  PkWatchGrow: H("pk4", ["Watch a pumpkin", "*grow on our printer."],
+    [["pk_9342", 0, 2], ["pk_9342", 8, 3], ["pk_9342", 18, 3], ["pk_9360", 0, 3], ["pk_9360", 8, 3], ["pk_9360", 16, 3], ["pk_9362", 4, 3], ["pk_9362", 14, 3], ["pk_9361", 6, 2], ["pk_9366", 3, 1.4, 45], ["pk_9368", 2, 1, 45]], { size: 88 }),
+  PkNotOnlyDogs: H("pk5", ["Not just for dogs.", "Snacks. Keys. Yarn.", "*Or just autumn on your shelf."],
+    [["pk_9368", 0, 1, 45], ["pk_9337", 1, 1.6], ["pk_9340", 20, 3], ["pk_9342", 6, 3], ["pk_9360", 10, 3], ["pk_9362", 18, 3], ["pk_9367", 4, 1.6, 45], ["pk_9369", 2.5, 1, 45], ["pk_9368", 6, 0.8, 45]], { size: 80 }),
+
+  MapStar1: H("ms3", ["New orders,", "*new stars."],
+    [["mp_9373", 0, 1.2, 45], ["mp_9374", 1, 1.2, 45], ["mp_9375", 2, 1.2, 45], ["mp_9376", 0.5, 1, 45], ["mp_9378", 2, 1.2, 45], ["mp_9377", 1, 1.2, 45], ["mp_9372", 1, 1.2, 45]], { size: 100, end: "Where's yours?" }),
+  MapStar2: H("ms4", ["Every star on this wall", "is an order", "*that found its home."],
+    [["mp_9372", 0, 1.4, 45], ["mp_9378", 2, 1, 60], ["mp_9374", 1, 1, 60], ["mp_9377", 1.5, 1, 60], ["mp_9373", 5, 1.2, 45]], { size: 80, end: "Could the next one be you?" }),
+  MapStar3: H("ms5", ["This week", "*on our orders map."],
+    [["mp_9376", 0, 0.8, 45], ["mp_9378", 3, 1.4], ["mp_9374", 2, 1.4], ["mp_9375", 3, 1.4], ["mp_9377", 2, 1.4], ["mp_9373", 4, 1.4], ["mp_9372", 4, 1.2, 60]], { size: 96 }),
 };
