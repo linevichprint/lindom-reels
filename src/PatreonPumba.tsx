@@ -14,8 +14,8 @@ const chapters: Chapter[] = [
     { clip: "pu_9418", start: 0, rate: 2, sec: 5 }, { clip: "pu_9427", start: 0, rate: 2.5, sec: 6 }, { clip: "pu_9430", start: 1, rate: 1.2, sec: 5 } ] },
   { title: "Grey half", text: "The second colour, same care.", shots: [
     { clip: "pu_9433", start: 2, rate: 3, sec: 5 }, { clip: "pu_9499", start: 0, rate: 1.5, sec: 3.5 }, { clip: "pu_9450", start: 3, rate: 1.4, sec: 5 }, { clip: "pu_9503", start: 5, rate: 1.4, sec: 5 } ] },
-  { title: "Clean-up", text: "Inner parts are cleaned and checked by hand.", shots: [
-    { clip: "pu_9512", start: 4, rate: 2.5, sec: 7 }, { clip: "pu_6153", start: 1, rate: 1.4, sec: 5 } ] },
+  { title: "Clean-up", text: "Every part is cleaned and checked by hand.", shots: [
+    { clip: "pu_6153", start: 1, rate: 1.4, sec: 5 } ] },
   { title: "Assembly", text: "The halves come together on the bench.", shots: [
     { clip: "pu_6157", start: 2, rate: 2, sec: 6 }, { clip: "pu_6158", start: 1.5, rate: 0.8, sec: 4.5 } ] },
   { title: "Steel bowls", text: "Two stainless steel bowls drop in.", shots: [

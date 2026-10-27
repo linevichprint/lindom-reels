@@ -17,9 +17,9 @@ const chapters: Chapter[] = [
   { title: "Off the bed", text: "Finished halves come off the printer.", shots: [
     { clip: "se_6134", start: 1, rate: 1.2, sec: 5 }, { clip: "se_6135", start: 2, rate: 1.2, sec: 5 } ] },
   { title: "Clean-up", text: "Strings and edges are cleaned up by hand.", shots: [
-    { clip: "se_9458", start: 1, rate: 1.4, sec: 5 }, { clip: "se_9510", start: 0.5, rate: 1.4, sec: 4.5 }, { clip: "se_9511", start: 10, rate: 2.5, sec: 5 } ] },
+    { clip: "se_9458", start: 1, rate: 1.4, sec: 5 }, { clip: "se_6135", start: 6, rate: 1, sec: 3 } ] },
   { title: "The snap", text: "Swane's half meets Eddy's half.", shots: [
-    { clip: "se_6151", start: 0.3, rate: 1, sec: 3 }, { clip: "se_6150", start: 0.3, rate: 1, sec: 4.5 }, { clip: "se_6169", start: 2.4, rate: 0.8, sec: 4 } ] },
+    { clip: "se_6150", start: 0.3, rate: 1, sec: 4.5 }, { clip: "se_6169", start: 2.4, rate: 0.8, sec: 4 } ] },
   { title: "Steel bowls", text: "Two stainless steel bowls drop in.", shots: [
     { clip: "se_6146", start: 0.5, rate: 1, sec: 4 }, { clip: "se_6148", start: 0.3, rate: 1, sec: 3.5 } ] },
   { title: "Done", text: "One bowl, two names, two happy dogs.", shots: [{ clip: "se_6177", start: 1, rate: 0.8, sec: 4.5 }, { clip: "se_6144", start: 0.5, rate: 0.8, sec: 4 }] },

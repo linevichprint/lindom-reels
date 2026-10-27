@@ -28,6 +28,7 @@ const LEN: Record<string, number> = {
   mp_9372: 10.6, mp_9373: 11.2, mp_9374: 8.3, mp_9375: 9.8, mp_9376: 5.4, mp_9377: 8.7, mp_9378: 10.1,
   pu_6153: 10.2, pu_6154: 1.8, pu_6155: 1.6, pu_6156: 6.7, pu_6157: 20.9, pu_6158: 10.6, pu_6159: 8.6, pu_6160: 8, pu_9403: 4.2, pu_9404: 2.7, pu_9405: 5, pu_9406: 57.4, pu_9418: 16.4, pu_9427: 18.3, pu_9430: 9.1, pu_9433: 20.5, pu_9450: 18.2, pu_9499: 5.4, pu_9503: 18.8, pu_9507: 2.7, pu_9512: 60.5,
   se_6134: 9.7, se_6135: 10.2, se_6144: 6.7, se_6146: 5, se_6147: 4.5, se_6148: 4, se_6149: 6.5, se_6150: 5.9, se_6151: 3.6, se_6169: 11.7, se_6177: 6.8, se_6178: 8, se_6179: 7, se_9451: 4.6, se_9452: 84.4, se_9455: 21.6, se_9457: 10.8, se_9458: 12.3, se_9459: 5.9, se_9460: 7, se_9461: 4.2, se_9493: 16.4, se_9494: 6.9, se_9500: 5.4, se_9501: 7.6, se_9509: 3.2, se_9510: 9.1, se_9511: 74.6,
+  br_6183: 8.4, br_6185: 7.7, br_9504: 53.9, br_9586: 4.5, br_9587: 3.3, br_9588: 2, br_9593: 15.7, se_6187: 24.4,
   t_long: 108, t_unpack: 11, t_load: 22, t_sup2: 2.1, t_bluewide: 1.5,
   t_fit: 18.1, t_join2: 8.4, t_join3: 7.3, t_join4: 9.1, t_close: 3.5, t_steel1: 5.9, t_steel2: 6.4, t_steel3: 6.7, th_join: 9.6,
   c_orange: 2.5, c_blue: 3, c_green: 3, c_mint: 2.4, c_diag: 2.5, c_pyr: 3, box: 1.55, p_mint_tall: 3, n_phoebe: 3.7, n_orange: 4.5, n_blue2: 4.3, n_green: 4.5, n_mint: 4.5, n_pinkbg: 5,
@@ -1888,21 +1889,61 @@ export const batch23: Record<string, ReelConfig> = {
 };
 
 // ---- Batch 24: Pumba (green + grey wave double bowl) and Swane Eddy (sand + mauve double bowl, two names) process reels ----
-// snap moments: pu_6158 ~3.3 s, se_6169 ~3.9 s
-const PU: Cut3[] = [["pu_9403", 0.5, 1], ["pu_9406", 10, 3], ["pu_9418", 2, 2.5], ["pu_9427", 2, 3], ["pu_9427", 12, 3], ["pu_9430", 2, 1.4, 45], ["pu_9433", 4, 3], ["pu_9499", 1, 2],
-  ["pu_9503", 6, 1.6, 45], ["pu_9512", 6, 2.5], ["pu_6153", 3, 1.5], ["pu_6157", 13, 1.6, 45], ["pu_6156", 1, 1.2], ["pu_6158", 2.8, 1, 45], ["pu_6160", 1, 1, 45]];
-const SE: Cut3[] = [["se_9451", 0.5, 1], ["se_9452", 20, 3], ["se_9457", 3, 1.6], ["se_9455", 2, 3], ["se_9493", 8, 3], ["se_9494", 1, 1.2], ["se_6134", 2, 1.4, 45], ["se_6135", 3, 1.4],
-  ["se_9458", 2, 1.6], ["se_9510", 1, 1.6], ["se_6151", 0.5, 1], ["se_6150", 0.5, 1.2], ["se_6147", 1, 1.2], ["se_6169", 3.4, 1, 45], ["se_6144", 1, 1, 60]];
+// snap moments: pu_6158 ~3.3 s, se_6169 ~3.9 s. No magnet shots (pu_9512, se_9509–9511, se_6151): the user asked to keep them out.
+const PU_PROC: Cut3[] = [["pu_9403", 0.5, 1], ["pu_9406", 10, 3], ["pu_9406", 35, 3], ["pu_9418", 1, 2], ["pu_9418", 9, 2.5], ["pu_9427", 2, 3], ["pu_9427", 10, 3],
+  ["pu_9430", 2, 1.4], ["pu_9433", 3, 3], ["pu_9433", 12, 3], ["pu_9499", 1, 2], ["pu_9450", 4, 1.6], ["pu_9503", 6, 1.6], ["pu_6153", 3, 1.5], ["pu_6157", 4, 2], ["pu_6156", 1, 1.2]];
+const SE_PROC: Cut3[] = [["se_9451", 0.5, 1], ["se_9452", 20, 3], ["se_9452", 50, 3], ["se_9457", 3, 1.6], ["se_9455", 2, 3], ["se_9455", 12, 3], ["se_9493", 4, 3], ["se_9493", 11, 3],
+  ["se_9494", 1, 1.2], ["se_6134", 2, 1.4], ["se_6135", 3, 1.4], ["se_9458", 2, 1.6], ["se_6146", 1, 1.2], ["se_6147", 1, 1.2]];
+const PU_SNAP = AT("pu_6158", 3.3, 150, 63, 1, [1.02, 1.08]); // whole join: halves apart → click → finished bowl
+const SE_SNAP = AT("se_6169", 3.9, 150, 72, 1, [1.02, 1.08]);
+const BR_SNAP = AT("br_9593", 13.5, 150, 81, 1, [1.02, 1.08]);
+// process cuts, then the snap as the last shot (it matters most)
+const HS = (music: string, lines: string[], cuts: Cut3[], snap: Sc, o: { top?: number; size?: number; end?: string } = {}) => {
+  const base = H(music, lines, cuts, { ...o, end: undefined });
+  const scenes: Sc[] = cuts.map(([clip, st, rate, d = 30]) => ({ d, v: [clip, { startFrom: Math.round(st * 30), rate, zoom: [1.03, 1.09] }] as V }));
+  const cfg = mk(music, [...scenes, snap]);
+  const captions = base.captions.map((c: any) => ({ ...c, dur: cfg.duration - (o.end ? 75 : 0) }));
+  if (o.end) captions.push({ kind: "words", from: cfg.duration - 75, dur: 75, top: o.top ?? 240, size: 92, words: [{ t: o.end, at: 32, pink: true }] });
+  return { ...cfg, captions };
+};
+
+const BR_PROC: Cut3[] = [["br_9504", 4, 2.5], ["br_9504", 18, 3], ["br_9504", 38, 3], ["br_6183", 0, 0.8], ["br_6183", 1.2, 1.2, 45], ["br_6185", 0.3, 0.8], ["br_6185", 1.5, 1.2, 45],
+  ["br_9586", 0.2, 1], ["br_9587", 0.2, 1], ["br_9588", 0.1, 0.7], ["br_9593", 0.3, 1.3, 45], ["br_9593", 3.2, 1.2, 45]];
 
 export const batch24: Record<string, ReelConfig> = {
-  PuProcess: H("pu1", ["Meet Pumba's bowl.", "*From spool to dinner."], PU, { size: 88 }),
-  PuWave: H("pu2", ["Green waves.", "Grey base.", "*Made for Pumba."],
-    [["pu_9405", 1, 1], ["pu_9418", 4, 2.5], ["pu_9427", 4, 3], ["pu_9427", 14, 2.5], ["pu_9430", 2, 1.4, 45], ["pu_9512", 20, 2.5], ["pu_6157", 16, 1.4, 45], ["pu_6158", 2.8, 1, 45], ["pu_6159", 2, 1, 45]], { size: 96 }),
-  PuEvery: H("pu3", ["Every bowl", "starts as a spool.", "*This one became Pumba's."],
-    [["pu_9404", 0.3, 1, 45], ["pu_9406", 30, 3], ["pu_9433", 6, 3], ["pu_9450", 4, 1.6, 45], ["pu_9503", 10, 1.6], ["pu_6153", 6, 1.4], ["pu_6156", 3, 1.2], ["pu_6154", 0.2, 1], ["pu_6160", 3, 0.9, 60]], { size: 84 }),
-  SeProcess: H("se1", ["Two dogs. One bowl.", "*Swane & Eddy."], SE, { size: 92 }),
-  SeShare: H("se2", ["When your dogs", "share dinner…", "*they share the bowl too."],
-    [["se_9452", 40, 3], ["se_9455", 6, 3], ["se_9493", 12, 3], ["se_6134", 4, 1.2, 45], ["se_9511", 20, 2.5], ["se_6149", 0.3, 1.2, 45], ["se_6146", 1, 1.2], ["se_6169", 3.4, 1, 45], ["se_6177", 1, 1, 45], ["se_6144", 2, 0.9, 45]], { size: 84 }),
-  SeNames: H("se3", ["Two names.", "Two colours.", "*One click."],
-    [["se_6144", 0.5, 0.8, 45], ["se_9494", 2, 1.2], ["se_9455", 10, 3], ["se_6135", 4, 1.4, 45], ["se_9509", 0.5, 1.2], ["se_6151", 1, 0.8], ["se_6169", 3.4, 1, 45], ["se_6177", 3, 0.8, 45], ["se_9461", 1, 1, 45]], { size: 96 }),
+  PuProcess: HS("pu1", ["POV: you ordered", "a bowl for Pumba.", "*Here's every step."], PU_PROC, PU_SNAP, { size: 84, end: "Click." }),
+  PuWave: HS("pu2", ["Green waves.", "Grey base.", "*Now watch it click."],
+    [["pu_9405", 1, 1], ["pu_9406", 20, 3], ["pu_9418", 4, 2.5], ["pu_9418", 12, 2.5], ["pu_9427", 4, 3], ["pu_9427", 14, 2.5], ["pu_9430", 2, 1.4], ["pu_9433", 6, 3], ["pu_9499", 2, 2], ["pu_9503", 8, 1.6], ["pu_6153", 5, 1.4], ["pu_6157", 8, 2], ["pu_6154", 0.2, 1]], PU_SNAP, { size: 96 }),
+  PuEvery: HS("pu3", ["Every bowl", "starts as a spool.", "*Wait for the click."],
+    [["pu_9404", 0.3, 1], ["pu_9406", 30, 3], ["pu_9406", 48, 3], ["pu_9418", 6, 2.5], ["pu_9427", 8, 3], ["pu_9433", 6, 3], ["pu_9433", 15, 3], ["pu_9450", 4, 1.6], ["pu_9503", 10, 1.6], ["pu_6153", 6, 1.4], ["pu_6156", 3, 1.2]], PU_SNAP, { size: 88 }),
+  PuTrying: HS("pu4", ["Trying out", "*our new model."], PU_PROC.slice(1, 15), PU_SNAP, { size: 100, end: "Verdict: it clicks." }),
+  PuPrintIt: HS("pu5", ["Print it", "*for your dog."], [["p_cad_green", 0, 1.5], ...PU_PROC.slice(3, 16)], PU_SNAP, { size: 104, end: "STL file available." }),
+  SeProcess: HS("se1", ["Two dogs.", "One bowl.", "*Swane & Eddy."], SE_PROC, SE_SNAP, { size: 96, end: "Click." }),
+  SeShare: HS("se2", ["When your dogs", "share dinner…", "*they share the bowl too."],
+    [["se_9452", 40, 3], ["se_9457", 5, 1.6], ["se_9455", 4, 3], ["se_9455", 14, 3], ["se_9493", 6, 3], ["se_9493", 13, 3], ["se_9494", 3, 1.2], ["se_6134", 4, 1.2], ["se_6135", 5, 1.4], ["se_9458", 6, 1.6], ["se_6149", 0.3, 1.2], ["se_6146", 1, 1.2]], SE_SNAP, { size: 84 }),
+  SeNames: HS("se3", ["Two names.", "Two colours.", "*Watch them click."],
+    [["se_6144", 0.5, 0.8], ["se_9451", 1, 1], ["se_9452", 60, 3], ["se_9455", 10, 3], ["se_9493", 6, 3], ["se_9494", 2, 1.2], ["se_6134", 5, 1.4], ["se_6135", 4, 1.4], ["se_9458", 4, 1.6], ["se_6148", 0.3, 1.2]], SE_SNAP, { size: 96 }),
+  SeTrying: HS("se4", ["Trying out", "*our new model."], SE_PROC.slice(1, 14), SE_SNAP, { size: 100, end: "Verdict: it clicks." }),
+  SePrintIt: HS("se5", ["Print it", "*for your dog."], [["p_cad_blue", 0, 1.5], ...SE_PROC.slice(3, 14)], SE_SNAP, { size: 104, end: "STL file available." }),
+  SePacking: H("se6", ["Packing Swane & Eddy's bowl.", "*Off to its new home."],
+    [["se_6169", 4.2, 1, 45], ["se_6187", 0.5, 1.2, 45], ["se_6187", 4, 1.4, 45], ["se_6187", 8, 1.6, 45], ["se_6187", 12, 1.6, 45], ["se_6187", 16, 1.6, 45], ["se_6187", 20, 1.4, 45], ["box", 0, 0.6, 45]], { size: 84, end: "Next stop: a very happy dog." }),
+  BrProcess: HS("br1", ["Bruno's bowl,", "*start to finish."], BR_PROC, BR_SNAP, { size: 96, end: "Click." }),
+  BrColours: HS("br2", ["Blue on top.", "Purple underneath.", "*Made for Bruno."], BR_PROC.slice(0, 11), BR_SNAP, { size: 96 }),
+  BrTrying: HS("br3", ["Trying out", "*our new model."], BR_PROC.slice(1), BR_SNAP, { size: 100, end: "Verdict: it clicks." }),
+  BrPrintIt: HS("br4", ["Print it", "*for your dog."], [["p_cad_blue", 0, 1.5], ...BR_PROC.slice(2)], BR_SNAP, { size: 104, end: "STL file available." }),
+};
+
+// every bowl model's whole join, back to back: ~1.5 s before the click, ~1 s after
+const J = (clip: string, snapSec: number, label?: string, d = 75, rate = 1) => {
+  const at = Math.min(45, Math.floor((snapSec * 30) / rate)); // output frames before the click
+  return { d, v: [clip, { startFrom: Math.max(0, Math.round(snapSec * 30 - at * rate)), rate, snapAt: at, zoom: [1.03, 1.08] }] as V, c: label ? { kind: "words", top: 280, size: 92, words: [{ t: label, at: 0, pink: true }] } : undefined };
+};
+const ALL_JOINS: [string, number, string][] = [
+  ["k_orange", 1.57, "Orange"], ["k_green", 1.43, "Green"], ["k_pink", 2.55, "Cream + pink"], ["k_blue", 3.17, "Blue + stone"], ["k_bp2", 1.38, "Theo"],
+  ["pu_6158", 3.3, "Pumba"], ["se_6169", 3.9, "Swane & Eddy"], ["br_9593", 13.5, "Bruno"], ["b_terra_asm", 3.45, "Pyramid"], ["j_olive", 1.15, "Diagonal"],
+];
+export const batch26: Record<string, ReelConfig> = {
+  JoinsAllBeat: mk("ja1", [{ d: 45, v: ["p_lineup", { rate: 1.3, zoom: [1, 1.06] }], c: L("x", null, "Every bowl we make.", "Every click.", { size: 92 }) }, ...ALL_JOINS.map(([c, t, l]) => J(c, t, l))]),
+  JoinsAllClicks: mk("ja2", ALL_JOINS.map(([c, t]) => J(c, t, undefined, 75))),
+  JoinsAllSlow: mk("ja3", [...ALL_JOINS.slice(0, 8).map(([c, t], i) => ({ ...J(c, t, undefined, 90, 0.5), c: i === 0 ? L("x", null, "", "Slow-mo clicks.", { bAt: 4, size: 100 }) : undefined }))]),
 };
