@@ -17,7 +17,7 @@ const chapters: Chapter[] = [
   { title: "Clean-up", text: "Every part is cleaned and checked by hand.", shots: [
     { clip: "pu_6153", start: 1, rate: 1.4, sec: 5 } ] },
   { title: "Assembly", text: "The halves come together on the bench.", shots: [
-    { clip: "pu_6157", start: 2, rate: 2, sec: 6 }, { clip: "pu_6158", start: 1.5, rate: 0.8, sec: 4.5 } ] },
+    { clip: "pu_6157", start: 2, rate: 2, sec: 6 }, { clip: "pu_6158", start: 3.2, rate: 1, sec: 4.5 } ] },
   { title: "Steel bowls", text: "Two stainless steel bowls drop in.", shots: [
     { clip: "pu_6156", start: 0.5, rate: 1, sec: 5 }, { clip: "pu_6154", start: 0, rate: 1, sec: 1.7 } ] },
   { title: "Done", text: "Pumba's bowl, ready for dinner.", shots: [{ clip: "pu_6160", start: 1, rate: 0.8, sec: 5 }, { clip: "pu_6159", start: 1, rate: 0.8, sec: 4 }] },

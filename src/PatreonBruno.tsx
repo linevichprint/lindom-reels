@@ -19,7 +19,7 @@ const chapters: Chapter[] = [
   { title: "Steel bowls", text: "Stainless steel bowls drop in.", shots: [
     { clip: "br_9593", start: 0, rate: 1, sec: 3.5 } ] },
   { title: "The snap", text: "The two halves come together.", shots: [
-    { clip: "br_9593", start: 10.6, rate: 1, sec: 5 } ] },
+    { clip: "br_9574", start: 0, rate: 0.8, sec: 4 } ] },
   { title: "Done", text: "Bruno's bowl, ready for dinner.", shots: [{ clip: "br_9588", start: 0, rate: 0.4, sec: 4.5 }] },
 ];
 
