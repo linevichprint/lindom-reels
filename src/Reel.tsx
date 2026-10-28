@@ -25,6 +25,7 @@ export type Cut = {
   photo?: "card" | "full"; // clip is a still in public/photos (card = framed print on pink, for low-res photos)
   bw?: boolean; // black & white until the snap, colour from the snap on
   snapAt?: number; // local frame of a magnetic snap: punch-in + flash
+  fit?: "blur"; // horizontal: the clip sits whole in the middle over a blurred, enlarged copy of itself
   y?: number; // shift the footage down (px) to clear the caption; needs zoom >= 1 + y / 960
 };
 
@@ -331,17 +332,23 @@ const Clip: React.FC<{ cut: Cut }> = ({ cut }) => {
           <Img src={staticFile(`photos/${cut.clip}.jpg`)} style={{ width: "100%", height: "100%", objectFit: "cover", transform: `scale(${zoom + punch})` }} />
         )
       ) : (
+      <>
+      {cut.fit === "blur" ? (
+        <OffthreadVideo src={staticFile(`clips/${cut.clip}.mp4`)} startFrom={cut.startFrom ?? 0} playbackRate={cut.rate ?? 1} muted
+          style={{ position: "absolute", width: "100%", height: "100%", objectFit: "cover", filter: `blur(40px) brightness(0.75)${grey ? ` grayscale(${grey})` : ""}`, transform: "scale(1.15)" }} />
+      ) : null}
       <OffthreadVideo
         src={staticFile(`clips/${cut.clip}.mp4`)}
         startFrom={cut.startFrom ?? 0}
         playbackRate={cut.rate ?? 1}
         muted
         style={{
-          width: "100%", height: "100%", objectFit: "cover", objectPosition: cut.window?.pos ?? "50% 50%",
+          position: "absolute", width: "100%", height: "100%", objectFit: cut.fit === "blur" ? "contain" : "cover", objectPosition: cut.window?.pos ?? "50% 50%",
           filter: grey ? `grayscale(${grey}) contrast(${1 + 0.15 * grey})` : undefined,
           transform: `translateY(${cut.y ?? 0}px) scale(${zoom + punch + snapPunch})`, transformOrigin: cut.origin ?? "50% 50%",
         }}
       />
+      </>
       )}
       <AbsoluteFill style={{ backgroundColor: "white", opacity: flash }} />
       </div>

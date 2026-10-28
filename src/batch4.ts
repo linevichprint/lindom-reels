@@ -2054,3 +2054,28 @@ export const batch28: Record<string, ReelConfig> = {
     { ...DAY("p_terra_peel", 1, 2, "", "wk_vo9", 75), c: L("x", null, "We print", "one more.", { size: 110, bAt: 12 }) },
   ]),
 };
+
+// ---- Batch 29: horizontal (1920×1080) joins for Patreon / YouTube. hz_* clips are 4:3 windows cut around the bowl from the 4K originals
+// (same timing as the vertical clips); fit "blur" puts the window in the middle over a blurred copy of itself. ----
+const HJ = (clip: string, snapSec: number, o: { lead?: number; rate?: number; after?: number; label?: string; bw?: boolean } = {}) => {
+  const lead = Math.min(snapSec, o.lead ?? 1.2), rate = o.rate ?? Math.max(1, (lead * 30) / 15), pre = Math.round((lead * 30) / rate), after = o.after ?? 15, bw = !!o.bw;
+  const v: V[] = [[`hz_${clip}`, { startFrom: Math.round((snapSec - lead) * 30), rate, dur: pre, fit: "blur", bw, snapAt: bw ? 999 : undefined, zoom: [1, 1.03] }],
+    [`hz_${clip}`, { startFrom: Math.round(snapSec * 30), rate: 1, dur: after, fit: "blur", bw, snapAt: 0, zoom: [1.03, 1.06] }]];
+  return { d: pre + after, v, c: o.label ? { kind: "words", top: 50, size: 84, words: [{ t: o.label, at: pre, pink: true }] } : undefined } as Sc;
+};
+const hzHook = (t: string, dur: number) => ({ kind: "words", from: 0, dur, top: 50, size: 72, words: [{ t, at: 0, box: true }] });
+const hzReel = (music: string, hookText: string | null, scenes: Sc[], hookDur?: number) => {
+  const cfg = mk(music, scenes);
+  return { ...cfg, captions: hookText ? [hzHook(hookText, hookDur ?? scenes[0].d), ...cfg.captions] : cfg.captions };
+};
+export const batch29: Record<string, ReelConfig> = {
+  HzJoinsNames: hzReel("hz1", null, ALL_JOINS.map(([c, t, name], i) => HJ(c, t, { label: name, after: i === 9 ? 60 : 30 }))),
+  HzJoinsBw: hzReel("hz2", "Just add some colour.", ALL_JOINS.map(([c, t], i) => HJ(c, t, { bw: true, after: i === 9 ? 45 : 15 })), 30),
+  // real speed, whole join, no music: just the clicks
+  HzJoinsAsmr: hzReel("hz3", "Sound on.", ALL_JOINS.map(([c, t], i) => HJ(c, t, { lead: 2, rate: 1, after: i === 9 ? 60 : 36 })), 45),
+  // ~45 s for YouTube: every join at real speed with the dog's name, then all ten again at full speed
+  HzJoinsLong: hzReel("hz4", "Every bowl. Every click.", [
+    ...[ALL_JOINS[1], ALL_JOINS[0], ...ALL_JOINS.slice(2)].map(([c, t, name]) => HJ(c, t, { lead: 2, rate: 1, after: 45, label: name })), // Pumba first: its 2 s lead fits the hook
+    ...ALL_JOINS.map(([c, t], i) => HJ(c, t, { after: i === 9 ? 75 : 15 })),
+  ], 60),
+};

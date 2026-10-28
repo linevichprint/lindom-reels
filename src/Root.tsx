@@ -8,7 +8,7 @@ import { PatreonPumba, PATREON_PUMBA_DURATION } from "./PatreonPumba";
 import { PatreonSwane, PATREON_SWANE_DURATION } from "./PatreonSwane";
 import { PatreonBruno, PATREON_BRUNO_DURATION } from "./PatreonBruno";
 import { Reel, type ReelConfig } from "./Reel";
-import { batch4, batch5, batch6, batch7, batch8, batch9, batch10, batch11, batch12, batch13, batch14, batch15, batch16, batch17, batch18, batch19, batch20, batch21, batch22, batch23, batch24, batch26, batch27, batch28 } from "./batch4";
+import { batch4, batch5, batch6, batch7, batch8, batch9, batch10, batch11, batch12, batch13, batch14, batch15, batch16, batch17, batch18, batch19, batch20, batch21, batch22, batch23, batch24, batch26, batch27, batch28, batch29 } from "./batch4";
 import { amy, dogReviews, dogThinks, eaters, nameSays, ownerTypes, pick, pla, signs, snaps, stl, unique, zodiac } from "./reels";
 
 const reels: Record<string, ReelConfig> = { Amy: amy, PlaVsPetg: pla, OneOfAKind: unique, Stl: stl, PickABowl: pick, NameSays: nameSays, Eaters: eaters, Signs: signs, Zodiac: zodiac, DogThinks: dogThinks, DogReviews: dogReviews, OwnerTypes: ownerTypes, Snaps: snaps, ...batch4, ...batch5, ...batch6, ...batch7, ...batch8, ...batch9, ...batch10, ...batch11, ...batch12, ...batch13, ...batch14, ...batch15, ...batch16, ...batch17, ...batch18, ...batch19, ...batch20, ...batch21, ...batch22, ...batch23, ...batch24, ...batch26, ...batch27, ...batch28 };
@@ -24,6 +24,9 @@ export const Root: React.FC = () => (
     <Composition id="Ksyusha" component={Ksyusha} durationInFrames={KSYUSHA_DURATION} fps={30} width={1080} height={1920} />
     {Object.entries(reels).map(([id, config]) => (
       <Composition key={id} id={id} component={Reel} durationInFrames={config.duration} fps={30} width={1080} height={1920} defaultProps={{ config, voiceover: true }} />
+    ))}
+    {Object.entries(batch29).map(([id, config]) => (
+      <Composition key={id} id={id} component={Reel} durationInFrames={config.duration} fps={30} width={1920} height={1080} defaultProps={{ config, voiceover: false }} />
     ))}
   </>
 );
