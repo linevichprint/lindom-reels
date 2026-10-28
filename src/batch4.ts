@@ -1890,15 +1890,20 @@ export const batch23: Record<string, ReelConfig> = {
 
 // ---- Batch 24: Pumba (green + grey wave double bowl) and Swane Eddy (sand + mauve double bowl, two names) process reels ----
 // snap moments (halves fully together): pu_6158 5.8 s, se_6169 3.9 s, br_9574 0.95 s. No magnet shots (pu_9512, se_9509–9511, se_6151): the user asked to keep them out.
-const PU_PROC: Cut3[] = [["pu_9403", 0.5, 1], ["pu_9406", 10, 3], ["pu_9406", 35, 3], ["pu_9418", 1, 2], ["pu_9418", 9, 2.5], ["pu_9427", 2, 3], ["pu_9427", 10, 3],
-  ["pu_9430", 2, 1.4], ["pu_9433", 3, 3], ["pu_9433", 12, 3], ["pu_9499", 1, 2], ["pu_9450", 4, 1.6], ["pu_9503", 6, 1.6], ["pu_6153", 3, 1.5], ["pu_6157", 4, 2], ["pu_6156", 1, 1.2]];
-const SE_PROC: Cut3[] = [["se_9451", 0.5, 1], ["se_9452", 20, 3], ["se_9452", 50, 3], ["se_9457", 3, 1.6], ["se_9455", 2, 3], ["se_9455", 12, 3], ["se_9493", 4, 3], ["se_9493", 11, 3],
-  ["se_9494", 1, 1.2], ["se_6134", 2, 1.4], ["se_6135", 3, 1.4], ["se_9458", 2, 1.6], ["se_6146", 1, 1.2], ["se_6147", 1, 1.2]];
+const PU_PROC: Cut3[] = [["pu_9403", 0.5, 1], ["pu_9406", 10, 4, 45], ["pu_9418", 1, 3, 45], ["pu_9427", 2, 4, 45],
+  ["pu_9430", 2, 1.4], ["pu_9433", 3, 4, 45], ["pu_9499", 1, 2], ["pu_9450", 4, 1.6], ["pu_9503", 6, 1.6], ["pu_6153", 3, 1.5], ["pu_6156", 1, 1.2, 45]];
+const SE_PROC: Cut3[] = [["se_9451", 0.5, 1], ["se_9452", 20, 4, 45], ["se_9457", 3, 1.6], ["se_9455", 2, 4, 45], ["se_9493", 4, 4, 45],
+  ["se_9494", 1, 1.2], ["se_6134", 2, 1.4], ["se_6135", 3, 1.4], ["se_9458", 2, 1.6], ["se_6146", 1, 1.2, 45]];
 const PU_SNAP = AT("pu_6158", 5.8, 150, 90, 1, [1.02, 1.08]); // whole join: halves apart → click → finished bowl
 const SE_SNAP = AT("se_6169", 3.9, 150, 72, 1, [1.02, 1.08]);
 const BR_SNAP = AT("br_9574", 0.95, 120, 28, 1, [1.02, 1.08]); // Bruno joined in hands on the black wall
+// one shot per source clip in a process reel; clips filmed in the same set-up count as one (e.g. the steel bowls going in)
+const SAME: Record<string, string> = { pu_6154: "pu_t", pu_6155: "pu_t", pu_6156: "pu_t", pu_6157: "pu_t", br_9586: "br_t", br_9587: "br_t", br_9588: "br_t",
+  se_6146: "se_t", se_6147: "se_t", se_6148: "se_t", se_6149: "se_t", se_6150: "se_t" };
+const dd = (cuts: Cut3[]) => { const seen = new Set<string>(); return cuts.filter(([c]) => { const k = SAME[c] ?? c; if (seen.has(k)) return false; seen.add(k); return true; }); };
 // process cuts, then the snap as the last shot (it matters most)
-const HS = (music: string, lines: string[], cuts: Cut3[], snap: Sc, o: { top?: number; size?: number; end?: string } = {}) => {
+const HS = (music: string, lines: string[], cuts0: Cut3[], snap: Sc, o: { top?: number; size?: number; end?: string } = {}) => {
+  const cuts = dd(cuts0);
   const base = H(music, lines, cuts, { ...o, end: undefined });
   const scenes: Sc[] = cuts.map(([clip, st, rate, d = 30]) => ({ d, v: [clip, { startFrom: Math.round(st * 30), rate, zoom: [1.03, 1.09] }] as V }));
   const cfg = mk(music, [...scenes, snap]);
@@ -1907,8 +1912,7 @@ const HS = (music: string, lines: string[], cuts: Cut3[], snap: Sc, o: { top?: n
   return { ...cfg, captions };
 };
 
-const BR_PROC: Cut3[] = [["br_9504", 4, 2.5], ["br_9504", 18, 3], ["br_9504", 38, 3], ["br_6183", 0, 0.8], ["br_6183", 1.2, 1.2, 45], ["br_6185", 0.3, 0.8], ["br_6185", 1.5, 1.2, 45],
-  ["br_9586", 0.2, 1], ["br_9587", 0.2, 1], ["br_9588", 0.1, 0.7], ["br_9593", 0.3, 1.3, 45], ["br_9593", 3.2, 1.2, 45]];
+const BR_PROC: Cut3[] = [["br_9504", 4, 3, 60], ["br_6183", 0.3, 1.1, 75], ["br_9587", 0.2, 1, 45], ["br_9593", 0.3, 1.6, 60]];
 
 export const batch24: Record<string, ReelConfig> = {
   PuProcess: HS("pu1", ["POV: you ordered", "a bowl for Pumba.", "*Here's every step."], PU_PROC, PU_SNAP, { size: 84, end: "Click." }),
@@ -1917,20 +1921,20 @@ export const batch24: Record<string, ReelConfig> = {
   PuEvery: HS("pu3", ["Every bowl", "starts as a spool.", "*Wait for the click."],
     [["pu_9404", 0.3, 1], ["pu_9406", 30, 3], ["pu_9406", 48, 3], ["pu_9418", 6, 2.5], ["pu_9427", 8, 3], ["pu_9433", 6, 3], ["pu_9433", 15, 3], ["pu_9450", 4, 1.6], ["pu_9503", 10, 1.6], ["pu_6153", 6, 1.4], ["pu_6156", 3, 1.2]], PU_SNAP, { size: 88 }),
   PuTrying: HS("pu4", ["Trying out", "*our new model."], PU_PROC.slice(1, 15), PU_SNAP, { size: 100, end: "Verdict: it clicks." }),
-  PuPrintIt: HS("pu5", ["Print it", "*for your dog."], [["p_cad_green", 0, 1.5], ...PU_PROC.slice(3, 16)], PU_SNAP, { size: 104, end: "STL file available." }),
+  PuPrintIt: HS("pu5", ["Print it", "*for your dog."], [["pu_6160", 0.3, 1, 45], ...PU_PROC.slice(2)], PU_SNAP, { size: 104, end: "STL file available." }),
   SeProcess: HS("se1", ["Two dogs.", "One bowl.", "*Swane & Eddy."], SE_PROC, SE_SNAP, { size: 96, end: "Click." }),
   SeShare: HS("se2", ["When your dogs", "share dinner…", "*they share the bowl too."],
     [["se_9452", 40, 3], ["se_9457", 5, 1.6], ["se_9455", 4, 3], ["se_9455", 14, 3], ["se_9493", 6, 3], ["se_9493", 13, 3], ["se_9494", 3, 1.2], ["se_6134", 4, 1.2], ["se_6135", 5, 1.4], ["se_9458", 6, 1.6], ["se_6149", 0.3, 1.2], ["se_6146", 1, 1.2]], SE_SNAP, { size: 84 }),
   SeNames: HS("se3", ["Two names.", "Two colours.", "*Watch them click."],
     [["se_6144", 0.5, 0.8], ["se_9451", 1, 1], ["se_9452", 60, 3], ["se_9455", 10, 3], ["se_9493", 6, 3], ["se_9494", 2, 1.2], ["se_6134", 5, 1.4], ["se_6135", 4, 1.4], ["se_9458", 4, 1.6], ["se_6148", 0.3, 1.2]], SE_SNAP, { size: 96 }),
   SeTrying: HS("se4", ["Trying out", "*our new model."], SE_PROC.slice(1, 14), SE_SNAP, { size: 100, end: "Verdict: it clicks." }),
-  SePrintIt: HS("se5", ["Print it", "*for your dog."], [["p_cad_blue", 0, 1.5], ...SE_PROC.slice(3, 14)], SE_SNAP, { size: 104, end: "STL file available." }),
+  SePrintIt: HS("se5", ["Print it", "*for your dog."], [["se_9494", 0.5, 1, 45], ...SE_PROC.slice(1)], SE_SNAP, { size: 104, end: "STL file available." }),
   SePacking: H("se6", ["Packing Swane & Eddy's bowl.", "*Off to its new home."],
     [["se_6169", 4.2, 1, 45], ["se_6187", 0.5, 1.2, 45], ["se_6187", 4, 1.4, 45], ["se_6187", 8, 1.6, 45], ["se_6187", 12, 1.6, 45], ["se_6187", 16, 1.6, 45], ["se_6187", 20, 1.4, 45], ["box", 0, 0.6, 45]], { size: 84, end: "Next stop: a very happy dog." }),
   BrProcess: HS("br1", ["Bruno's bowl,", "*start to finish."], BR_PROC, BR_SNAP, { size: 96, end: "Click." }),
-  BrColours: HS("br2", ["Blue on top.", "Purple underneath.", "*Made for Bruno."], BR_PROC.slice(0, 11), BR_SNAP, { size: 96 }),
+  BrColours: HS("br2", ["Blue on top.", "Purple underneath.", "*Made for Bruno."], BR_PROC, BR_SNAP, { size: 96 }),
   BrTrying: HS("br3", ["Trying out", "*our new model."], BR_PROC.slice(1), BR_SNAP, { size: 100, end: "Verdict: it clicks." }),
-  BrPrintIt: HS("br4", ["Print it", "*for your dog."], [["p_cad_blue", 0, 1.5], ...BR_PROC.slice(2)], BR_SNAP, { size: 104, end: "STL file available." }),
+  BrPrintIt: HS("br4", ["Print it", "*for your dog."], [["br_9588", 0.1, 0.7, 45], ...BR_PROC], BR_SNAP, { size: 104, end: "STL file available." }),
 };
 
 // every bowl model's whole join, back to back: ~1.5 s before the click, ~1 s after
@@ -1938,24 +1942,42 @@ const J = (clip: string, snapSec: number, label?: string, d = 75, rate = 1) => {
   const at = Math.min(45, Math.floor((snapSec * 30) / rate)); // output frames before the click
   return { d, v: [clip, { startFrom: Math.max(0, Math.round(snapSec * 30 - at * rate)), rate, snapAt: at, zoom: [1.03, 1.08] }] as V, c: label ? { kind: "words", top: 280, size: 92, words: [{ t: label, at: 0, pink: true }] } : undefined };
 };
-// [clip, click time (s), dog's name on the bowl, colour]
+// [clip, click time (s), dog's name on the bowl, colour]; the newest bowls open the reels
 const ALL_JOINS: [string, number, string, string][] = [
-  ["k_orange", 1.57, "Nellie", "White + orange"], ["k_green", 1.43, "Nugget", "Olive + pink"], ["k_pink", 2.55, "Amy", "Cream + pink"], ["k_blue", 3.17, "Bo", "Blue + stone"], ["k_bp2", 1.38, "Theo", "Blue + purple"],
-  ["pu_6158", 5.8, "Pumba", "Green + grey"], ["se_6169", 3.9, "Swane & Eddy", "Sand + mauve"], ["br_9574", 0.95, "Bruno", "Blue + violet"], ["b_terra_asm", 3.45, "Chips & Beef", "Terracotta + sand"], ["j_olive", 1.15, "Phoebe", "Olive + stone"],
+  ["br_9574", 0.95, "Bruno", "Blue + violet"], ["pu_6158", 5.8, "Pumba", "Green + grey"], ["k_orange", 1.57, "Nellie", "White + orange"], ["se_6169", 3.9, "Swane & Eddy", "Sand + mauve"],
+  ["k_green", 1.43, "Nugget", "Olive + pink"], ["k_pink", 2.55, "Amy", "Cream + pink"], ["k_blue", 3.17, "Bo", "Blue + stone"], ["k_bp2", 1.38, "Theo", "Blue + purple"],
+  ["b_terra_asm", 3.45, "Chips & Beef", "Terracotta + sand"], ["j_olive", 1.15, "Phoebe", "Olive + stone"],
 ];
-const intro = (t: string, b: string) => ({ d: 45, v: ["p_lineup", { rate: 1.3, zoom: [1, 1.06] }] as V, c: L("x", null, t, b, { size: 92 }) });
-const JBW = (clip: string, snapSec: number, label?: string) => { const x: any = J(clip, snapSec, label); x.v[1].bw = true; return x; };
+// fast join: the halves' approach squeezed into half a second (whole join, sped up), the click on the beat, then real speed.
+// slow = the last 0.3 s before the click and the click itself at 0.3x (speed ramp).
+const JF = (clip: string, snapSec: number, o: { label?: string; after?: number; bw?: boolean; slow?: boolean } = {}) => {
+  const lead = Math.min(snapSec, 1.2), after = o.after ?? 15, bw = !!o.bw;
+  const v: V[] = o.slow
+    ? [[clip, { startFrom: Math.round((snapSec - lead) * 30), rate: Math.max(1, ((lead - 0.3) * 30) / 15), dur: 15, zoom: [1.02, 1.05] }],
+       [clip, { startFrom: Math.round((snapSec - 0.3) * 30), rate: 0.3, dur: 30 + after, snapAt: 30, zoom: [1.05, 1.12] }]]
+    : [[clip, { startFrom: Math.round((snapSec - lead) * 30), rate: Math.max(1, (lead * 30) / 15), dur: 15, bw, snapAt: bw ? 999 : undefined, zoom: [1.02, 1.06] }],
+       [clip, { startFrom: Math.round(snapSec * 30), rate: 1, dur: after, bw, snapAt: 0, zoom: [1.06, 1.1] }]];
+  const pre = o.slow ? 45 : 15;
+  return { d: pre + after, v, c: o.label ? { kind: "words", top: 330, size: 110, words: [{ t: o.label, at: pre, pink: true }] } : undefined } as Sc;
+};
+// the hook sits over the first joins, so the very first frame is already halves moving
+const hook = (t: string, dur: number) => ({ kind: "words", from: 0, dur, top: 150, size: 80, words: [{ t, at: 0, box: true }] });
+const joinsReel = (music: string, hookText: string | null, scenes: Sc[]) => {
+  const cfg = mk(music, scenes);
+  return { ...cfg, captions: hookText ? [hook(hookText, scenes[0].d + scenes[1].d), ...cfg.captions] : cfg.captions };
+};
 // separate videos per caption type: dogs' names, colours, no captions, slow-mo, black & white → colour on the click
 export const batch26: Record<string, ReelConfig> = {
-  JoinsAllBeat: mk("ja1", [intro("Every bowl", "has a name."), ...ALL_JOINS.map(([c, t, name]) => J(c, t, name))]),
-  JoinsAllColours: mk("ja4", [intro("Every colour", "clicks."), ...ALL_JOINS.map(([c, t, , col]) => J(c, t, col))]),
-  JoinsAllClicks: mk("ja2", ALL_JOINS.map(([c, t]) => J(c, t, undefined, 75))),
-  JoinsAllSlow: mk("ja3", [...ALL_JOINS.slice(0, 8).map(([c, t], i) => ({ ...J(c, t, undefined, 90, 0.5), c: i === 0 ? L("x", null, "", "Slow-mo clicks.", { bAt: 4, size: 100 }) : undefined }))]),
-  JoinsAllBw: mk("ja5", [{ d: 45, v: ["k_orange", { startFrom: 0, rate: 0.5, bw: true, snapAt: 999, zoom: [1, 1.04] }] as V, c: L("x", null, "Just add", "some colour.", { size: 100 }) }, ...ALL_JOINS.map(([c, t]) => JBW(c, t))]),
+  JoinsAllBeat: joinsReel("ja1", "Every bowl has a name.", ALL_JOINS.map(([c, t, name], i) => JF(c, t, { label: name, after: i === 9 ? 60 : 30 }))),
+  JoinsAllColours: joinsReel("ja4", "Every colour clicks.", ALL_JOINS.map(([c, t, , col], i) => JF(c, t, { label: col, after: i === 9 ? 60 : 30 }))),
+  JoinsAllClicks: joinsReel("ja2", "Sound on.", ALL_JOINS.map(([c, t], i) => JF(c, t, { after: i === 9 ? 45 : 15 }))),
+  JoinsAllSlow: joinsReel("ja3", "Slow-mo clicks.", ALL_JOINS.slice(0, 8).map(([c, t], i) => JF(c, t, { slow: true, after: i === 7 ? 45 : 15 }))),
+  JoinsAllBw: joinsReel("ja5", "Just add some colour.", ALL_JOINS.map(([c, t], i) => JF(c, t, { bw: true, after: i === 9 ? 45 : 15 }))),
 };
 
 // ---- Batch 27: "process vs result" / "wait for the result": a labelled process run, then the full join as the reveal ----
-const PVR = (music: string, hook: string, cuts: Cut3[], snap: Sc, reveal: string) => {
+const PVR = (music: string, hook: string, cuts0: Cut3[], snap: Sc, reveal: string) => {
+  const cuts = dd(cuts0);
   const scenes: Sc[] = cuts.map(([clip, st, rate, d = 30]) => ({ d, v: [clip, { startFrom: Math.round(st * 30), rate, zoom: [1.03, 1.09] }] as V }));
   const cfg = mk(music, [...scenes, snap]);
   const proc = scenes.reduce((a, x) => a + x.d, 0);
@@ -1974,4 +1996,61 @@ export const batch27: Record<string, ReelConfig> = {
   PvrSwane: PVR("pv2", "Wait for the result…", SE_PROC, SE_SNAP, "Two dogs, one bowl."),
   PvrBruno: PVR("pv3", "Process vs result.", BR_PROC, BR_SNAP, "Bruno approved."),
   PvrTheo: PVR("pv4", "Wait for the result…", TH_PROC, TH_SNAP, "Hello, Theo."),
+};
+
+// ---- Batch 28: voiced process / 3D printing reels (Kokoro am_onyx) and "a new bowl every day of the week" ----
+// VX: one voice line per scene; several shots can sit under one line
+const VX = (d: number, shots: Cut3[], vo: string, a: string, b?: string, o: any = {}) => {
+  const each = Math.round(d / shots.length);
+  return { d, v: shots.map(([clip, st, rate], i) => [clip, { startFrom: Math.round(st * 30), rate, dur: i === shots.length - 1 ? d - each * i : each, zoom: [1.02, 1.08] }]) as V[], c: L("x", null, a, b, { size: 84, bAt: 22, ...o }), vo } as Sc;
+};
+const VJ = (snap: Sc, vo: string, a: string, b?: string, o: any = {}) => ({ ...snap, c: L("x", null, a, b, { size: 92, bAt: 20, ...o }), vo } as Sc);
+const DAY = (clip: string, st: number, rate: number, day: string, vo: string, d = 30) =>
+  ({ d, v: [clip, { startFrom: Math.round(st * 30), rate, zoom: [1.04, 1.1] }] as V, c: { kind: "words", top: 300, size: 150, words: [{ t: day, at: 0, pink: true }] }, vo } as Sc);
+
+export const batch28: Record<string, ReelConfig> = {
+  VoicePumba: mk("v5a", [
+    VX(75, [["pu_9403", 0.5, 1]], "v5a_vo1", "This is how we make", "one dog bowl."),
+    VX(75, [["pu_9405", 1, 1]], "v5a_vo2", "It starts with", "a spool of filament."),
+    VX(105, [["pu_9406", 10, 4], ["pu_9433", 3, 4]], "v5a_vo3", "About 700 layers.", undefined, { bAt: 0 }),
+    VX(75, [["pu_9427", 2, 4]], "v5a_vo4", "6-7 hours", "for each half."),
+    VX(60, [["pu_9430", 2, 1.4]], "v5a_vo5", "Off the bed", "by hand."),
+    VX(60, [["pu_6156", 1, 1.2]], "v5a_vo6", "Steel bowls in."),
+    VJ(AT("pu_6158", 5.8, 90, 60, 1.5, [1.02, 1.08]), "v5a_vo7", "Two halves.", "One click.", { bAt: 30 }),
+    VX(75, [["pu_6160", 0.5, 0.8]], "v5a_vo8", "Pumba's bowl", "is ready."),
+  ]),
+  VoiceThreeThings: mk("v5b", [
+    VX(105, [["se_9452", 20, 4]], "v5b_vo1", "3 things nobody tells you", "about 3D printing.", { bAt: 30 }),
+    VX(120, [["se_9455", 2, 4], ["se_9493", 4, 4]], "v5b_vo2", "1. It's slow.", "6-12 hours per bowl.", { bAt: 40 }),
+    VX(105, [["se_9494", 1, 1.2], ["se_6134", 2, 1.4]], "v5b_vo3", "2. About", "700 layers.", { bAt: 30 }),
+    VJ(AT("se_6169", 3.9, 150, 75, 1, [1.02, 1.08]), "v5b_vo4", "3. The best part", "lasts one second.", { bAt: 30 }),
+  ]),
+  VoiceBruno: mk("v5c", [
+    VX(90, [["br_9588", 0.1, 0.7]], "v5c_vo1", "POV: you ordered a bowl", "with your dog's name.", { bAt: 30 }),
+    VX(60, [["br_9504", 4, 3]], "v5c_vo2", "Filament in."),
+    VX(60, [["br_6185", 0, 0.8]], "v5c_vo3", "The printer works", "all night."),
+    VX(75, [["br_6183", 1.2, 1.2]], "v5c_vo4", "Off the bed", "by hand."),
+    VX(60, [["br_9593", 0.3, 1.6]], "v5c_vo5", "Steel bowls in."),
+    VJ(AT("br_9574", 0.95, 90, 57, 0.5, [1.02, 1.08]), "v5c_vo6", "Then the halves", "click together.", { bAt: 30 }),
+    VX(60, [["br_9587", 0.2, 1]], "v5c_vo7", "Bruno's bowl,", "done."),
+  ]),
+  VoiceWhatIs: mk("v5d", [
+    VX(75, [["print_close", 1, 1]], "v5d_vo1", "What is 3D printing,", "really?"),
+    VX(90, [["m_cyan_print", 0, 1]], "v5d_vo2", "A hot nozzle melts", "a thin plastic thread."),
+    VX(75, [["th_p3", 1, 2]], "v5d_vo3", "One layer", "at a time."),
+    VX(75, [["t_blue1", 3, 4], ["th_p2", 4, 4]], "v5d_vo4", "Layer on layer,", "for hours."),
+    VX(75, [["print_blue", 1, 2], ["p_sup_blue", 2, 2]], "v5d_vo5", "Until it becomes", "a real bowl."),
+    VJ(AT("k_blue", 3.17, 105, 60, 1, [1.02, 1.08]), "v5d_vo6", "Designed in Barcelona.", "Printed for your dog.", { bAt: 40, size: 80 }),
+  ]),
+  WeekDays: mk("wk1", [
+    VX(90, [["t_purplepull", 4, 1.6]], "wk_vo1", "Every day, a new bowl", "comes off our printer.", { bAt: 30 }),
+    DAY("r_olive", 2, 1.8, "MONDAY", "wk_vo2"),
+    DAY("t_bluepull", 2, 1.6, "TUESDAY", "wk_vo3"),
+    DAY("br_6183", 1.2, 1.4, "WEDNESDAY", "wk_vo4"),
+    DAY("p_mint_remove", 1, 1.6, "THURSDAY", "wk_vo5"),
+    DAY("r_nellie", 2, 1.6, "FRIDAY", "wk_vo6"),
+    DAY("p_yellow_remove", 4, 1.6, "SATURDAY", "wk_vo7"),
+    DAY("r_grey", 1.6, 1.4, "SUNDAY?", "wk_vo8", 45),
+    { ...DAY("p_terra_peel", 1, 2, "", "wk_vo9", 75), c: L("x", null, "We print", "one more.", { size: 110, bAt: 12 }) },
+  ]),
 };
