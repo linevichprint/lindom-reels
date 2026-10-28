@@ -24,7 +24,7 @@ const LEN: Record<string, number> = {
   t_blue1: 14.4, t_blue2: 10.7, t_blue3: 11.6, t_bluepull: 8.6, t_sup1: 12.4, t_sup3: 11, t_purple: 2.3, t_purplepull: 18.8, t_arch1: 7.3, t_arch2: 27.4, t_arch3: 4.5,
   f_kids1: 2.3, f_drawing: 2.6, f_tools: 3.1, w_8983: 3.1, w_8985: 4.1, w_8984: 9.2, w_8987: 7.3,
   fail: 4.4,
-  pk_9336: 13.4, pk_9337: 8.5, pk_9338: 21.2, pk_9339: 7.1, pk_9340: 52.2, pk_9342: 24.3, pk_9360: 22.9, pk_9361: 13.4, pk_9362: 26, pk_9366: 9.4, pk_9367: 13.1, pk_9368: 10.2, pk_9369: 9.3, pk_9370: 13.1, pk_9371: 6.9,
+  pk_9336: 13.4, pk_9337: 8.5, pk_9338: 21.2, pk_9339: 7.1, pk_9340: 52.2, pk_9342: 24.3, pk_9360: 22.9, pk_9361: 13.4, pk_9362: 26, pk_9366: 9.4, pk_9367: 13.1, pk_9368: 10.2, pk_9369: 9.3, pk_9370: 13.1, pk_9371: 6.9, pk_9572: 7, pk_9600: 62.6,
   mp_9372: 10.6, mp_9373: 11.2, mp_9374: 8.3, mp_9375: 9.8, mp_9376: 5.4, mp_9377: 8.7, mp_9378: 10.1,
   pu_6153: 10.2, pu_6154: 1.8, pu_6155: 1.6, pu_6156: 6.7, pu_6157: 20.9, pu_6158: 10.6, pu_6159: 8.6, pu_6160: 8, pu_9403: 4.2, pu_9404: 2.7, pu_9405: 5, pu_9406: 57.4, pu_9418: 16.4, pu_9427: 18.3, pu_9430: 9.1, pu_9433: 20.5, pu_9450: 18.2, pu_9499: 5.4, pu_9503: 18.8, pu_9507: 2.7, pu_9512: 60.5,
   se_6134: 9.7, se_6135: 10.2, se_6144: 6.7, se_6146: 5, se_6147: 4.5, se_6148: 4, se_6149: 6.5, se_6150: 5.9, se_6151: 3.6, se_6169: 11.7, se_6177: 6.8, se_6178: 8, se_6179: 7, se_9451: 4.6, se_9452: 84.4, se_9455: 21.6, se_9457: 10.8, se_9458: 12.3, se_9459: 5.9, se_9460: 7, se_9461: 4.2, se_9493: 16.4, se_9494: 6.9, se_9500: 5.4, se_9501: 7.6, se_9509: 3.2, se_9510: 9.1, se_9511: 74.6,
@@ -2078,4 +2078,61 @@ export const batch29: Record<string, ReelConfig> = {
     ...[ALL_JOINS[1], ALL_JOINS[0], ...ALL_JOINS.slice(2)].map(([c, t, name]) => HJ(c, t, { lead: 2, rate: 1, after: 45, label: name })), // Pumba first: its 2 s lead fits the hook
     ...ALL_JOINS.map(([c, t], i) => HJ(c, t, { after: i === 9 ? 75 : 15 })),
   ], 60),
+};
+
+// ---- Batch 30: formats from the reels that did well (примеры/удачные): one quiet line of serif text, script accent words,
+// BEFORE / AFTER, "if this is your vibe", "me when I'm…", "POV: my morning routine", and the weekdays read slowly by one deep voice ----
+type Shot = [string, number, number, number, any?]; // clip, start (s), rate, frames, extra cut options
+const shots = (list: Shot[]): Sc[] => list.map(([clip, st, rate, d, o = {}]) => ({ d, v: [clip, { startFrom: Math.round(st * 30), rate, zoom: [1.02, 1.07], ...o }] as V }));
+const chic = (from: number, dur: number, top: number, words: any[], size = 72) => ({ kind: "chic", from, dur, top, size, words });
+const W1 = (t: string, at = 4, f?: string, br?: boolean) => ({ t, at, f, br });
+const reel = (music: string, list: (Shot | Sc)[], captions: any[]) => {
+  const cfg = mk(music, list.flatMap((x) => (Array.isArray(x) ? shots([x]) : [x])));
+  return { ...cfg, captions };
+};
+// BEFORE (first half) / AFTER (second half), 4 s each
+const beforeAfter = (music: string, before: Shot, after: Shot, words: [any[], any[]], top = 330) =>
+  reel(music, [before, after], [chic(0, before[3], top, words[0], 120), chic(before[3], after[3], top, words[1], 120)]);
+const ME = (mood: string) => [W1("me when I'm", 2), W1(mood + ":", 8, "italic")];
+
+export const batch30: Record<string, ReelConfig> = {
+  // pumpkin: the new candy shot and the orange spool going into the printer
+  PkBeforeAfter: beforeAfter("pa1", ["pk_9371", 0.5, 1, 120], ["pk_9572", 0, 0.9, 120], [[W1("BEFORE", 0, "bold")], [W1("AFTER", 0, "bold")]]),
+  PkTrickOrTreat: reel("pa2", [
+    ["pk_9572", 0, 1, 60], ["pk_9600", 1, 3, 24], ["pk_9600", 13, 3, 27], ["pk_9600", 36, 5, 27], ["pk_9360", 2, 8, 36], ["pk_9366", 4, 1.4, 33], ["pk_9572", 2.5, 0.8, 105],
+  ], [
+    chic(0, 60, 300, [W1("trick", 2, "script"), W1("or", 10), W1("treat?", 18, "script")]),
+    chic(60, 147, 300, [W1("so we printed", 2), W1("the candy bowl", 10, "italic", true)]),
+    chic(207, 105, 300, [W1("treat.", 2, "script", true)], 90),
+  ]),
+  PkPovOctober: reel("pa3", [
+    ["pk_9600", 5.5, 2, 36], ["pk_9600", 17, 1.5, 33], ["pk_9600", 44, 3, 30], ["pk_9361", 1, 4, 36], ["pk_9367", 4, 1.5, 36], ["pk_9368", 1, 1, 39], ["pk_9572", 0, 1, 60],
+  ], [chic(0, 270, 330, [W1("POV:", 2), W1("October", 2, "script"), W1("in our tiny studio", 2, undefined, true)], 64)]),
+
+  // Pumba, Swane & Eddy, Bruno: a different format each
+  BaPumba: beforeAfter("pa4", ["pu_9418", 0.3, 4, 120], ["pu_6160", 0.3, 1, 120], [[W1("BEFORE", 0, "bold")], [W1("AFTER", 0, "bold")]]),
+  BaSwane: beforeAfter("pa5", ["se_9451", 0.3, 1, 120], ["se_6177", 0.3, 1, 120], [[W1("before", 0, "script")], [W1("after", 0, "script")]], 300),
+  BaBruno: beforeAfter("pa6", ["br_9504", 6, 2, 120], ["br_9574", 1.3, 0.8, 120], [[W1("Process. Vs...?", 0, "bold")], [W1("Result.", 0, "bold")]], 300),
+  VibeThree: reel("pa7", [["pu_6160", 0.5, 1, 75], ["se_6177", 0.5, 1, 60], ["br_9574", 1.3, 1, 60], ["se_6144", 0.3, 0.8, 90]], [
+    chic(0, 75, 430, [W1("If this is your", 4), W1("vibe", 10, "script")], 66),
+    chic(75, 60, 430, [W1("or this", 2)], 66),
+    chic(135, 60, 430, [W1("or this", 2)], 66),
+    chic(195, 90, 430, [W1("then you're in", 2), W1("the right place", 10, "italic", true)], 66),
+  ]),
+  MoneyBruno: reel("pa8", [["br_6183", 1.2, 1.3, 60], ["br_9593", 0.3, 1.6, 45], ["br_9586", 0.5, 1, 45], AT("br_9574", 0.95, 105, 19, 1, [1.02, 1.07])], [
+    chic(0, 255, 240, [W1("money", 5), W1("can't", 20), W1("buy", 35, undefined, true), W1("happiness", 50, "italic"),
+      W1("but", 80, undefined, true), W1("it", 92), W1("can", 104), W1("buy", 116, undefined, true), W1("you", 128), W1("this", 169, "script")], 84),
+  ]),
+  MeWhenThree: reel("pa9", [["se_9493", 4, 4, 60], ["pu_9406", 10, 3, 60], ["br_6185", 0, 1.2, 60], ["se_9457", 2, 2, 60], AT("pu_6158", 5.8, 90, 50, 1, [1.02, 1.07])], [
+    chic(0, 60, 300, ME("sad")), chic(60, 60, 300, ME("tired")), chic(120, 60, 300, ME("stressed")), chic(180, 60, 300, ME("burnt out")), chic(240, 90, 300, ME("happy")),
+  ]),
+  MorningThree: reel("pa10", [["pu_9430", 2, 1.4, 45], ["br_6183", 1.2, 1.4, 45], ["se_6134", 2, 1.4, 45], ["pu_9450", 4, 1.6, 45], ["p_mint_remove", 1, 1.6, 45], ["se_9461", 0.3, 1, 45]], [
+    chic(0, 270, 330, [W1("POV:", 2), W1("my morning routine", 2, "italic")], 64),
+  ]),
+  // voice only, like the weekdays reel that did well: slow deep voice, script day names, one part off the printer per day, Sunday the whole bowl clicks
+  DaysVoice: reel("pa11", [
+    ...([["pu_9430", 2, 1.2], ["br_6185", 1, 1.2], ["se_6135", 3, 1.2], ["pk_9366", 4, 1.2], ["t_purplepull", 5, 1.4], ["pu_9450", 4, 1.4]] as [string, number, number][])
+      .map(([c, st, r], i) => ({ ...shots([[c, st, r, 48]])[0], vo: `dv_vo${i + 1}` })),
+    { ...AT("pu_6158", 5.8, 84, 40, 1, [1.02, 1.07]), vo: "dv_vo7" },
+  ], ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((d, i) => chic(i * 48, i === 6 ? 84 : 48, i === 6 ? 520 : 760, [W1(d, 0, "script")], 120))),
 };

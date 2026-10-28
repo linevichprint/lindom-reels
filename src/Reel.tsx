@@ -11,7 +11,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { CREAM, INK, PINK, PINK_LIGHT, display, sans } from "./brand";
+import { CREAM, INK, PINK, PINK_LIGHT, display, heavy, sans, script, serif } from "./brand";
 
 export type Cut = {
   clip: string;
@@ -31,7 +31,11 @@ export type Cut = {
 
 export type Word = { t: string; at: number; pink?: boolean; br?: boolean; size?: number; box?: boolean };
 
+// chic: f = "serif" (default) | "italic" | "script" | "bold"; br starts a new line
+export type ChicWord = { t: string; at: number; f?: "serif" | "italic" | "script" | "bold"; size?: number; br?: boolean };
+
 export type Caption = { from: number; dur: number } & (
+  | { kind: "chic"; words: ChicWord[]; top?: number; size?: number }
   | { kind: "words"; words: Word[]; top?: number; size?: number }
   | { kind: "card"; title: string; titleSize?: number; top?: number; bullets: { t: string; at: number; bad?: boolean; mark?: string }[] }
   | { kind: "stamp"; lines: [string, string]; at: number; x?: number; y?: number; scale?: number; emoji?: string }
@@ -92,6 +96,30 @@ const Words: React.FC<{ words: Word[]; top?: number; size?: number }> = ({ words
               >
                 {w.t}
               </span>
+            </React.Fragment>
+          );
+        })}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+const FONT = { serif: [serif, "normal", 500], italic: [serif, "italic", 500], script: [script, "normal", 400], bold: [heavy, "normal", 800] } as const;
+// quiet fade-up, no pop: the look of the reels that did well
+const Chic: React.FC<{ words: ChicWord[]; top?: number; size?: number }> = ({ words, top = 300, size = 72 }) => {
+  const frame = useCurrentFrame();
+  return (
+    <AbsoluteFill style={{ justifyContent: "flex-start", alignItems: "center", paddingTop: top }}>
+      <div style={{ textAlign: "center", width: 960, lineHeight: 1.08, color: "white", textShadow: "0 2px 18px rgba(0,0,0,0.55)" }}>
+        {words.map((w, i) => {
+          const o = interpolate(frame - w.at, [0, 6], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+          const [family, style, weight] = FONT[w.f ?? "serif"];
+          const fs = w.size ?? (w.f === "script" ? size * 1.5 : w.f === "bold" ? size * 1.1 : size);
+          return (
+            <React.Fragment key={i}>
+              {w.br ? <br /> : null}
+              <span style={{ display: "inline-block", margin: "0 0.14em", opacity: o, transform: `translateY(${(1 - o) * 14}px)`, fontFamily: family, fontStyle: style, fontWeight: weight, fontSize: fs,
+                letterSpacing: w.f === "bold" ? "0.02em" : undefined }}>{w.t}</span>
             </React.Fragment>
           );
         })}
@@ -366,6 +394,7 @@ export const Reel: React.FC<{ config: ReelConfig; voiceover: boolean }> = ({ con
     ))}
     {config.captions.map((c, i) => (
       <Sequence key={i} from={c.from} durationInFrames={c.dur}>
+        {c.kind === "chic" ? <Chic words={c.words} top={c.top} size={c.size} /> : null}
         {c.kind === "words" ? <Words words={c.words} top={c.top} size={c.size} /> : null}
         {c.kind === "card" ? <Card title={c.title} titleSize={c.titleSize} top={c.top} bullets={c.bullets} /> : null}
         {c.kind === "review" ? <Review subject={c.subject} stars={c.stars} text={c.text} by={c.by} top={c.top} /> : null}
