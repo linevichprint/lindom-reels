@@ -2130,12 +2130,12 @@ export const batch30: Record<string, ReelConfig> = {
   MorningThree: reel("pa10", [["pu_9430", 2, 1.4, 45], ["br_6183", 1.2, 1.4, 45], ["se_6134", 2, 1.4, 45], ["pu_9450", 4, 1.6, 45], ["p_mint_remove", 1, 1.6, 45], ["se_9461", 0.3, 1, 45]], [
     chic(0, 270, 330, [W1("POV:", 2), W1("my morning routine", 2, "italic")], 64),
   ]),
-  // voice only, like the weekdays reel that did well: slow deep voice, script day names, one part off the printer per day, Sunday the whole bowl clicks
+  // like the weekdays reel that did well, but upbeat: a lively voice over music, script day names, one part off the printer per day, Sunday the whole bowl clicks
   DaysVoice: reel("pa11", [
     ...([["pu_9430", 2, 1.2], ["br_6185", 1, 1.2], ["se_6135", 3, 1.2], ["pk_9366", 4, 1.2], ["t_purplepull", 5, 1.4], ["pu_9450", 4, 1.4]] as [string, number, number][])
-      .map(([c, st, r], i) => ({ ...shots([[c, st, r, 48]])[0], vo: `dv_vo${i + 1}` })),
+      .map(([c, st, r], i) => ({ ...shots([[c, st, r, 36]])[0], vo: `dv_vo${i + 1}` })),
     { ...AT("pu_6158", 5.8, 84, 40, 1, [1.02, 1.07]), vo: "dv_vo7" },
-  ], ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((d, i) => chic(i * 48, i === 6 ? 84 : 48, i === 6 ? 520 : 760, [W1(d, 0, "script")], 120))),
+  ], ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((d, i) => chic(i * 36, i === 6 ? 84 : 36, i === 6 ? 520 : 760, [W1(d, 0, "script")], 120))),
 };
 
 // ---- Batch 31: the pink honeycomb basket with a name, five different styles ----
@@ -2231,4 +2231,65 @@ export const batch32: Record<string, ReelConfig> = {
   EsCapas700: reel("f4a", [["t_blue1", 1, 5, 75], ["th_p2", 1, 5, 75], ["k_bp", 0.5, 1, 60]], [two(0, 210, "700 capas.", "Ningún atajo.", { classic: true })]),
   EsBarcelona: reel("f4b", [["w_8798", 0.3, 1, 75], ["mp_9377", 1, 1, 75]], [two(0, 150, "Diseñado en Barcelona.", "Impreso en todo el mundo.", { size: 72 })]),
   EsImpresora: reel("f4c", [["print_wide", 0.5, 1, 60], ["p_cad_green", 1, 1, 60], ["print_green", 0.5, 1, 60]], [two(0, 60, "Tu impresora", "está lista.", { classic: true }), two(60, 120, "¿Y tú?", "", { classic: true })]),
+};
+
+// ---- Batch 33: trend formats from the user's list: "what you see vs", "the tool / the fuel", "tell me … without telling me", POV,
+// expectation vs reality, unpopular opinion, "this is your sign", split-screen "yes… but", "how to catch", a day in the life ----
+const low = (from: number, dur: number, t: string) => chic(from, dur, 1330, [W1(t, 2, "italic")], 120); // the "POV: when your dog is your inspiration" look
+const persist = (dur: number, a: string, b: string, top = 260, size = 74) => chic(0, dur, top, [W1(a, 4), W1(b, 16, "italic", true)], size);
+// split screen: top and bottom run their own shot lists at the same time
+const splitReel = (music: string, top: Shot[], bottom: Shot[], captions: any[]) => {
+  const cuts: any[] = [];
+  for (const [half, list] of [["top", top], ["bottom", bottom]] as const) {
+    let f = 0;
+    for (const [clip, st, rate, d, o = {}] of list) {
+      const len = LEN[clip], fit = len ? Math.max(0.3, Math.min(rate, (len - st - 0.08) / (d / 30))) : rate;
+      cuts.push({ clip, from: f, dur: d, startFrom: Math.round(st * 30), rate: fit, zoom: [1.02, 1.06], split: half, window: { pos: "50% 78%" }, ...o }); // the bowl sits low in most takes
+      f += d;
+    }
+  }
+  return { music, duration: total(top), cuts, captions, vo: [] } as ReelConfig;
+};
+const SEE: Shot[] = [["pu_9406", 10, 4, 30], ["pu_9418", 0.5, 6, 40], ["pu_9427", 1, 6, 40], ["pu_9433", 2, 6, 40], ["pu_9430", 2, 1.4, 40]];
+
+export const batch33: Record<string, ReelConfig> = {
+  F3SeeVs700: reel("g1", [["pu_6160", 0.3, 1, 75], ...SEE, AT("pu_6158", 5.8, 75, 40, 1, [1.02, 1.07])], [
+    one(0, 75, "what you see", "italic", 300, 88), chic(75, 265, 300, [W1("vs. what took", 2), W1("700 layers", 8, "script", true)], 88)]),
+  F3ToolInspWork: reel("g2", [["print_close", 0.5, 1, 50], ["d_sofa", 1, 1, 50], AT("k_orange", 1.57, 70, 30, 1, [1.02, 1.07])], [
+    low(0, 50, "the tool."), low(50, 50, "the inspiration."), low(100, 70, "the work.")]),
+  F3ToolFuel: reel("g3", [["print_wide", 0.5, 1, 45], ["b_coffee", 0, 1, 36], ["d_studio", 0.3, 1, 45], ["n_amy_hands", 0.3, 1, 60]], [
+    low(0, 45, "the tool."), low(45, 36, "the fuel."), low(81, 45, "the inspiration."), low(126, 60, "the work.")]),
+  F3TellStudio: reel("g4", [["mp_9376", 0.3, 1, 45], ["b_spools", 0, 1, 45], ["fail", 2, 1, 45], ["w_8669", 0.3, 1, 75]], [
+    persist(210, "tell me you run a 3D print studio", "without telling me", 250, 66)]),
+  F3TellSpoiled: reel("g5", [["name", 0.5, 1, 50], ["n_amy_rot", 0.3, 1, 45], ["sky", 0.5, 1, 45], ["d_laptop", 0.3, 1, 75]], [
+    persist(215, "tell me your dog is spoiled", "without telling me", 250, 66)]),
+  F3PovCheck: reel("g6", [["p_yellow_remove", 1, 1.2, 120], ["b_yp", 0.5, 1, 60]], [persist(180, "POV: you check the printer", "after a 6-hour print", 250, 70)]),
+  F3PovQC: reel("g7", [["dog", 0.3, 1, 90], ["d_studio", 0.3, 1, 60]], [persist(150, "POV: your QC inspector", "has four paws", 230, 76)]),
+  F3ExpReal: reel("g8", [["n_pinkbg", 0.3, 1, 75], ["fail", 0, 1, 105]], [chic(0, 75, 280, [W1("EXPECTATION", 0, "bold")], 96), chic(75, 105, 280, [W1("REALITY", 0, "bold")], 96)]),
+  F3UnpopSlow: reel("g9", [["print_green", 0.5, 0.5, 75], ["t_close", 0.2, 0.8, 75], ["print_blue", 0.5, 0.5, 75]], [
+    chic(0, 225, 260, [W1("unpopular opinion:", 4), W1("slow prints look better", 18, "italic", true)], 76)]),
+  F3UnpopFood: reel("g10", [["k_blue", 0.5, 1, 90], ["t_steel2", 0.5, 1.2, 60], ["pu_6156", 1, 1.2, 45]], [
+    chic(0, 90, 240, [W1("unpopular opinion:", 4), W1("a 3D printed bowl", 16, "italic", true), W1("doesn't need to touch food", 16, "italic", true)], 72),
+    chic(90, 105, 240, [W1("that's what", 2), W1("the steel bowl is for.", 10, "italic", true)], 76)]),
+  F3SignDog: reel("g11", [["print_close", 1, 1, 60], AT("k_pink", 2.55, 75, 40, 1, [1.02, 1.07]), ["d_tongue", 0.2, 1, 60]], [
+    chic(0, 195, 260, [W1("this is your", 4), W1("sign", 10, "script"), W1("to print something", 22, undefined, true), W1("for your dog", 30, "italic", true)], 76)]),
+  F3SignPrinter: reel("g12", [["unbox", 0.5, 1.5, 45], ["t_load", 4, 2, 45], ["print_mint", 2, 3, 45], ["r_grey", 1.5, 1.4, 60]], [
+    chic(0, 195, 260, [W1("this is your", 4), W1("sign", 10, "script"), W1("to finally use", 22, undefined, true), W1("that printer", 30, "italic", true)], 76)]),
+  F3YesSteel: splitReel("g13", [["print_blue2", 0.5, 1, 90], ["print_mint", 3, 2, 90]], [["t_steel1", 0.5, 1, 90], ["bowl_mint", 1, 1, 90]], [
+    chic(0, 180, 110, [W1("yes, it's 3D printed.", 4, "italic")], 72), chic(0, 180, 1010, [W1("but the bowl is steel.", 30, "italic")], 72)]),
+  F3YesLook: splitReel("g14", [["se_9455", 2, 6, 90], ["se_9493", 4, 6, 90]], [["se_6177", 0.3, 1, 180]], [
+    chic(0, 180, 110, [W1("yes, it took 12 hours.", 4, "italic")], 72), chic(0, 180, 1010, [W1("but look at it.", 40, "italic")], 72)]),
+  F3Lucky: reel("g15", [["t_load", 4, 2, 45], ["fail", 1, 1, 60], ["print_close", 0, 1, 45], ["p_tan_peel", 2, 1.6, 45]], [
+    persist(195, "\u201cyou are so lucky", "to have a 3D printer\u201d", 250, 72),
+    one(0, 45, "setup", "italic", 1480, 70), one(45, 60, "fail", "italic", 1480, 70), one(105, 45, "again", "italic", 1480, 70), one(150, 45, "finally", "italic", 1480, 70)]),
+  // the pull at the end plays its real sound (g16.wav: music, then the take's own audio)
+  F3Catch: reel("g16", [["unbox", 3, 1.2, 60], ["print_mint", 0, 1.5, 60], ["as_6831", 2.4, 1, 96]], [
+    persist(216, "how to catch", "a 3D printing person:", 250, 80),
+    one(0, 60, "a new spool", "italic", 1480, 66), one(60, 60, "a fresh first layer", "italic", 1480, 66), one(120, 96, "this sound", "italic", 1480, 66)]),
+  F3AmyQC: reel("g17", [["d_treat", 3, 1, 75], ["dog2", 0, 1, 90]], [two(0, 75, "some people", "call her Amy."), two(75, 90, "we call her", "quality control.")]),
+  F3DayInLife: reel("g18", [["b_coffee", 0, 1, 36], ["unbox", 4, 2, 40], ["print_wide", 0.5, 1.5, 40], ["d_sofa", 1, 1, 45], ["r_olive", 2, 1.5, 45], AT("k_bp2", 1.38, 60, 30, 1, [1.02, 1.07]), ["n_pack", 4, 2, 45]], [
+    persist(116, "a day in the life", "of a tiny print studio", 250, 76),
+    ...([["8:00", "coffee"], ["8:15", "new spool"], ["9:00", "print"], ["13:00", "lunch break"], ["16:00", "off the printer"], ["17:00", "click"], ["18:00", "packing"]] as [string, string][])
+      .map(([t, w], i) => { const at = [0, 36, 76, 116, 161, 206, 266][i], d = [36, 40, 40, 45, 45, 60, 45][i]; return chic(at, d, 1440, [W1(t, 0), W1(w, 0, "italic", true)], 70); }),
+  ]),
 };

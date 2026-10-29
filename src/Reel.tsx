@@ -27,6 +27,7 @@ export type Cut = {
   snapAt?: number; // local frame of a magnetic snap: punch-in + flash
   fit?: "blur"; // horizontal: the clip sits whole in the middle over a blurred, enlarged copy of itself
   y?: number; // shift the footage down (px) to clear the caption; needs zoom >= 1 + y / 960
+  split?: "top" | "bottom"; // split screen: the clip fills one half and leaves the other half to a cut running at the same time
 };
 
 export type Word = { t: string; at: number; pink?: boolean; br?: boolean; size?: number; box?: boolean };
@@ -347,8 +348,8 @@ const Clip: React.FC<{ cut: Cut }> = ({ cut }) => {
   const flash = sn === undefined ? 0 : interpolate(frame, [sn, sn + 1, sn + 9], [0, 0.45, 0], clampBoth);
   const grey = cut.bw ? interpolate(frame, [(sn ?? 0) - 1, (sn ?? 0) + 1], [1, 0], clampBoth) : 0;
   return (
-    <AbsoluteFill style={{ backgroundColor: cut.window ? PINK_LIGHT : INK }}>
-      <div style={{ position: "absolute", left: 0, right: 0, top: cut.window?.top ?? 0, bottom: cut.window?.bottom ?? 0, overflow: "hidden" }}>
+    <AbsoluteFill style={{ backgroundColor: cut.split ? "transparent" : cut.window ? PINK_LIGHT : INK }}>
+      <div style={{ position: "absolute", left: 0, right: 0, top: cut.split === "bottom" ? 963 : cut.window?.top ?? 0, bottom: cut.split === "top" ? 963 : cut.window?.bottom ?? 0, overflow: "hidden" }}>
       {cut.photo ? (
         cut.photo === "card" ? (
           <AbsoluteFill style={{ backgroundColor: PINK_LIGHT, alignItems: "center", justifyContent: "center" }}>
@@ -380,7 +381,7 @@ const Clip: React.FC<{ cut: Cut }> = ({ cut }) => {
       )}
       <AbsoluteFill style={{ backgroundColor: "white", opacity: flash }} />
       </div>
-      {cut.window ? null : <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 42%)" }} />}
+      {cut.window || cut.split ? null : <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 42%)" }} />}
     </AbsoluteFill>
   );
 };
@@ -409,7 +410,7 @@ export const Reel: React.FC<{ config: ReelConfig; voiceover: boolean }> = ({ con
     <Audio
       src={staticFile(`audio/${config.music}.wav`)}
       volume={(f) =>
-        (voiceover ? 0.45 : 0.9) *
+        (voiceover ? 0.6 : 0.9) *
         interpolate(f, [config.duration - 24, config.duration], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
       }
     />
