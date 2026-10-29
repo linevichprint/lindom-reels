@@ -24,7 +24,7 @@ const LEN: Record<string, number> = {
   t_blue1: 14.4, t_blue2: 10.7, t_blue3: 11.6, t_bluepull: 8.6, t_sup1: 12.4, t_sup3: 11, t_purple: 2.3, t_purplepull: 18.8, t_arch1: 7.3, t_arch2: 27.4, t_arch3: 4.5,
   f_kids1: 2.3, f_drawing: 2.6, f_tools: 3.1, w_8983: 3.1, w_8985: 4.1, w_8984: 9.2, w_8987: 7.3,
   fail: 4.4,
-  pk_9336: 13.4, pk_9337: 8.5, pk_9338: 21.2, pk_9339: 7.1, pk_9340: 52.2, pk_9342: 24.3, pk_9360: 22.9, pk_9361: 13.4, pk_9362: 26, pk_9366: 9.4, pk_9367: 13.1, pk_9368: 10.2, pk_9369: 9.3, pk_9370: 13.1, pk_9371: 6.9, pk_9572: 7, pk_9600: 62.6,
+  pk_9336: 13.4, pk_9337: 8.5, pk_9338: 21.2, pk_9339: 7.1, pk_9340: 52.2, pk_9342: 24.3, pk_9360: 22.9, pk_9361: 13.4, pk_9362: 26, pk_9366: 9.4, pk_9367: 13.1, pk_9368: 10.2, pk_9369: 9.3, pk_9370: 13.1, pk_9371: 6.9, pk_9572: 7, pk_9600: 62.6, hc_9669: 18.2, hc_9699: 12.5, hc_9700: 7.5, hc_9713: 8, hc_9714: 9.4, hc_9715: 3.4, hc_9716: 11.4,
   mp_9372: 10.6, mp_9373: 11.2, mp_9374: 8.3, mp_9375: 9.8, mp_9376: 5.4, mp_9377: 8.7, mp_9378: 10.1,
   pu_6153: 10.2, pu_6154: 1.8, pu_6155: 1.6, pu_6156: 6.7, pu_6157: 20.9, pu_6158: 10.6, pu_6159: 8.6, pu_6160: 8, pu_9403: 4.2, pu_9404: 2.7, pu_9405: 5, pu_9406: 57.4, pu_9418: 16.4, pu_9427: 18.3, pu_9430: 9.1, pu_9433: 20.5, pu_9450: 18.2, pu_9499: 5.4, pu_9503: 18.8, pu_9507: 2.7, pu_9512: 60.5,
   se_6134: 9.7, se_6135: 10.2, se_6144: 6.7, se_6146: 5, se_6147: 4.5, se_6148: 4, se_6149: 6.5, se_6150: 5.9, se_6151: 3.6, se_6169: 11.7, se_6177: 6.8, se_6178: 8, se_6179: 7, se_9451: 4.6, se_9452: 84.4, se_9455: 21.6, se_9457: 10.8, se_9458: 12.3, se_9459: 5.9, se_9460: 7, se_9461: 4.2, se_9493: 16.4, se_9494: 6.9, se_9500: 5.4, se_9501: 7.6, se_9509: 3.2, se_9510: 9.1, se_9511: 74.6,
@@ -32,6 +32,7 @@ const LEN: Record<string, number> = {
   t_long: 108, t_unpack: 11, t_load: 22, t_sup2: 2.1, t_bluewide: 1.5,
   t_fit: 18.1, t_join2: 8.4, t_join3: 7.3, t_join4: 9.1, t_close: 3.5, t_steel1: 5.9, t_steel2: 6.4, t_steel3: 6.7, th_join: 9.6,
   c_orange: 2.5, c_blue: 3, c_green: 3, c_mint: 2.4, c_diag: 2.5, c_pyr: 3, box: 1.55, p_mint_tall: 3, n_phoebe: 3.7, n_orange: 4.5, n_blue2: 4.3, n_green: 4.5, n_mint: 4.5, n_pinkbg: 5,
+  th_p1: 8.5, th_p2: 11.1, th_p3: 9.4, th_p4: 9.4, p_blue_final: 8.6, p_cad_blue: 8.4, p_cad_blue2: 6.5, p_cad_green: 9.5, p_green_asm: 10.7, p_green_peel: 14.0, p_lineup: 7.4, p_mint_load: 18.0, p_mint_long: 22.0, p_mint_remove: 9.5, p_sup_blue: 10.6, p_sup_cream: 6.7, p_sup_grey: 14.0, p_tan_peel: 12.0, p_terra_bed: 7.3, p_terra_peel: 14.0, p_yellow: 18.0, p_yellow0: 10.0, p_yellow_remove: 11.9, r_dark: 15.3, r_grey: 8.3, r_greydiag: 12.2, r_nellie: 12.1, r_olive: 15.7, r_teo: 4.2, print_blue: 4.6, print_blue2: 5.0, print_close: 5.0, print_green: 5.0, print_mint: 11.0, print_wide: 6.0, w_8669: 4.9, w_8788: 8.6, w_8789: 12.0, w_8790: 8.9, w_8791: 13.9, w_8792: 7.7, w_8793: 9.3, w_8794: 12.6, w_8796: 14.6, w_8797: 19.0, w_8798: 7.6, w_8799: 18.0, w_8800: 4.9, w_8801: 9.3, w_8802: 11.2, w_8803: 23.3, w_8810: 7.1, w_8811: 7.2, w_8839: 11.1, w_8840: 13.1, w_8841: 10.3, w_8986: 11.6, k_blue: 12.4, k_bp: 7.3, k_bp2: 9.1, k_green: 7.5, k_green2: 8.2, k_orange: 7.6, k_orange2: 10.7, k_pink: 8.0, j_amy_lilac: 8.1, j_amy_table: 4.5, j_green: 7.5, j_green_wb: 10.4, j_olive: 9.6, n_amy_hands: 5.0, n_amy_rot: 5.0, n_blue: 4.5, n_green_wb: 5.0, n_jam: 4.3, n_join_wb: 6.0, n_lilac: 6.0, n_mint2: 6.0, n_mint_bed: 5.9, n_nellie: 6.1, n_nugget_wb: 4.0, n_pack: 16.0, n_trap: 4.6, n_workshop: 9.7, c_nugget: 4.0, b_terra: 7.3, b_terra2: 9.8, b_terra_asm: 9.2, b_yp: 7.0, b_yp2: 9.0, peel: 7.0, snap: 5.0, unbox: 9.7, bowl_mint: 9.0, toss_mint: 5.5, sky: 4.7, as_4268: 8.2, as_6831: 9.5, as_7051: 15.6, as_7673: 18.6, as_8171: 11.8,
 };
 
 const mk = (music: string, scenes: Sc[], extra: any[] = []): ReelConfig => {
@@ -2135,4 +2136,99 @@ export const batch30: Record<string, ReelConfig> = {
       .map(([c, st, r], i) => ({ ...shots([[c, st, r, 48]])[0], vo: `dv_vo${i + 1}` })),
     { ...AT("pu_6158", 5.8, 84, 40, 1, [1.02, 1.07]), vo: "dv_vo7" },
   ], ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((d, i) => chic(i * 48, i === 6 ? 84 : 48, i === 6 ? 520 : 760, [W1(d, 0, "script")], 120))),
+};
+
+// ---- Batch 31: the pink honeycomb basket with a name, five different styles ----
+export const batch31: Record<string, ReelConfig> = {
+  HcBeforeAfter: beforeAfter("hc1", ["hc_9669", 6, 3, 120], ["hc_9713", 0, 1, 120], [[W1("BEFORE", 0, "bold")], [W1("AFTER", 0, "bold")]], 260),
+  // game: the pattern so close it's unreadable, then zoom out to the basket
+  HcGuess: reel("hc2", [
+    ["hc_9700", 0.3, 0.6, 75, { zoom: [3, 2.6], origin: "62% 42%" }], ["hc_9700", 2.8, 1, 36, { zoom: [2.6, 1] }], ["hc_9713", 2, 1, 105],
+  ], [
+    chic(0, 111, 300, [W1("Guess what", 2), W1("we printed?", 8, "italic", true)], 84),
+    chic(111, 105, 300, [W1("a", 2), W1("honeycomb", 6, "script"), W1("basket", 12, undefined, true)], 84),
+  ]),
+  VoiceHoneycomb: mk("hc3", [
+    VX(90, [["hc_9669", 0.5, 1]], "hc_vo1", "We tried", "something new."),
+    VX(90, [["hc_9669", 8, 3]], "hc_vo2", "A basket made of", "tiny hexagons."),
+    VX(105, [["hc_9699", 4.5, 1.2]], "hc_vo3", "Printed", "in one piece."),
+    VX(90, [["hc_9700", 0, 1]], "hc_vo4", "With a name", "on the front."),
+    VX(105, [["hc_9716", 6.5, 1]], "hc_vo5", "What would you", "keep in it?"),
+  ]),
+  HcNameOnEverything: reel("hc4", [["hc_9714", 0.5, 1, 75], ["hc_9700", 1, 1, 75], ["hc_9713", 1.5, 1, 120]], [
+    chic(0, 270, 210, [W1("kinda", 4), W1("chic", 10, "script"), W1("to have your name", 18, undefined, true), W1("on everything", 26, "italic", true)], 76),
+  ]),
+  HcHexagons: reel("hc5", [["hc_9669", 0, 1, 75], ["hc_9669", 6, 2, 90], ["hc_9699", 4.5, 1.2, 105], ["hc_9716", 1, 1, 75]], [
+    chic(0, 165, 300, [W1("hexagon", 8, "script"), W1("by", 20), W1("hexagon", 32, "script", true)], 84),
+    chic(270, 75, 300, [W1("done.", 2, "italic")], 84),
+  ]),
+};
+
+// ---- Batch 32: one phrase per video (the user's list), each on its own footage: one bowl's process, another's, or several together ----
+// two-line caption: serif + italic (chic) or the Playfair look with the pink accent (classic)
+const two = (from: number, dur: number, a: string, b: string, o: { classic?: boolean; top?: number; size?: number; bAt?: number } = {}) =>
+  o.classic ? { ...L("x", null, a, b, { size: o.size ?? 92, bAt: o.bAt ?? 24 }), top: o.top ?? 280, from, dur }
+    : chic(from, dur, o.top ?? 300, [W1(a, 4), W1(b, o.bAt ?? 22, "italic", true)], o.size ?? 80);
+const one = (from: number, dur: number, t: string, f = "serif", top = 300, size = 80) => chic(from, dur, top, [W1(t, 4, f)], size);
+const total = (list: Shot[]) => list.reduce((a, x) => a + x[3], 0);
+// voiced: one line per scene, the caption repeats the line
+const said = (music: string, list: (Shot & { 5?: string })[], lines: [string, string?, any?][], vo: string) => {
+  const cfg = mk(music, list.map(([clip, st, rate, d, o = {}], i) => ({ d, v: [clip, { startFrom: Math.round(st * 30), rate, zoom: [1.02, 1.07], ...o }] as V, vo: lines[i] ? `${vo}${i + 1}` : undefined })));
+  let f = 0;
+  const captions = list.map((x, i) => { const c = lines[i] ? chic(f, x[3], 300, [W1(lines[i][0], 4, lines[i][2]?.f), ...(lines[i][1] ? [W1(lines[i][1]!, 16, "italic", true)] : [])], lines[i][2]?.size ?? 80) : null; f += x[3]; return c; }).filter(Boolean);
+  return { ...cfg, vo: cfg.vo.filter((v) => v.file), captions };
+};
+const S1: Shot[] = [["th_p4", 0, 2, 75], ["t_blue1", 1, 3, 60], ["t_purplepull", 5, 1.5, 45]];
+const ASMR: Shot[] = [["as_6831", 2.4, 1, 96], ["as_4268", 5.6, 1, 60], ["as_7051", 3.8, 1, 78], ["as_7673", 9.8, 1, 54], ["as_8171", 6.6, 1, 60]];
+const DAYS2: Shot[] = [["print_close", 0.5, 1, 45], ["print_green", 0.5, 1, 45], ["print_mint", 2, 2, 45], ["t_blue1", 4, 3, 45], ["pu_9427", 3, 4, 45], ["se_9455", 4, 4, 45], ["dog", 0.3, 1, 90]];
+
+export const batch32: Record<string, ReelConfig> = {
+  // 3D printing and the process
+  F2Hair: reel("f2a", [...S1, AT("th_join", 5.2, 90, 45, 1, [1.02, 1.07])], [two(0, total(S1), "It starts as a line", "thinner than a hair.")]),
+  F2Layers700: reel("f2b", [["pu_9427", 0, 6, 90], ["pu_9433", 2, 6, 75], ["pu_6160", 0.3, 1, 75]], [two(0, 240, "700 layers.", "Zero shortcuts.", { classic: true })]),
+  F2Layer1: reel("f2c", [["print_mint", 0, 2, 90], ["p_mint_remove", 1, 1.4, 60], ["n_mint2", 0.3, 1, 75]], [chic(0, 225, 300, [W1("Layer 1", 4, "script"), W1("decides everything.", 20, "italic", true)], 84)]),
+  F2Worrying: reel("f2d", [["th_p3", 0, 3, 105, { bw: true, snapAt: 999 }], ["r_olive", 2, 1.5, 105]], [
+    one(0, 105, "11:47 pm", "serif", 260, 64), two(0, 105, "The printer", "does the work.", { top: 360 }),
+    one(105, 105, "7:02 am", "serif", 260, 64), two(105, 105, "We do", "the worrying.", { top: 360 }),
+  ]),
+  F2Slow: reel("f2e", [["print_blue", 0.5, 0.5, 75], ["print_mint", 5, 0.5, 75], ["print_green", 0.5, 0.6, 75]], [chic(0, 225, 300, [W1("Slow", 4, "script"), W1("is the whole point.", 18, "italic", true)], 84)]),
+  F2WatchClick: (() => { const sc = [JF("k_green", 1.43, { after: 30 }), JF("k_bp2", 1.38, { after: 30 }), JF("b_terra_asm", 3.45, { after: 60 })];
+    const cfg = mk("f2f", sc); return { ...cfg, captions: [hook("Watch it click.", cfg.duration), ...cfg.captions] }; })(),
+  F2SpoolSupper: reel("f2g", [["spool", 0.3, 1, 60], ["print_mint", 2, 4, 45], ["bowl_mint", 1, 1.2, 45], ["dog", 0.3, 1, 90]], [two(0, 240, "From spool", "to supper.")]),
+  F2Patience: reel("f2h", [["se_9455", 2, 6, 75], ["se_9493", 4, 6, 60], ["se_6134", 2, 1.4, 60], ["se_6177", 0.3, 1, 75]], [
+    two(0, 135, "It's not magic.", "", { classic: true }), two(135, 135, "It's 6-12 hours", "of patience.", { classic: true, bAt: 10 })]),
+  // real sound of each part coming off the plate (pa_asmr.wav is cut from the same takes)
+  F2BestSound: reel("f2i", ASMR, [two(0, total(ASMR), "The best sound", "in the studio.", { top: 250 })]),
+  F2Hexagons: reel("f2j", [["hc_9715", 0.2, 1, 60], ["hc_9713", 3, 1, 75], ["hc_9700", 4, 1, 60]], [two(0, 195, "Hexagons,", "because why not.", { classic: true })]),
+  F2Halves: reel("f2k", [["peel", 1, 1.5, 45], ["r_nellie", 2, 1.6, 45], AT("k_orange", 1.57, 105, 45, 1, [1.02, 1.07])], [two(0, 90, "Printed in halves.", ""), one(90, 105, "Finished as one.", "italic")]),
+  F2NotEvery: reel("f2l", [["fail", 0, 0.75, 170]], [two(0, 170, "Not every print", "makes it.", { bAt: 40 })]),
+  F2Lessons: reel("f2m", [["fail", 0, 1, 135, { zoom: [1.35, 1.05], origin: "50% 70%", bw: true, snapAt: 999 }]], [two(0, 135, "Some prints", "are lessons.", { classic: true })]),
+  // STL files
+  F2NeedFile: reel("f2n", [["k_bp", 4, 1, 75], ["p_cad_blue", 1, 1, 75], ["print_blue2", 0.5, 1, 60]], [two(0, 75, "You don't need our bowl.", "", { classic: true, size: 80 }), two(75, 135, "You need", "the file.", { classic: true })]),
+  F2YourColors: reel("f2o", [["n_orange", 0.3, 1, 60], ["n_blue", 0.3, 1, 60], ["n_amy_rot", 0.3, 1, 90]], [two(0, 210, "Same file.", "Your colors.")]),
+  F2HundredNames: reel("f2p", [["n_nellie", 1, 1, 45], ["name", 0.5, 1, 45], ["n_nugget_wb", 0.3, 1, 45], ["se_6144", 1.5, 1, 45], ["pu_6160", 3, 1, 60]], [two(0, 240, "One file.", "A hundred dogs' names.", { classic: true, size: 84 })]),
+  F2Countries: reel("f2q", [["mp_9372", 1, 1, 75], ["w_8840", 3, 1, 60], ["w_8841", 1, 1, 75]], [two(0, 210, "Designed once.", "Printed in 18 countries.", { size: 76 })]),
+  // commercial licence
+  F2YourShop: reel("f2r", [["p_lineup", 0.3, 1, 90], ["c_pyr", 0.2, 1, 45], ["b_yp", 1, 1, 60]], [two(0, 195, "Your shop, your price,", "our design.", { classic: true, size: 84 })]),
+  // small business
+  F2Spaniel: reel("f2s", [["w_8791", 0.5, 1.5, 75], ["d_studio", 0.3, 1, 60], ["w_8794", 1, 1.5, 60]], [
+    chic(0, 195, 260, [W1("Two printers.", 4), W1("One cocker spaniel.", 60, "italic", true), W1("A studio in Barcelona.", 120, undefined, true)], 72)]),
+  F2Cities: reel("f2t", [["w_8810", 0.5, 1, 75], ["mp_9378", 1, 1, 75], ["w_8800", 0.5, 1, 45]], [chic(0, 195, 300, [W1("Since June 1:", 4), W1("42 cities.", 20, "script", true)], 84)]),
+  F2EveryStar: reel("f2u", [["mp_9376", 0.3, 1, 75], ["w_8839", 3, 1, 45], ["d_sofa", 0.5, 1, 75]], [two(0, 120, "Every star is a dog somewhere", "with a new bowl.", { size: 70 }), one(120, 75, "like her.", "italic", 260)]),
+  F2TinyBig: reel("f2v", [["w_8803", 0, 3, 120], ["w_8789", 1, 1, 60]], [two(0, 180, "Tiny studio.", "Big map.", { classic: true })]),
+  F2FourPaws: reel("f2w", [["dog", 0, 1, 165]], [two(0, 165, "Our quality control", "has four paws.", { top: 240 })]),
+  F2EveryPrint: reel("f2x", [["r_grey", 1.5, 1.4, 40], ["p_yellow_remove", 4, 1.6, 40], ["p_terra_peel", 1, 2, 40], ["r_greydiag", 2, 1.5, 40], ["p_tan_peel", 2, 1.6, 50]], [two(0, 210, "Small business means", "you see every print.", { size: 74 })]),
+  F2Night: reel("f2y", [["th_p2", 1, 3, 75, { bw: true, snapAt: 999 }], ["n_pack", 4, 2, 60], ["box", 0, 1, 45]], [two(0, 75, "Built at night.", "", { classic: true }), two(75, 105, "Shipped", "in the morning.", { classic: true })]),
+  F2Crowded: reel("f2z", [["mp_9372", 0, 1, 150, { zoom: [1, 1.6], origin: "40% 35%" }], ["w_8801", 1, 1, 60]], [two(0, 210, "The map is", "getting crowded.")]),
+  // voiced, in the formats that did well
+  VoiceProcessResult: said("f3a", [["n_green_wb", 0.3, 1, 105], ["k_green2", 0.5, 1, 105]], [["Process.", undefined, { f: "bold", size: 100 }], ["Result.", undefined, { f: "bold", size: 100 }]], "f3a_vo"),
+  VoiceVibe: said("f3b", [["pk_9368", 1, 1, 75], ["hc_9713", 2, 1, 60], ["k_bp", 0.5, 1, 105]], [["If this is your vibe..."], ["or this..."], ["then you're in", "the right place."]], "f3b_vo"),
+  VoiceMeWhen: said("f3c", [["p_yellow_remove", 4, 1.4, 90], ["th_p3", 0, 3, 90, { bw: true, snapAt: 999 }]], [["me when the print", "finishes:"], ["me when it's", "3 a.m.:"]], "f3c_vo"),
+  VoiceWeekPrint: said("f3d", DAYS2, [["Monday:", "print."], ["Tuesday:", "print."], ["Wednesday:", "print."], ["Thursday:", "print."], ["Friday:", "print."], ["Saturday:", "print."], ["Sunday:", "Amy inspects."]], "f3d_vo"),
+  VoiceAddColor: said("f3e", (["c_orange", "c_blue", "c_green", "c_mint", "c_nugget"] as string[]).map((c, i) => [c, 0, 1, i === 4 ? 66 : 40, { bw: true, snapAt: 14 }] as Shot), [["Add some color."]], "f3e_vo"),
+  VoiceHome: said("f3f", [["print_wide", 0.5, 1, 90], ["w_8669", 0.3, 1, 105]], [["Home is where", "the printer hums."]], "f3f_vo"),
+  // Spanish
+  EsCapas700: reel("f4a", [["t_blue1", 1, 5, 75], ["th_p2", 1, 5, 75], ["k_bp", 0.5, 1, 60]], [two(0, 210, "700 capas.", "Ningún atajo.", { classic: true })]),
+  EsBarcelona: reel("f4b", [["w_8798", 0.3, 1, 75], ["mp_9377", 1, 1, 75]], [two(0, 150, "Diseñado en Barcelona.", "Impreso en todo el mundo.", { size: 72 })]),
+  EsImpresora: reel("f4c", [["print_wide", 0.5, 1, 60], ["p_cad_green", 1, 1, 60], ["print_green", 0.5, 1, 60]], [two(0, 60, "Tu impresora", "está lista.", { classic: true }), two(60, 120, "¿Y tú?", "", { classic: true })]),
 };
