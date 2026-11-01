@@ -2293,3 +2293,72 @@ export const batch33: Record<string, ReelConfig> = {
       .map(([t, w], i) => { const at = [0, 36, 76, 116, 161, 206, 266][i], d = [36, 40, 40, 45, 45, 60, 45][i]; return chic(at, d, 1440, [W1(t, 0), W1(w, 0, "italic", true)], 70); }),
   ]),
 };
+
+// ---- Batch 34: the user's second trend list: POV, tell me without telling me, unpopular opinion, split-screen yes… but, this is your sign,
+// expectation vs reality, 5 stages, red flags, "Do it anyway" (like example 528C1FFD), iykyk ----
+const unpop = (dur: number, b: string, top = 260) => chic(0, dur, top, [W1("unpopular opinion:", 4), W1(b, 18, "italic", true)], 76);
+const sign = (dur: number, a: string, b: string) => chic(0, dur, 260, [W1("this is your", 4), W1("sign", 10, "script"), W1(a, 22, undefined, true), W1(b, 30, "italic", true)], 72);
+const bottom = (from: number, dur: number, t: string, size = 66) => one(from, dur, t, "italic", 1460, size);
+const NAPS = { bw: true, snapAt: 999 };
+
+export const batch34: Record<string, ReelConfig> = {
+  // POV
+  P4OneMore: reel("tr1", [["b_spools", 0, 1, 45], ["p_lineup", 0.3, 1, 75], ["unbox", 3, 1.2, 60], ["print_wide", 0.5, 1, 60]], [
+    persist(240, "POV: you said ‘just one more print’", "4 spools ago", 250, 64)]),
+  P4At98: reel("tr2", [["print_close", 0, 0.5, 150, { zoom: [1.02, 1.3] }], ["r_grey", 1.5, 1.4, 60]], [
+    persist(210, "POV: the print is at 98%", "and you're scared to breathe", 250, 68), one(0, 150, "98%", "serif", 820, 160)]),
+  P4FirstLayerMovie: reel("tr3", [["print_mint", 0, 1, 150], ["n_mint_bed", 0.3, 1, 75]], [persist(225, "POV: you watch the first layer", "like it's a movie", 250, 68)]),
+  // real sound of the support coming off (h4.wav: the take's own audio under quiet music)
+  P4Supports: reel("tr4", [["t_sup1", 1, 1, 210]], [persist(210, "POV: the supports came off", "in one piece", 250, 72)]),
+  P4WhatToday: reel("tr5", [["d_studio", 0.3, 1, 75], ["print_wide", 0.5, 1, 150]], [
+    two(0, 75, "POV: someone asks", "what you did today", { top: 250, size: 70 }), one(75, 150, "you watched a printer.", "italic", 300, 84)]),
+  P4TwoBabies: reel("tr6", [["th_p3", 0, 2, 90, NAPS], ["w_8669", 0.3, 1, 105, NAPS]], [
+    persist(195, "POV: you're a dog owner", "AND a 3D printer owner", 250, 66), bottom(90, 105, "two babies to check at night.", 62)]),
+  // tell me without telling me
+  P4TellPrinter: reel("tr7", [["f_tools", 0, 1, 50], ["p_sup_cream", 1, 1, 50], ["b_spools", 0, 1, 45], ["n_jam", 0.3, 1, 60]], [
+    persist(205, "tell me you own a 3D printer", "without telling me", 250, 68)]),
+  P4TellSetup: reel("tr8", [["j_amy_table", 0.3, 1, 60], ["n_amy_hands", 0.3, 1, 60], ["dog2", 0, 1, 90]], [
+    persist(210, "tell me your dog has a better setup than you", "without telling me", 250, 62)]),
+  // unpopular opinion
+  P4UnpopFirstLayer: reel("tr9", [["print_green", 0.5, 0.6, 105], ["p_mint_remove", 1, 1.4, 60], ["n_mint", 0.3, 1, 60]], [unpop(225, "the first layer is the best part")]),
+  P4UnpopTherapy: reel("tr10", [["p_sup_grey", 1, 1.2, 105], ["p_sup_blue", 1, 1.2, 105]], [
+    chic(0, 210, 260, [W1("unpopular opinion:", 4), W1("removing supports", 18, "italic", true), W1("is cheaper than therapy", 18, "italic", true)], 74)]),
+  P4UnpopFast: reel("tr11", [["print_blue", 0.5, 0.5, 90], ["p_blue_final", 0.5, 1, 90]], [unpop(180, "a fast print isn't always a good print", 250)]),
+  // yes… but, split screen
+  P4YesCar: splitReel("tr12", [["print_wide", 0.5, 1, 90], ["print_close", 0.5, 1, 90]], [["n_trap", 0.3, 1, 90, { window: { pos: "50% 55%" } }], ["n_jam", 0.3, 1, 90, { window: { pos: "50% 60%" } }]], [
+    chic(0, 180, 110, [W1("yes, I have a 3D printer.", 4, "italic")], 70), chic(0, 180, 1010, [W1("no, I can't print you a car.", 30, "italic")], 70)]),
+  P4YesAgain: splitReel("tr13", [["fail", 0, 1, 135], ["print_close", 2, 1, 45]], [["print_green", 0.5, 1, 75], ["p_green_peel", 3, 1.5, 105]], [
+    chic(0, 180, 110, [W1("yes, it failed.", 4, "italic")], 72), chic(0, 180, 1010, [W1("yes, I'm printing it again.", 30, "italic")], 72)]),
+  P4YesPlastic: splitReel("tr14", [["print_blue2", 0.5, 1, 90], ["r_olive", 2, 1.5, 90]], [["t_steel3", 1, 1, 90], ["n_mint_bed", 1, 1, 90]], [
+    chic(0, 180, 110, [W1("yes, it's plastic.", 4, "italic")], 72), chic(0, 180, 1010, [W1("no, the food never touches it.", 30, "italic")], 70)]),
+  // this is your sign
+  P4SignFriend: reel("tr15", [["print_blue2", 0.5, 1, 50], ["p_green_peel", 3, 1.6, 50], AT("k_orange", 1.57, 80, 40, 1, [1.02, 1.07])], [
+    sign(180, "to send this to your friend", "with a 3D printer")]),
+  P4SignWeekend: reel("tr16", [["f_tools", 0, 1, 60], ["hc_9716", 1, 1, 60], ["pk_9572", 0, 1, 75]], [sign(195, "to print something useful", "this weekend")]),
+  // expectation vs reality, what I bought / what I got
+  P4ExpHobby: reel("tr17", [["print_close", 0.5, 1, 60], ["w_8803", 0, 3, 150]], [
+    two(0, 60, "expectation:", "one printer as a hobby.", { top: 260, size: 74 }), one(60, 150, "reality:", "italic", 260, 90)]),
+  P4BoughtGot: reel("tr18", [["r_dark", 0, 1, 60], ["mp_9374", 0.5, 1, 120, { zoom: [1, 1.4] }]], [
+    two(0, 60, "what I bought:", "a 3D printer.", { top: 260 }), two(60, 120, "what I got:", "a map full of stars.", { top: 260 })]),
+  P4QuickPrint: reel("tr19", [["print_green", 0.5, 1, 60], ["se_9455", 2, 6, 75], ["se_9493", 4, 6, 60], ["se_6177", 0.3, 1, 60]], [
+    chic(0, 60, 260, [W1("expectation:", 4), W1("“it's a quick print”", 14, "italic", true)], 76),
+    one(60, 195, "reality:", "italic", 260, 90), { kind: "timer", from: 60, dur: 135, to: 708, top: 760, size: 170 }, one(60, 135, "hours printing", "italic", 960, 56)]),
+  // lists people save
+  P4FiveStages: reel("tr20", [["unbox", 3, 1.2, 45], ["print_mint", 0, 1, 50], ["w_8669", 0.3, 1, 45], ["print_close", 1, 1, 45], ["pu_6160", 0.3, 1, 75]], [
+    persist(260, "the 5 stages", "of a 3D print:", 250, 76),
+    ...["hope.", "first layer panic.", "pretending not to check.", "checking.", "love."].map((t, i) => bottom([0, 45, 95, 140, 185][i], [45, 50, 45, 45, 75][i], `${i + 1}. ${t}`))]),
+  P4RedFlags: reel("tr21", [["p_cad_green", 1, 1, 75], ["print_green", 0.5, 0.6, 75], ["k_green2", 0.5, 1, 60]], [
+    one(0, 210, "3D printing red flags:", "serif", 250, 80),
+    chic(0, 75, 900, [W1("“can't you just print it?”", 6, "italic")], 72), chic(75, 75, 900, [W1("“why does it take so long?”", 6, "italic")], 72)]),
+  // love, Amy
+  P4LoveLanguage: reel("tr22", [["print_green", 0.5, 0.6, 105], ["n_green", 0.3, 1, 75]], [
+    chic(0, 180, 260, [W1("my love language:", 4), W1("a clean first layer", 18, "script", true)], 76)]),
+  P4CantLeave: reel("tr23", [["d_balcony", 0.3, 1, 75], ["th_p1", 1, 2, 105]], [
+    two(0, 75, "me explaining why", "I can't leave the house:", { top: 260, size: 72 }), two(75, 105, "the print has", "2 hours left.", { top: 260 })]),
+  // like the example that did well: one small centred line per shot, "Do it anyway." on the click
+  P4DoItAnyway: reel("tr24", [["b_coffee", 0, 1, 36], ["fail", 1, 1, 45], ["th_p3", 0, 2, 45, NAPS], AT("k_pink", 2.55, 90, 40, 1, [1.02, 1.07])], [
+    ...["Do it tired.", "Do it with a failed print.", "Do it at 3 a.m.", "Do it anyway."].map((t, i) => chic([0, 36, 81, 126][i], [36, 45, 45, 90][i], 900, [W1(t, 0)], 64))]),
+  P4Iykyk: reel("tr25", [["fail", 0, 0.8, 150, { zoom: [1.7, 1.5], origin: "50% 62%" }]], [one(0, 150, "if you know, you know.", "italic", 900, 72)]),
+  P4LayerOneFails: reel("tr26", [["fail", 2, 1, 60], ["print_mint", 0, 1, 60], ["r_nellie", 2, 1.6, 45], ["n_nellie", 1, 1, 60]], [
+    two(0, 225, "send this to someone", "who needs to hear:", { top: 250, size: 70 }), chic(60, 165, 1380, [W1("it's okay if layer 1 fails.", 4, "italic")], 76)]),
+};

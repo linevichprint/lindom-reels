@@ -44,6 +44,7 @@ export type Caption = { from: number; dur: number } & (
   | { kind: "chat"; name: string; status?: string; top?: number; light?: boolean; msgs: { t: string; at: number; me?: boolean }[] }
   | { kind: "profile"; name: string; role: string; about: string; skills: [string, string][]; top: number }
   | { kind: "progress"; top?: number }
+  | { kind: "timer"; to: number; top?: number; size?: number } // counts 0:00 up to `to` minutes over the caption
   | { kind: "cover"; until: number }
   | { kind: "review"; subject: string; stars: number; text: string; by?: string; top?: number }
 );
@@ -124,6 +125,19 @@ const Chic: React.FC<{ words: ChicWord[]; top?: number; size?: number }> = ({ wo
             </React.Fragment>
           );
         })}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// print timer counting up, eases out so the last hours tick slowly
+const Timer: React.FC<{ to: number; dur: number; top?: number; size?: number }> = ({ to, dur, top = 820, size = 150 }) => {
+  const frame = useCurrentFrame();
+  const m = Math.round(to * (1 - Math.pow(1 - Math.min(1, frame / (dur * 0.85)), 2.2)));
+  return (
+    <AbsoluteFill style={{ justifyContent: "flex-start", alignItems: "center", paddingTop: top }}>
+      <div style={{ fontFamily: FONT.serif[0], fontSize: size, color: "white", textShadow: "0 2px 18px rgba(0,0,0,0.55)", fontVariantNumeric: "tabular-nums" }}>
+        {Math.floor(m / 60)}:{String(m % 60).padStart(2, "0")}
       </div>
     </AbsoluteFill>
   );
@@ -404,6 +418,7 @@ export const Reel: React.FC<{ config: ReelConfig; voiceover: boolean }> = ({ con
         {c.kind === "chat" ? <Chat name={c.name} status={c.status} top={c.top} light={c.light} msgs={c.msgs} /> : null}
         {c.kind === "profile" ? <Profile name={c.name} role={c.role} about={c.about} skills={c.skills} top={c.top} /> : null}
         {c.kind === "progress" ? <Progress top={c.top} dur={c.dur} /> : null}
+        {c.kind === "timer" ? <Timer to={c.to} dur={c.dur} top={c.top} size={c.size} /> : null}
         {c.kind === "cover" ? <Cover until={c.until} /> : null}
       </Sequence>
     ))}
