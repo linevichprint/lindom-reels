@@ -2323,7 +2323,7 @@ export const batch34: Record<string, ReelConfig> = {
   P4UnpopFirstLayer: reel("tr9", [["print_green", 0.5, 0.6, 105], ["p_mint_remove", 1, 1.4, 60], ["n_mint", 0.3, 1, 60]], [unpop(225, "the first layer is the best part")]),
   P4UnpopTherapy: reel("tr10", [["p_sup_grey", 1, 1.2, 105], ["p_sup_blue", 1, 1.2, 105]], [
     chic(0, 210, 260, [W1("unpopular opinion:", 4), W1("removing supports", 18, "italic", true), W1("is cheaper than therapy", 18, "italic", true)], 74)]),
-  P4UnpopFast: reel("tr11", [["print_blue", 0.5, 0.5, 90], ["p_blue_final", 0.5, 1, 90]], [unpop(180, "a fast print isn't always a good print", 250)]),
+  P4UnpopFast: reel("tr11", [["print_blue", 0.5, 0.5, 90], ["p_blue_final", 0.5, 1, 90]], [chic(0, 180, 250, [W1("unpopular opinion:", 4), W1("a fast print", 18, "italic", true), W1("isn't always a good print", 18, "italic", true)], 72)]),
   // yes… but, split screen
   P4YesCar: splitReel("tr12", [["print_wide", 0.5, 1, 90], ["print_close", 0.5, 1, 90]], [["n_trap", 0.3, 1, 90, { window: { pos: "50% 55%" } }], ["n_jam", 0.3, 1, 90, { window: { pos: "50% 60%" } }]], [
     chic(0, 180, 110, [W1("yes, I have a 3D printer.", 4, "italic")], 70), chic(0, 180, 1010, [W1("no, I can't print you a car.", 30, "italic")], 70)]),
@@ -2351,7 +2351,7 @@ export const batch34: Record<string, ReelConfig> = {
     one(0, 210, "3D printing red flags:", "serif", 250, 80),
     chic(0, 75, 900, [W1("“can't you just print it?”", 6, "italic")], 72), chic(75, 75, 900, [W1("“why does it take so long?”", 6, "italic")], 72)]),
   // love, Amy
-  P4LoveLanguage: reel("tr22", [["print_green", 0.5, 0.6, 105], ["n_green", 0.3, 1, 75]], [
+  P4LoveLanguage: reel("tr22", [["p_yellow0", 3, 1, 105], ["b_yp2", 0.5, 1, 75]], [
     chic(0, 180, 260, [W1("my love language:", 4), W1("a clean first layer", 18, "script", true)], 76)]),
   P4CantLeave: reel("tr23", [["d_balcony", 0.3, 1, 75], ["th_p1", 1, 2, 105]], [
     two(0, 75, "me explaining why", "I can't leave the house:", { top: 260, size: 72 }), two(75, 105, "the print has", "2 hours left.", { top: 260 })]),
