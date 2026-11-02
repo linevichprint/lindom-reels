@@ -2301,7 +2301,17 @@ const sign = (dur: number, a: string, b: string) => chic(0, dur, 260, [W1("this 
 const bottom = (from: number, dur: number, t: string, size = 66) => one(from, dur, t, "italic", 1460, size);
 const NAPS = { bw: true, snapAt: 999 };
 
-export const batch34: Record<string, ReelConfig> = {
+
+// the user wants the pink highlight back: chic captions become the bold "words" look, accent (italic/script/bold) words on the pink block
+const pinkify = (cfgs: Record<string, ReelConfig>): Record<string, ReelConfig> => Object.fromEntries(Object.entries(cfgs).map(([id, c]) => [id, {
+  ...c, captions: c.captions.map((x: any) => {
+    if (x.kind === "chic") return { kind: "words", from: x.from, dur: x.dur, top: x.top, size: Math.round((x.size ?? 72) * 1.2),
+      words: x.words.map((w: any) => ({ t: w.t, at: w.at, br: w.br, pink: !!w.f && w.f !== "serif" })) };
+    if (x.kind === "words") return { ...x, size: x.words.some((w: any) => w.box) ? Math.round((x.size ?? 70) * 1.2) : x.size, words: x.words.map((w: any) => (w.box ? { ...w, box: false, pink: true } : w)) };
+    return x;
+  }),
+}]));
+export const batch34: Record<string, ReelConfig> = pinkify({
   // POV
   P4OneMore: reel("tr1", [["b_spools", 0, 1, 45], ["p_lineup", 0.3, 1, 75], ["unbox", 3, 1.2, 60], ["print_wide", 0.5, 1, 60]], [
     persist(240, "POV: you said ‘just one more print’", "4 spools ago", 250, 64)]),
@@ -2357,16 +2367,16 @@ export const batch34: Record<string, ReelConfig> = {
     two(0, 75, "me explaining why", "I can't leave the house:", { top: 260, size: 72 }), two(75, 105, "the print has", "2 hours left.", { top: 260 })]),
   // like the example that did well: one small centred line per shot, "Do it anyway." on the click
   P4DoItAnyway: reel("tr24", [["b_coffee", 0, 1, 36], ["fail", 1, 1, 45], ["th_p3", 0, 2, 45, NAPS], AT("k_pink", 2.55, 90, 40, 1, [1.02, 1.07])], [
-    ...["Do it tired.", "Do it with a failed print.", "Do it at 3 a.m.", "Do it anyway."].map((t, i) => chic([0, 36, 81, 126][i], [36, 45, 45, 90][i], 900, [W1(t, 0)], 64))]),
+    ...["Do it tired.", "Do it with a failed print.", "Do it at 3 a.m.", "Do it anyway."].map((t, i) => chic([0, 36, 81, 126][i], [36, 45, 45, 90][i], 900, [W1(t, 0, i === 3 ? "italic" : undefined)], 64))]),
   P4Iykyk: reel("tr25", [["fail", 0, 0.8, 150, { zoom: [1.7, 1.5], origin: "50% 62%" }]], [one(0, 150, "if you know, you know.", "italic", 900, 72)]),
   P4LayerOneFails: reel("tr26", [["fail", 2, 1, 60], ["print_mint", 0, 1, 60], ["r_nellie", 2, 1.6, 45], ["n_nellie", 1, 1, 60]], [
     two(0, 225, "send this to someone", "who needs to hear:", { top: 250, size: 70 }), chic(60, 165, 1380, [W1("it's okay if layer 1 fails.", 4, "italic")], 76)]),
-};
+});
 
 // ---- Batch 35: the hexagon model as an STL (basket with or without a name, or a dog-bowl stand; no footage of the stand yet), and the three new map takes ----
 // hx_9820: the lilac one off the printer, hx_9827: the lilac "MIA" one in hand; hc_*: the pink basket from batch 31
 const boxed = (from: number, dur: number, t: string, top = 160, size = 70) => ({ kind: "words", from, dur, top, size, words: [{ t, at: 0, box: true }] });
-export const batch35: Record<string, ReelConfig> = {
+export const batch35: Record<string, ReelConfig> = pinkify({
   HxNewModel: reel("hxm1", [["hx_9820", 1, 1.3, 120], ["hx_9827", 0.3, 1, 105]], [
     chic(0, 120, 260, [W1("new model:", 4), W1("hexagons", 14, "script", true)], 84), two(120, 105, "now available", "as an STL file", { top: 260, size: 80 })]),
   // pick one: the format the user loved
@@ -2382,9 +2392,16 @@ export const batch35: Record<string, ReelConfig> = {
     boxed(0, 60, "one STL file, two ways:", 160), boxed(60, 90, "a basket, with a name or without", 160, 60), boxed(150, 105, "or a stand for your dog's bowl", 160)]),
   HxToysDinner: reel("hxm6", [["hx_9827", 1, 1, 60], ["hxp_clara", 0.5, 1, 75], ["hxp_bruno", 0.5, 1, 90]], [
     boxed(0, 60, "same hexagons, two jobs:", 170, 70), boxed(60, 75, "for her toys", 170, 84), boxed(135, 90, "for his dinner", 170, 84)]),
+  // the formats that did well, on the hexagons
+  HxProcessResult: beforeAfter("hxm7", ["hc_9669", 3, 4, 120], ["hc_9700", 0.3, 1, 120], [[W1("Process.", 0, "bold")], [W1("Result.", 0, "bold")]], 300),
+  HxBeforeAfter: beforeAfter("hxm8", ["hx_9820", 0.2, 1, 105], ["hx_9827", 0.3, 1, 120], [[W1("before", 0, "script")], [W1("after", 0, "script")]], 300),
+  HxNewDrop: reel("hxm9", [["hc_9669", 0.5, 1, 30], ["hc_9669", 10, 5, 30], ["hx_9820", 5, 1.4, 45], ["hc_9715", 0.5, 1, 30], ["hc_9713", 2, 1, 36], ["hx_9827", 2, 1, 69]], [
+    chic(0, 240, 300, [W1("NEW", 0, "bold"), W1("MODEL", 6, "bold")], 120), chic(171, 69, 1420, [W1("STL file", 4, "italic")], 80)]),
+  HxKidsOrDog: reel("hxm10", [["hc_9669", 6, 3, 60], ["hxp_clara", 0.5, 1, 90], ["hxp_bruno", 0.5, 1, 105]], [
+    boxed(0, 60, "print it", 170, 84), boxed(60, 90, "for your kids", 170, 84), boxed(150, 105, "or your dog", 170, 84)]),
   // three new pins: Europe, Australia, the Americas
   MapThisWeek: reel("mq1", [["mp_0172", 1.5, 1, 75], ["mp_0173", 3, 1.2, 75], ["mp_0175", 0.5, 1, 90]], [
     boxed(0, 75, "new stars: Europe", 150, 64), boxed(75, 75, "new stars: Australia", 150, 64), boxed(150, 90, "new stars: the Americas", 150, 64)]),
   MapPovOrder: reel("mq2", [["mp_0175", 0.5, 1, 75], ["mp_0172", 1.5, 1.4, 60], ["mp_0173", 3, 1.4, 75]], [
     boxed(0, 210, "POV: every new order gets a star on our map", 150, 60)]),
-};
+});
