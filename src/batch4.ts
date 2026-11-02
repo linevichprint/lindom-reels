@@ -2362,3 +2362,29 @@ export const batch34: Record<string, ReelConfig> = {
   P4LayerOneFails: reel("tr26", [["fail", 2, 1, 60], ["print_mint", 0, 1, 60], ["r_nellie", 2, 1.6, 45], ["n_nellie", 1, 1, 60]], [
     two(0, 225, "send this to someone", "who needs to hear:", { top: 250, size: 70 }), chic(60, 165, 1380, [W1("it's okay if layer 1 fails.", 4, "italic")], 76)]),
 };
+
+// ---- Batch 35: the hexagon model as an STL (basket with or without a name, or a dog-bowl stand; no footage of the stand yet), and the three new map takes ----
+// hx_9820: the lilac one off the printer, hx_9827: the lilac "MIA" one in hand; hc_*: the pink basket from batch 31
+const boxed = (from: number, dur: number, t: string, top = 160, size = 70) => ({ kind: "words", from, dur, top, size, words: [{ t, at: 0, box: true }] });
+export const batch35: Record<string, ReelConfig> = {
+  HxNewModel: reel("hxm1", [["hx_9820", 1, 1.3, 120], ["hx_9827", 0.3, 1, 105]], [
+    chic(0, 120, 260, [W1("new model:", 4), W1("hexagons", 14, "script", true)], 84), two(120, 105, "now available", "as an STL file", { top: 260, size: 80 })]),
+  // pick one: the format the user loved
+  HxPinkOrLilac: splitReel("hxm3", [["hc_9714", 0.5, 1, 180, { window: { pos: "50% 45%" } }]], [["hx_9827", 0.3, 1, 180, { window: { pos: "50% 40%" } }]], [
+    chic(0, 180, 110, [W1("pink", 4, "script")], 72), chic(0, 180, 1010, [W1("or lilac?", 30, "script")], 72)]),
+  HxPovName: reel("hxm4", [["hc_9669", 8, 3, 60], ["hc_9699", 4.5, 1.2, 75], ["hc_9700", 0, 1, 90]], [
+    persist(225, "POV: you print your dog's name", "in hexagons", 250, 68)]),
+  HxStlInfo: reel("hxm5", [["hc_9669", 0, 1, 45], ["hx_9820", 5, 1.2, 60], ["hc_9713", 1, 1, 60], ["hx_9827", 3, 1, 60], ["hxp_bruno", 0.5, 1, 90]], [
+    boxed(0, 45, "hexagons", 160, 90), boxed(45, 60, "one STL file", 160), boxed(105, 120, "a basket, with a name or without", 160, 60),
+    boxed(225, 90, "or a stand for your dog's bowl", 160)]),
+  // hxp_*: the listing's pictures (CLARA basket, BRUNO bowl stand) as slow full-screen pans; light backgrounds, so boxed captions
+  HxTwoWays: reel("hxm2", [["hc_9669", 4, 3, 60], ["hxp_clara", 0, 1, 90], ["hxp_bruno", 0, 1, 105]], [
+    boxed(0, 60, "one STL file, two ways:", 160), boxed(60, 90, "a basket, with a name or without", 160, 60), boxed(150, 105, "or a stand for your dog's bowl", 160)]),
+  HxToysDinner: reel("hxm6", [["hx_9827", 1, 1, 60], ["hxp_clara", 0.5, 1, 75], ["hxp_bruno", 0.5, 1, 90]], [
+    boxed(0, 60, "same hexagons, two jobs:", 170, 70), boxed(60, 75, "for her toys", 170, 84), boxed(135, 90, "for his dinner", 170, 84)]),
+  // three new pins: Europe, Australia, the Americas
+  MapThisWeek: reel("mq1", [["mp_0172", 1.5, 1, 75], ["mp_0173", 3, 1.2, 75], ["mp_0175", 0.5, 1, 90]], [
+    boxed(0, 75, "new stars: Europe", 150, 64), boxed(75, 75, "new stars: Australia", 150, 64), boxed(150, 90, "new stars: the Americas", 150, 64)]),
+  MapPovOrder: reel("mq2", [["mp_0175", 0.5, 1, 75], ["mp_0172", 1.5, 1.4, 60], ["mp_0173", 3, 1.4, 75]], [
+    boxed(0, 210, "POV: every new order gets a star on our map", 150, 60)]),
+};
