@@ -2405,3 +2405,17 @@ export const batch35: Record<string, ReelConfig> = pinkify({
   MapPovOrder: reel("mq2", [["mp_0175", 0.5, 1, 75], ["mp_0172", 1.5, 1.4, 60], ["mp_0173", 3, 1.4, 75]], [
     boxed(0, 210, "POV: every new order gets a star on our map", 150, 60)]),
 });
+
+// ---- Batch 36: every bowl we make, one per second on the beat, the dog's name on the pink block, then the lineup ----
+const EVERY: [string, number, string][] = [
+  ["n_amy_rot", 0.5, "Amy"], ["b_yp2", 0.5, "Theo"], ["p_blue_final", 0.5, "Bo"], ["k_orange", 3, "Nellie"], ["n_nugget_wb", 0.5, "Nugget"],
+  ["n_phoebe", 0.3, "Phoebe"], ["b_terra2", 5, "Chips & Beef"], ["n_mint2", 3.5, "Amy, in mint"], ["pu_6160", 0.5, "Pumba"],
+  ["se_6177", 0.5, "Swane & Eddy"], ["br_9574", 2.5, "Bruno"],
+];
+export const batch36: Record<string, ReelConfig> = {
+  EveryBowl: mk("eb1", [
+    ...EVERY.map(([clip, st, name], i) => ({ d: 30, v: [clip, { startFrom: Math.round(st * 30), zoom: [1.03, 1.08] }] as V,
+      c: { kind: "words", top: 300, size: 96, words: i === 0 ? [{ t: "every bowl we make:", at: 0 }, { t: name, at: 4, pink: true, br: true }] : [{ t: name, at: 0, pink: true }] } } as Sc)),
+    { d: 75, v: ["p_lineup", { startFrom: 30, zoom: [1, 1.06] }], c: { kind: "words", top: 300, size: 100, words: [{ t: "which one", at: 2 }, { t: "is yours?", at: 14, pink: true, br: true }] } },
+  ]),
+};
