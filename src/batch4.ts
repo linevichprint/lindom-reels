@@ -2420,32 +2420,79 @@ export const batch36: Record<string, ReelConfig> = {
   ]),
 };
 
-// one bowl per model, no repeats: oval magnetic double, Name & Paw, diagonal, pyramid, 3 layers, Pumba's wave, Swane & Eddy's, Bruno's (the hexagon stand is only a picture, left out)
-const MODELS9: [string, number][] = [["k_orange", 3], ["n_mint2", 3.5], ["n_phoebe", 0.3], ["b_terra2", 5], ["b_yp2", 0.5], ["pu_6160", 0.5], ["se_6177", 0.5], ["br_9574", 2.5]];
-batch36.AllModels9 = mk("mdl1", [
-  ...MODELS9.map(([clip, st], i) => ({ d: 36, v: [clip, { startFrom: Math.round(st * 30), zoom: [1.03, 1.08] }] as V,
-    c: { kind: "words", top: 300, size: 96, words: [...(i === 0 ? [{ t: "all our bowl models:", at: 0 }] : []), { t: `${i + 1} / ${MODELS9.length}`, at: i === 0 ? 4 : 0, pink: true, br: i === 0 }] } } as Sc)),
-  { d: 75, v: ["p_lineup", { startFrom: 30, zoom: [1, 1.06] }], c: { kind: "words", top: 300, size: 100, words: [{ t: "which one", at: 2 }, { t: "is yours?", at: 14, pink: true, br: true }] } },
-]);
+// one bowl per model, no repeats. Models that are printed in halves show their whole join (click on the cut's snapAt); the others are held.
+// The hexagon stand is only a picture, left out; no "which one is yours" ending (user).
+const MODELS8: Sc[] = [
+  AT("k_orange", 1.57, 60, 36, 1, [1.02, 1.07]), // oval magnetic double
+  { d: 40, v: ["n_mint2", { startFrom: 105, zoom: [1.03, 1.08] }] }, // Name & Paw
+  AT("j_olive", 1.15, 60, 34, 1, [1.02, 1.07]), // diagonal
+  AT("b_terra_asm", 3.45, 60, 36, 1, [1.02, 1.07]), // pyramid
+  { d: 40, v: ["b_yp2", { startFrom: 15, zoom: [1.03, 1.08] }] }, // 3 layers
+  AT("pu_6158", 5.8, 66, 40, 1, [1.02, 1.07]), // Pumba's wave
+  AT("se_6169", 3.9, 66, 40, 1, [1.02, 1.07]), // Swane & Eddy's
+  AT("br_9574", 0.95, 75, 28, 1, [1.02, 1.07]), // Bruno's
+];
+batch36.AllModels9 = mk("mdl1", MODELS8.map((sc, i) => ({ ...sc,
+  c: { kind: "words", top: 300, size: 96, words: [...(i === 0 ? [{ t: "all our bowl models:", at: 0 }] : []), { t: `${i + 1} / ${MODELS8.length}`, at: i === 0 ? 4 : 0, pink: true, br: i === 0 }] } } as Sc)));
+
 
 // ---- Batch 37: the kids' SKÅDIS pegboard set (sk_*). Girls only from behind (sk_0284; sk_0289 only before 3 s, a second child walks in after).
-// Pink highlights via pinkify. ----
-export const batch37: Record<string, ReelConfig> = pinkify({
-  SkPrinted: reel("ks1", [["sk_0215", 1.8, 1, 45], ["sk_0213", 1, 1, 45], ["sk_0291", 1, 1, 45], ["sk_0380", 5, 1, 45], ["sk_0390", 1, 1, 60]], [
-    persist(240, "what we 3D printed", "for our kids' room", 230, 72),
-    ...["a bunny cup", "a basket", "tiny drawers", "a hook for teddies", "a heart lamp"].map((t, i) => bottom(i * 45, i === 4 ? 60 : 45, t, 72))]),
-  SkNewSet: reel("ks3", [["sk_0188", 0.5, 1.2, 36], ["sk_0281", 3, 1, 36], ["sk_0378", 2, 1, 36], ["sk_0171", 1, 1, 36], ["sk_0221", 0.5, 1, 90]], [
-    two(0, 144, "our new STL set:", "kids' pegboard", { top: 260, size: 80 }), one(144, 90, "STL files", "italic", 260, 90)]),
-  SkDad: reel("ks4", [["sk_0170", 6, 1.5, 45], ["sk_0258", 2, 1.5, 45], ["sk_0209", 2, 1.5, 45], ["sk_0324", 8, 1.5, 45], ["sk_0221", 0, 1, 75]], [
-    persist(255, "POV: you're a dad of 2 girls", "and this is what you 3D print", 230, 68)]),
-  SkBeforeAfter: beforeAfter("ks5", ["sk_0213", 0.2, 0.2, 90], ["sk_0221", 0.3, 1, 120], [[W1("BEFORE", 0, "bold")], [W1("AFTER", 0, "bold")]], 260),
-  SkTellMe: reel("ks6", [["sk_0222", 0, 1, 75], ["sk_0284", 4, 1, 75], ["sk_0328", 3, 1, 60]], [
-    persist(210, "tell me you have a 3D printer and kids", "without telling me", 230, 66)]),
-  SkSheAsked: reel("ks7", [["sk_0289", 0.3, 1, 75], ["sk_0211", 3, 3, 45], ["sk_0209", 2, 1.4, 60], ["sk_0215", 6, 1, 60]], [
-    one(0, 75, "POV: she asked.", "serif", 260, 84), one(75, 165, "dad printed.", "italic", 260, 90)]),
-  SkProcessProduct: beforeAfter("ks10", ["sk_0180", 1, 3, 105], ["sk_0221", 0.3, 1, 120], [[W1("The process.", 0, "bold")], [W1("The product.", 0, "bold")]], 260),
-  SkRate: reel("ks13", [["sk_0222", 0, 1, 90], ["sk_0328", 6, 1, 60], ["sk_0389", 4, 1, 75]], [persist(225, "rate our kids' pegboard", "1-10", 230, 76)]),
-  SkYesBut: splitReel("ks15", [["sk_0181", 0.5, 2, 90], ["sk_0256", 4, 1.5, 90]], [["sk_0284", 4, 1, 90, { window: { pos: "50% 40%" } }], ["sk_0289", 0.3, 0.9, 90, { window: { pos: "50% 40%" } }]], [
+// Every reel mixes process (printing, pulls, assembly) with finished pieces in hand and on the wall. Pink highlights via pinkify. ----
+const SKP: Record<string, Shot> = { // printing
+  bunny: ["sk_0211", 3, 3, 36], pink: ["sk_0181", 0.5, 2, 36], lilac: ["sk_0169", 3, 2, 36], small: ["sk_0340", 2, 1.5, 36], pink2: ["sk_0180", 4, 2, 36] };
+const SKO: Record<string, Shot> = { // off the printer / assembly
+  bunny: ["sk_0209", 2, 1.4, 36], drawers: ["sk_0258", 2, 1.5, 36], drawersL: ["sk_0256", 4, 1.5, 36], parts: ["sk_0324", 8, 1.5, 36],
+  scallop: ["sk_0170", 6, 1.5, 36], stripes: ["sk_0326", 3, 2, 36], spool: ["sk_0278", 2, 2, 36], build: ["sk_0276", 4, 2, 36] };
+const SKD: Record<string, Shot> = { // finished, in hand
+  baskets: ["sk_0188", 0.5, 1.2, 36], drawers: ["sk_0281", 3, 1, 36], drawers2: ["sk_0282", 1, 1, 36], scallop: ["sk_0171", 1, 1, 36],
+  hook: ["sk_0375", 1, 1, 36], lamp: ["sk_0378", 2, 1, 36] };
+const SKW: Record<string, Shot> = { // on the wall
+  wall: ["sk_0221", 0.3, 1, 75], room: ["sk_0222", 0, 1, 60], bunny: ["sk_0215", 1.8, 1, 45], basket: ["sk_0213", 1, 1, 45], drawers: ["sk_0291", 1, 1, 45],
+  stripes: ["sk_0328", 6, 1, 45], hook: ["sk_0380", 5, 1, 45], lamp: ["sk_0390", 1, 1, 50], lampOn: ["sk_0389", 4, 1, 60], lights: ["sk_0387", 3, 1, 45] };
+const d = (x: Shot, dur: number): Shot => [x[0], x[1], x[2], dur, x[4]];
+// labels at the bottom, one per group of shots
+const labelled = (music: string, groups: [string, Shot[]][], head: any[] = [], size = 70) => {
+  const list = groups.flatMap(([, g]) => g); let f = 0;
+  const labels = groups.map(([t, g]) => { const c = bottom(f, total(g), t, size); f += total(g); return c; });
+  return { list, cfg: reel(music, list, [...head.map((h) => (typeof h === "function" ? h(total(list)) : h)), ...labels]) };
+};
+const KIDS: Record<string, ReelConfig> = {
+  SkPrinted: labelled("ks1", [["a bunny cup", [d(SKP.bunny, 30), SKW.bunny]], ["a basket", [d(SKP.pink, 30), SKW.basket]], ["tiny drawers", [d(SKO.drawers, 30), SKW.drawers]],
+    ["a hook for teddies", [d(SKD.hook, 30), SKW.hook]], ["a heart lamp", [d(SKD.lamp, 30), SKW.lamp]]], [(n: number) => persist(n, "what we 3D printed", "for our kids' room", 230, 72)]).cfg,
+  SkNewSet: reel("ks3", [d(SKP.pink, 30), d(SKD.baskets, 30), d(SKO.drawersL, 30), d(SKD.drawers, 30), d(SKD.lamp, 30), d(SKD.scallop, 30), d(SKD.hook, 30), SKW.wall], [
+    two(0, 210, "our new STL set:", "kids' pegboard", { top: 260, size: 80 }), one(210, 75, "STL files", "italic", 260, 90)]),
+  SkDad: reel("ks4", [SKO.scallop, SKO.drawers, SKO.bunny, SKO.parts, SKO.drawersL, SKO.stripes, SKD.drawers2, SKW.wall], [
+    persist(327, "POV: you're a dad of 2 girls", "and this is what you 3D print", 230, 68)]),
+  SkBeforeAfter: reel("ks5", [["sk_0213", 0.2, 0.2, 90], SKW.wall, d(SKW.stripes, 40), d(SKW.hook, 40), d(SKW.lamp, 45)], [
+    chic(0, 90, 260, [W1("BEFORE", 0, "bold")], 120), chic(90, 200, 260, [W1("AFTER", 0, "bold")], 120)]),
+  SkTellMe: reel("ks6", [SKW.room, SKP.bunny, ["sk_0284", 4, 1, 60], SKO.bunny, SKW.stripes, SKW.lights], [
+    persist(282, "tell me you have a 3D printer and kids", "without telling me", 230, 66)]),
+  SkSheAsked: reel("ks7", [["sk_0289", 0.3, 1, 75], SKP.bunny, SKP.lilac, d(SKO.bunny, 40), SKO.stripes, ["sk_0215", 6, 1, 50]], [
+    one(0, 75, "POV: she asked.", "serif", 260, 84), one(75, 198, "dad printed.", "italic", 260, 90)]),
+  SkProcessProduct: reel("ks10", [SKP.pink2, SKP.bunny, SKO.drawers, d(SKW.wall, 45), SKD.drawers2, SKW.lamp], [
+    chic(0, 108, 260, [W1("The process.", 0, "bold")], 120), chic(108, 131, 260, [W1("The product.", 0, "bold")], 120)]),
+  SkRate: reel("ks13", [SKW.room, d(SKD.baskets, 30), d(SKD.drawers, 30), d(SKD.lamp, 30), SKW.stripes, SKW.lampOn], [persist(255, "rate our kids' pegboard", "1-10", 230, 76)]),
+  SkYesBut: splitReel("ks15", [d(SKP.pink, 60), d(SKP.small, 60), d(SKO.drawersL, 60)], [["sk_0284", 4, 1, 90, { window: { pos: "50% 40%" } }], ["sk_0289", 0.3, 0.9, 90, { window: { pos: "50% 40%" } }]], [
     chic(0, 180, 110, [W1("yes, it's 3D printed.", 4, "italic")], 70), chic(0, 180, 1010, [W1("but it survived two girls.", 30, "italic")], 70)]),
-  SkToolInspWork: reel("ks17", [["sk_0340", 1, 1, 50], ["sk_0284", 6, 1, 55], ["sk_0221", 0.3, 1, 75]], [low(0, 50, "the tool."), low(50, 55, "the inspiration."), low(105, 75, "the work.")]),
-});
+  SkToolInspWork: reel("ks17", [d(SKP.small, 50), ["sk_0284", 6, 1, 55], d(SKW.wall, 40), d(SKW.lamp, 45)], [low(0, 50, "the tool."), low(50, 55, "the inspiration."), low(105, 85, "the work.")]),
+  // the rest of the user's phrases
+  SkIdeas: labelled("ks2", [["1. a cup with bunny ears", [d(SKD.scallop, 30), SKW.bunny]], ["2. tiny drawers", [d(SKD.drawers2, 30), SKW.drawers]], ["3. a basket", [d(SKD.baskets, 30), SKW.basket]],
+    ["4. a hook for teddies", [d(SKD.hook, 30), SKW.hook]], ["5. a heart lamp", [d(SKD.lamp, 30), SKW.lampOn]]], [(n: number) => persist(n, "pegboard ideas", "for a kids' room", 230, 76)]).cfg,
+  SkNeverBuy: labelled("ks8", [["pencil cups", [SKO.stripes, SKW.stripes]], ["storage baskets", [d(SKP.pink2, 30), d(SKD.baskets, 40)]], ["little drawers", [SKO.drawersL, d(SKD.drawers, 40)]],
+    ["a night light", [d(SKD.lamp, 36), SKW.lampOn]]], [(n: number) => persist(n, "things I'd never buy again", "because we can print them", 230, 68)]).cfg,
+  SkGirlDad: reel("ks9", [d(SKP.bunny, 24), d(SKO.drawers, 24), d(SKP.lilac, 24), d(SKO.parts, 24), d(SKO.stripes, 24), d(SKO.bunny, 24), ["sk_0222", 0, 1, 45], d(SKW.wall, 75)], [
+    chic(0, 144, 260, [W1("girl dad", 4, "italic"), W1("+ 3D printer", 30, undefined, true)], 84), chic(144, 120, 260, [W1("girl dad", 0, "italic"), W1("+ 3D printer", 0, undefined, true), W1("= this wall", 6, "italic", true)], 84)]),
+  SkSunday: reel("ks11", [SKO.spool, SKP.bunny, SKO.build, ["sk_0212", 1, 1.5, 45], ["sk_0379", 3, 1.5, 45], SKW.lampOn], [
+    persist(258, "what 3D printing parents", "do on a Sunday", 230, 76)]),
+  // the wall filling up piece by piece
+  SkGrows: reel("ks12", [["sk_0212", 2, 1.5, 45], ["sk_0214", 8, 2, 45], ["sk_0215", 8, 2, 45], d(SKO.stripes, 30), SKW.stripes, ["sk_0379", 4, 1.5, 45], SKW.lampOn], [
+    persist(315, "a kids' room", "that grows with them", 230, 80), bottom(200, 115, "one piece at a time.", 70)]),
+  SkSign: reel("ks14", [SKP.lilac, SKO.scallop, d(SKD.drawers2, 40), SKW.bunny, SKW.lamp], [sign(207, "to print something", "for your kids' room")]),
+  SkDayInLife: (() => { const steps: [string, string, Shot][] = [["8:00", "new spool", SKO.spool], ["9:00", "print", d(SKP.pink, 40)], ["12:00", "off the printer", d(SKO.drawers, 40)],
+    ["15:00", "assembly", d(SKO.stripes, 40)], ["17:00", "on the wall", ["sk_0212", 1, 1.5, 45]], ["19:00", "lights on", d(SKW.lamp, 60)]];
+    let f = 0; const caps = steps.map(([t, w, sh]) => { const c = chic(f, sh[3], 1440, [W1(t, 0), W1(w, 0, "italic", true)], 70); f += sh[3]; return c; });
+    return reel("ks16", steps.map((x) => x[2]), [persist(f, "day in the life of a tiny print studio:", "kids' room edition", 230, 64), ...caps]); })(),
+  SkItems: labelled("ks18", [["cups", [d(SKP.bunny, 30), d(SKD.scallop, 30)]], ["baskets", [d(SKP.pink, 30), d(SKD.baskets, 30)]], ["drawers", [d(SKO.drawersL, 30), d(SKD.drawers, 30)]],
+    ["hooks", [d(SKD.hook, 40)]], ["a night light", [d(SKD.lamp, 30), d(SKW.lamp, 40)]]], [(n: number) => persist(n, "kids' room items", "you can 3D print yourself", 230, 72)], 80).cfg,
+};
+export const batch37: Record<string, ReelConfig> = pinkify(KIDS);
