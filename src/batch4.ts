@@ -2409,7 +2409,7 @@ export const batch35: Record<string, ReelConfig> = pinkify({
 // ---- Batch 36: every bowl we make, one per second on the beat, the dog's name on the pink block, then the lineup ----
 const EVERY: [string, number, string][] = [
   ["n_amy_rot", 0.5, "Amy"], ["b_yp2", 0.5, "Theo"], ["p_blue_final", 0.5, "Bo"], ["k_orange", 3, "Nellie"], ["n_nugget_wb", 0.5, "Nugget"],
-  ["n_phoebe", 0.3, "Phoebe"], ["b_terra2", 5, "Chips & Beef"], ["n_mint2", 3.5, "Amy, in mint"], ["pu_6160", 0.5, "Pumba"],
+  ["n_phoebe", 0.3, "Phoebe"], ["b_terra2", 5, "Chips & Beer"], ["n_mint2", 3.5, "Jam"], ["pu_6160", 0.5, "Pumba"],
   ["se_6177", 0.5, "Swane & Eddy"], ["br_9574", 2.5, "Bruno"],
 ];
 export const batch36: Record<string, ReelConfig> = {
@@ -2419,3 +2419,33 @@ export const batch36: Record<string, ReelConfig> = {
     { d: 75, v: ["p_lineup", { startFrom: 30, zoom: [1, 1.06] }], c: { kind: "words", top: 300, size: 100, words: [{ t: "which one", at: 2 }, { t: "is yours?", at: 14, pink: true, br: true }] } },
   ]),
 };
+
+// one bowl per model, no repeats: oval magnetic double, Name & Paw, diagonal, pyramid, 3 layers, Pumba's wave, Swane & Eddy's, Bruno's, the hexagon stand (listing picture)
+const MODELS9: [string, number][] = [["k_orange", 3], ["n_mint2", 3.5], ["n_phoebe", 0.3], ["b_terra2", 5], ["b_yp2", 0.5], ["pu_6160", 0.5], ["se_6177", 0.5], ["br_9574", 2.5], ["hxp_bruno", 0.5]];
+batch36.AllModels9 = mk("mdl1", [
+  ...MODELS9.map(([clip, st], i) => ({ d: 36, v: [clip, { startFrom: Math.round(st * 30), zoom: [1.03, 1.08] }] as V,
+    c: { kind: "words", top: 300, size: 96, words: [...(i === 0 ? [{ t: "all our bowl models:", at: 0 }] : []), { t: `${i + 1} / 9`, at: i === 0 ? 4 : 0, pink: true, br: i === 0 }] } } as Sc)),
+  { d: 75, v: ["p_lineup", { startFrom: 30, zoom: [1, 1.06] }], c: { kind: "words", top: 300, size: 100, words: [{ t: "which one", at: 2 }, { t: "is yours?", at: 14, pink: true, br: true }] } },
+]);
+
+// ---- Batch 37: the kids' SKÅDIS pegboard set (sk_*). Girls only from behind (sk_0284; sk_0289 only before 3 s, a second child walks in after).
+// Pink highlights via pinkify. ----
+export const batch37: Record<string, ReelConfig> = pinkify({
+  SkPrinted: reel("ks1", [["sk_0215", 1.8, 1, 45], ["sk_0213", 1, 1, 45], ["sk_0291", 1, 1, 45], ["sk_0380", 5, 1, 45], ["sk_0390", 1, 1, 60]], [
+    persist(240, "what we 3D printed", "for our kids' room", 230, 72),
+    ...["a bunny cup", "a basket", "tiny drawers", "a hook for teddies", "a heart lamp"].map((t, i) => bottom(i * 45, i === 4 ? 60 : 45, t, 72))]),
+  SkNewSet: reel("ks3", [["sk_0188", 0.5, 1.2, 36], ["sk_0281", 3, 1, 36], ["sk_0378", 2, 1, 36], ["sk_0171", 1, 1, 36], ["sk_0221", 0.5, 1, 90]], [
+    two(0, 144, "our new STL set:", "kids' pegboard", { top: 260, size: 80 }), one(144, 90, "STL files", "italic", 260, 90)]),
+  SkDad: reel("ks4", [["sk_0170", 6, 1.5, 45], ["sk_0258", 2, 1.5, 45], ["sk_0209", 2, 1.5, 45], ["sk_0324", 8, 1.5, 45], ["sk_0221", 0, 1, 75]], [
+    persist(255, "POV: you're a dad of 2 girls", "and this is what you 3D print", 230, 68)]),
+  SkBeforeAfter: beforeAfter("ks5", ["sk_0213", 0.2, 0.2, 90], ["sk_0221", 0.3, 1, 120], [[W1("BEFORE", 0, "bold")], [W1("AFTER", 0, "bold")]], 260),
+  SkTellMe: reel("ks6", [["sk_0222", 0, 1, 75], ["sk_0284", 4, 1, 75], ["sk_0328", 3, 1, 60]], [
+    persist(210, "tell me you have a 3D printer and kids", "without telling me", 230, 66)]),
+  SkSheAsked: reel("ks7", [["sk_0289", 0.3, 1, 75], ["sk_0211", 3, 3, 45], ["sk_0209", 2, 1.4, 60], ["sk_0215", 6, 1, 60]], [
+    one(0, 75, "POV: she asked.", "serif", 260, 84), one(75, 165, "dad printed.", "italic", 260, 90)]),
+  SkProcessProduct: beforeAfter("ks10", ["sk_0180", 1, 3, 105], ["sk_0221", 0.3, 1, 120], [[W1("The process.", 0, "bold")], [W1("The product.", 0, "bold")]], 260),
+  SkRate: reel("ks13", [["sk_0222", 0, 1, 90], ["sk_0328", 6, 1, 60], ["sk_0389", 4, 1, 75]], [persist(225, "rate our kids' pegboard", "1-10", 230, 76)]),
+  SkYesBut: splitReel("ks15", [["sk_0181", 0.5, 2, 90], ["sk_0256", 4, 1.5, 90]], [["sk_0284", 4, 1, 90, { window: { pos: "50% 40%" } }], ["sk_0289", 0.3, 0.9, 90, { window: { pos: "50% 40%" } }]], [
+    chic(0, 180, 110, [W1("yes, it's 3D printed.", 4, "italic")], 70), chic(0, 180, 1010, [W1("but it survived two girls.", 30, "italic")], 70)]),
+  SkToolInspWork: reel("ks17", [["sk_0340", 1, 1, 50], ["sk_0284", 6, 1, 55], ["sk_0221", 0.3, 1, 75]], [low(0, 50, "the tool."), low(50, 55, "the inspiration."), low(105, 75, "the work.")]),
+});
