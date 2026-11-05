@@ -2420,11 +2420,11 @@ export const batch36: Record<string, ReelConfig> = {
   ]),
 };
 
-// one bowl per model, no repeats: oval magnetic double, Name & Paw, diagonal, pyramid, 3 layers, Pumba's wave, Swane & Eddy's, Bruno's, the hexagon stand (listing picture)
-const MODELS9: [string, number][] = [["k_orange", 3], ["n_mint2", 3.5], ["n_phoebe", 0.3], ["b_terra2", 5], ["b_yp2", 0.5], ["pu_6160", 0.5], ["se_6177", 0.5], ["br_9574", 2.5], ["hxp_bruno", 0.5]];
+// one bowl per model, no repeats: oval magnetic double, Name & Paw, diagonal, pyramid, 3 layers, Pumba's wave, Swane & Eddy's, Bruno's (the hexagon stand is only a picture, left out)
+const MODELS9: [string, number][] = [["k_orange", 3], ["n_mint2", 3.5], ["n_phoebe", 0.3], ["b_terra2", 5], ["b_yp2", 0.5], ["pu_6160", 0.5], ["se_6177", 0.5], ["br_9574", 2.5]];
 batch36.AllModels9 = mk("mdl1", [
   ...MODELS9.map(([clip, st], i) => ({ d: 36, v: [clip, { startFrom: Math.round(st * 30), zoom: [1.03, 1.08] }] as V,
-    c: { kind: "words", top: 300, size: 96, words: [...(i === 0 ? [{ t: "all our bowl models:", at: 0 }] : []), { t: `${i + 1} / 9`, at: i === 0 ? 4 : 0, pink: true, br: i === 0 }] } } as Sc)),
+    c: { kind: "words", top: 300, size: 96, words: [...(i === 0 ? [{ t: "all our bowl models:", at: 0 }] : []), { t: `${i + 1} / ${MODELS9.length}`, at: i === 0 ? 4 : 0, pink: true, br: i === 0 }] } } as Sc)),
   { d: 75, v: ["p_lineup", { startFrom: 30, zoom: [1, 1.06] }], c: { kind: "words", top: 300, size: 100, words: [{ t: "which one", at: 2 }, { t: "is yours?", at: 14, pink: true, br: true }] } },
 ]);
 
