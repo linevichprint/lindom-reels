@@ -2464,15 +2464,15 @@ const KIDS: Record<string, ReelConfig> = {
     two(0, 210, "our new STL set:", "kids' pegboard", { top: 260, size: 80 }), one(210, 75, "STL files", "italic", 260, 90)]),
   SkDad: reel("ks4", [SKO.scallop, SKO.drawers, SKO.bunny, SKO.parts, SKO.lilacSmall, SKO.drawersL, SKO.pinkParts, SKO.stripes, SKD.drawers2, SKW.wall], [
     persist(399, "POV: you're a dad of 2 girls", "and this is what you 3D print", 230, 68)]),
-  SkBeforeAfter: reel("ks5", [["sk_0213", 0.2, 0.2, 90], SKW.wall, d(SKW.stripes, 40), d(SKW.hook, 40), d(SKW.lamp, 45)], [
-    chic(0, 90, 260, [W1("BEFORE", 0, "bold")], 120), chic(90, 200, 260, [W1("AFTER", 0, "bold")], 120)]),
-  SkTellMe: reel("ks6", [SKW.room, SKP.bunny, ["sk_0284", 4, 1, 60], SKO.bunny, SKO.pinkParts, SKW.stripes, SKW.lights], [
-    persist(318, "tell me you have a 3D printer and kids", "without telling me", 230, 66)]),
+  SkBeforeAfter: reel("ks5", [["sk_0213", 0.2, 0.2, 90], SKW.wall, d(SKW.stripes, 40), d(SKW.hook, 40), ["sk_0432", 2, 1.5, 45], d(SKW.lamp, 45)], [
+    chic(0, 90, 260, [W1("BEFORE", 0, "bold")], 120), chic(90, 245, 260, [W1("AFTER", 0, "bold")], 120)]),
+  SkTellMe: reel("ks6", [SKW.room, SKP.bunny, ["sk_0284", 4, 1, 60], SKO.bunny, SKO.pinkParts, SKW.stripes, ["sk_0432", 22, 1.5, 45], SKW.lights], [
+    persist(363, "tell me you have a 3D printer and kids", "without telling me", 230, 66)]),
   SkSheAsked: reel("ks7", [["sk_0289", 0.3, 1, 75], SKP.bunny, SKP.lilac, d(SKO.bunny, 40), SKO.stripes, ["sk_0215", 6, 1, 50]], [
     one(0, 75, "POV: she asked.", "serif", 260, 84), one(75, 198, "dad printed.", "italic", 260, 90)]),
   SkProcessProduct: reel("ks10", [SKP.pink2, SKP.pinkClose, SKP.bunny, SKO.drawers, d(SKW.wall, 45), SKD.drawers2, SKW.lamp], [
     chic(0, 144, 260, [W1("The process.", 0, "bold")], 120), chic(144, 131, 260, [W1("The product.", 0, "bold")], 120)]),
-  SkRate: reel("ks13", [SKW.room, d(SKD.baskets, 30), d(SKD.drawers, 30), d(SKD.lamp, 30), SKW.stripes, SKW.lampOn], [persist(255, "rate our kids' pegboard", "1-10", 230, 76)]),
+  SkRate: reel("ks13", [SKW.room, d(SKD.baskets, 30), d(SKD.drawers, 30), d(SKD.lamp, 30), SKW.stripes, ["sk_0432", 16, 1.5, 45], SKW.lampOn], [persist(300, "rate our kids' pegboard", "1-10", 230, 76)]),
   SkYesBut: splitReel("ks15", [d(SKP.pinkClose, 60), d(SKP.small, 60), d(SKO.drawersL, 60)], [["sk_0284", 4, 1, 90, { window: { pos: "50% 40%" } }], ["sk_0289", 0.3, 0.9, 90, { window: { pos: "50% 40%" } }]], [
     chic(0, 180, 110, [W1("yes, it's 3D printed.", 4, "italic")], 70), chic(0, 180, 1010, [W1("but it survived two girls.", 30, "italic")], 70)]),
   SkToolInspWork: reel("ks17", [d(SKP.small, 50), ["sk_0284", 6, 1, 55], d(SKW.wall, 40), d(SKW.lamp, 45)], [low(0, 50, "the tool."), low(50, 55, "the inspiration."), low(105, 85, "the work.")]),
@@ -2483,11 +2483,11 @@ const KIDS: Record<string, ReelConfig> = {
     ["a night light", [d(SKD.lamp, 36), SKW.lampOn]]], [(n: number) => persist(n, "things I'd never buy again", "because we can print them", 230, 68)]).cfg,
   SkGirlDad: reel("ks9", [d(SKP.bunny, 24), d(SKO.drawers, 24), d(SKP.pinkClose, 24), d(SKP.lilac, 24), d(SKO.parts, 24), d(SKO.lilacSmall, 24), d(SKO.stripes, 24), d(SKO.bunny, 24), ["sk_0222", 0, 1, 45], d(SKW.wall, 75)], [
     chic(0, 192, 260, [W1("girl dad", 4, "italic"), W1("+ 3D printer", 30, undefined, true)], 84), chic(192, 120, 260, [W1("girl dad", 0, "italic"), W1("+ 3D printer", 0, undefined, true), W1("= this wall", 6, "italic", true)], 84)]),
-  SkSunday: reel("ks11", [SKO.spool, SKP.bunny, SKO.pinkParts, SKO.build, ["sk_0212", 1, 1.5, 45], ["sk_0379", 3, 1.5, 45], SKW.lampOn], [
-    persist(294, "what 3D printing parents", "do on a Sunday", 230, 76)]),
+  SkSunday: reel("ks11", [SKO.spool, SKP.bunny, SKO.pinkParts, SKO.build, ["sk_0212", 1, 1.5, 45], ["sk_0379", 3, 1.5, 45], ["sk_0432", 22, 1.5, 45], SKW.lampOn], [
+    persist(339, "what 3D printing parents", "do on a Sunday", 230, 76)]),
   // the wall filling up piece by piece
-  SkGrows: reel("ks12", [["sk_0212", 2, 1.5, 45], ["sk_0214", 8, 2, 45], ["sk_0215", 8, 2, 45], d(SKO.stripes, 30), SKW.stripes, ["sk_0379", 4, 1.5, 45], SKW.lampOn], [
-    persist(315, "a kids' room", "that grows with them", 230, 80), bottom(200, 115, "one piece at a time.", 70)]),
+  SkGrows: reel("ks12", [["sk_0212", 2, 1.5, 45], ["sk_0214", 8, 2, 45], ["sk_0215", 8, 2, 45], d(SKO.stripes, 30), SKW.stripes, ["sk_0379", 4, 1.5, 45], ["sk_0432", 3, 1.5, 45], SKW.lampOn], [
+    persist(360, "a kids' room", "that grows with them", 230, 80), bottom(200, 160, "one piece at a time.", 70)]),
   SkSign: reel("ks14", [SKP.lilac, SKO.scallop, d(SKD.drawers2, 40), SKW.bunny, SKW.lamp], [sign(207, "to print something", "for your kids' room")]),
   SkDayInLife: (() => { const steps: [string, string, Shot][] = [["8:00", "new spool", SKO.spool], ["9:00", "print", d(SKP.pink, 40)], ["12:00", "off the printer", d(SKO.drawers, 40)],
     ["15:00", "assembly", d(SKO.stripes, 40)], ["17:00", "on the wall", ["sk_0212", 1, 1.5, 45]], ["19:00", "lights on", d(SKW.lamp, 60)]];
@@ -2500,13 +2500,13 @@ export const batch37: Record<string, ReelConfig> = pinkify(KIDS);
 
 // ---- Batch 38: the honeycomb double bowl (hb_*): printed in halves, joins at hb_0399 2.5 s (in hand, black wall) and hb_0397 5.45 s (on the desk) ----
 export const batch38: Record<string, ReelConfig> = pinkify({
-  HbNewModel: reel("hb1", [["hb_0374", 4, 4, 45], ["hb_6272", 3, 1.5, 45], AT("hb_0399", 2.5, 75, 40, 1, [1.02, 1.07]), ["hb_0399", 7, 1, 60]], [
-    persist(225, "new model:", "the honeycomb bowl", 240, 84)]),
+  HbNewModel: reel("hb1", [["hb_0374", 4, 4, 45], ["hb_6272", 3, 1.5, 45], AT("hb_0399", 2.5, 75, 40, 1, [1.02, 1.07]), ["hb_0415", 0.3, 1, 90]], [
+    persist(255, "new model:", "the honeycomb bowl", 240, 84)]),
   HbProcessResult: beforeAfter("hb2", ["hb_0374", 2, 4, 105], ["hb_0399", 7.5, 1, 120], [[W1("Process.", 0, "bold")], [W1("Result.", 0, "bold")]], 260),
-  HbSteps: reel("hb3", [["hb_0374", 6, 4, 45], ["hb_0395", 3, 1.5, 45], AT("hb_0397", 5.45, 60, 36, 1, [1.02, 1.07]), ["hb_0397", 13, 1.5, 50], ["hb_0399", 8, 1, 60]], [
-    persist(260, "from printer", "to dinner", 240, 84),
-    ...([[0, 45, "print"], [45, 45, "off the printer"], [90, 60, "click"], [150, 50, "add the bowls"], [200, 60, "dinner's ready"]] as [number, number, string][]).map(([f, n, t]) => bottom(f, n, t, 72))]),
-  HbClick: reel("hb4", [AT("hb_0397", 5.45, 75, 45, 1, [1.02, 1.1]), AT("hb_0399", 2.5, 90, 45, 1, [1.02, 1.1])], [one(0, 165, "watch it click.", "italic", 260, 90)]),
-  HbFromBasket: reel("hb5", [["hc_9713", 1, 1, 60], ["hb_0374", 8, 4, 45], AT("hb_0399", 2.5, 60, 30, 1, [1.02, 1.07]), ["hb_0399", 8, 1, 60]], [
-    two(0, 60, "you loved", "the hexagon basket", { top: 260, size: 80 }), two(60, 165, "so we made", "a dog bowl", { top: 260, size: 84 })]),
+  HbSteps: reel("hb3", [["hb_0374", 6, 4, 45], ["hb_0395", 3, 1.5, 45], AT("hb_0397", 5.45, 60, 36, 1, [1.02, 1.07]), ["hb_0397", 13, 1.5, 50], ["hb_0415", 0.3, 1, 90]], [
+    persist(290, "from printer", "to dinner", 240, 84),
+    ...([[0, 45, "print"], [45, 45, "off the printer"], [90, 60, "click"], [150, 50, "add the bowls"], [200, 90, "dinner's ready"]] as [number, number, string][]).map(([f, n, t]) => bottom(f, n, t, 72))]),
+  HbClick: reel("hb4", [AT("hb_0397", 5.45, 75, 45, 1, [1.02, 1.1]), AT("hb_0399", 2.5, 90, 45, 1, [1.02, 1.1]), ["hb_0415", 0.3, 1, 90]], [one(0, 165, "watch it click.", "italic", 260, 90)]),
+  HbFromBasket: reel("hb5", [["hc_9713", 1, 1, 60], ["hb_0374", 8, 4, 45], AT("hb_0399", 2.5, 60, 30, 1, [1.02, 1.07]), ["hb_0415", 0.3, 1, 90]], [
+    two(0, 60, "you loved", "the hexagon basket", { top: 260, size: 80 }), two(60, 195, "so we made", "a dog bowl", { top: 260, size: 84 })]),
 });
