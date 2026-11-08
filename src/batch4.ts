@@ -2510,3 +2510,65 @@ export const batch38: Record<string, ReelConfig> = pinkify({
   HbFromBasket: reel("hb5", [["hc_9713", 1, 1, 60], ["hb_0374", 8, 4, 45], AT("hb_0399", 2.5, 60, 30, 1, [1.02, 1.07]), ["hb_0415", 0.3, 1, 90]], [
     two(0, 60, "you loved", "the hexagon basket", { top: 260, size: 80 }), two(60, 195, "so we made", "a dog bowl", { top: 260, size: 84 })]),
 });
+
+// ---- Batch 39: dog owner + 3D printer. Fast cuts on the beat (15 frames), process + bowls on the black wall, joins with their click (JF),
+// new music styles (trap, reggaeton, garage, afro, synthwave, disco). Pink highlights via pinkify. ----
+const BK: Record<string, Shot> = { // bowls held against the black wall
+  orange: ["c_orange", 0.2, 1, 30], blue: ["c_blue", 0.3, 1, 30], green: ["c_green", 0.3, 1, 30], mint: ["c_mint", 0.3, 1, 30], pyr: ["c_pyr", 0.3, 1, 30],
+  diag: ["c_diag", 0.3, 1, 30], amy: ["n_amy_hands", 0.3, 1, 30], amyRot: ["n_amy_rot", 0.5, 1, 30], theo: ["b_yp2", 0.5, 1, 30], bo: ["p_blue_final", 0.5, 1, 30],
+  pumba: ["pu_6160", 0.5, 1, 30], swane: ["se_6177", 0.5, 1, 30], bruno: ["br_9574", 2.5, 1, 30], honey: ["hb_0399", 7, 1, 30], jam: ["n_mint2", 3.5, 1, 30],
+  terra: ["b_terra", 0.5, 1, 30], phoebe: ["n_phoebe", 0.3, 1, 30], olive: ["j_green", 4, 1, 30], nellie: ["k_orange2", 5, 1, 30], toss: ["toss_mint", 1, 1, 30] };
+const PR: Record<string, Shot> = { // process
+  close: ["print_close", 1, 2, 30], mint: ["print_mint", 0, 2, 30], green: ["print_green", 0.5, 1.5, 30], blue: ["print_blue2", 0.5, 1.5, 30], theo: ["t_blue1", 2, 4, 30],
+  pumba: ["pu_9427", 1, 6, 30], swane: ["se_9455", 2, 6, 30], honey: ["hb_0374", 4, 4, 30], bruno: ["br_9504", 6, 4, 30], wide: ["print_wide", 0.5, 1, 30],
+  pull: ["as_6831", 2.4, 1, 30], olive: ["r_olive", 2, 1.5, 30], mintOff: ["p_mint_remove", 1, 1.6, 30], terraOff: ["p_terra_peel", 1, 2, 30],
+  purpleOff: ["t_purplepull", 5, 1.6, 30], blueOff: ["t_bluepull", 2, 1.5, 30], yellowOff: ["p_yellow_remove", 4, 1.6, 30], spool: ["unbox", 3, 1.5, 30] };
+const D = (x: Shot, dur: number): Shot => [x[0], x[1], x[2], dur, x[4]];
+const sumD = (list: (Shot | Sc)[]) => list.reduce((a, x) => a + (Array.isArray(x) ? x[3] : (x as Sc).d), 0);
+const fast = (music: string, list: (Shot | Sc)[], caps: (n: number) => any[]) => reel(music, list, caps(sumD(list)));
+// labels at the bottom over a run of shots
+const runs = (groups: [string, (Shot | Sc)[]][], size = 72) => { let f = 0; return groups.map(([t, g]) => { const c = bottom(f, sumD(g), t, size); f += sumD(g); return c; }); };
+
+export const batch39: Record<string, ReelConfig> = pinkify({
+  DgFirstPrint: fast("dg1", [PR.spool, PR.close, PR.mintOff, JF("k_pink", 2.55, { after: 30 }), D(BK.orange, 30), D(BK.blue, 30), D(BK.mint, 45)],
+    (n) => [persist(n, "what dog owners print first", "when they get a 3D printer", 230, 70), bottom(150, n - 150, "a dog bowl. obviously.", 74)]),
+  DgPov: fast("dg2", [PR.green, PR.blueOff, JF("k_green", 1.43, { after: 30 }), ["dog", 0.3, 1, 60], D(BK.green, 30), D(BK.olive, 30)],
+    (n) => [persist(n, "POV: you're a dog owner", "and you have a 3D printer", 230, 72)]),
+  DgBeforeMyself: (() => { const g: [string, (Shot | Sc)[]][] = [["a bowl", [D(PR.blue, 15), D(BK.blue, 30)]], ["another bowl", [D(PR.close, 15), D(BK.orange, 30)]],
+    ["a bowl with her name", [D(BK.amy, 45)]], ["a bowl in mint", [D(PR.mint, 15), D(BK.mint, 30)]], ["a double bowl that clicks", [JF("k_bp2", 1.38, { after: 30 })]], ["for me: nothing yet.", [["dog2", 0, 1, 75]]]];
+    return fast("dg3", g.flatMap((x) => x[1]), (n) => [persist(n, "things I 3D printed for my dog", "before anything for myself", 230, 66), ...runs(g)]); })(),
+  DgEquals: fast("dg4", [D(PR.close, 15), D(PR.mint, 15), D(PR.pumba, 15), D(PR.swane, 15), D(PR.theo, 15), D(PR.honey, 15), D(BK.orange, 15), D(BK.blue, 15), D(BK.green, 15), D(BK.mint, 15), D(BK.pyr, 15), D(BK.honey, 45)],
+    () => [chic(0, 90, 260, [W1("dog owner", 2), W1("+ 3D printer", 20, "italic", true)], 84), chic(90, 140, 260, [W1("dog owner", 0), W1("+ 3D printer", 0, "italic", true), W1("= this", 4, "italic", true)], 84)]),
+  DgTellMe: fast("dg5", [D(BK.amy, 30), D(PR.mint, 30), JF("k_orange", 1.57, { after: 30 }), ["dog", 0.3, 1, 45], D(BK.terra, 30), ["d_balcony", 0.3, 1, 45]],
+    (n) => [persist(n, "tell me you're a dog owner with a 3D printer", "without telling me", 230, 64)]),
+  DgDogThinks: fast("dg6", [D(PR.wide, 45), D(BK.orange, 30), D(BK.green, 30), D(BK.amy, 30), JF("k_pink", 2.55, { after: 30 }), ["dog2", 0, 1, 60]],
+    (n) => [persist(n, "what my dog thinks", "the 3D printer is for", 230, 76), bottom(n - 60, 60, "her dinner.", 80)]),
+  DgEveryOwner: (() => { const g: [string, (Shot | Sc)[]][] = [["1. a bowl with their name", [D(PR.close, 15), D(BK.amyRot, 45)]], ["2. a double bowl that clicks", [JF("k_orange", 1.57, { after: 30 })]],
+    ["3. a bowl in their colours", [D(BK.mint, 30), D(BK.blue, 30), D(BK.pyr, 30)]], ["4. a honeycomb one", [D(PR.honey, 15), AT("hb_0399", 2.5, 60, 30, 1, [1.02, 1.07])]]];
+    return fast("dg7", g.flatMap((x) => x[1]), (n) => [persist(n, "things every dog owner", "should 3D print at least once", 230, 70), ...runs(g)]); })(),
+  DgSign: fast("dg8", [D(PR.blue, 30), D(PR.terraOff, 30), JF("b_terra_asm", 3.45, { after: 30 }), ["b_terra2", 5, 1, 45], ["dog", 0.3, 1, 60]],
+    (n) => [sign(n, "to print something", "for your dog")]),
+  DgPersonality: (() => { const g: [string, (Shot | Sc)[]][] = [["", [JF("k_orange", 1.57, { after: 30 })]], ["orange: the zoomies", [D(BK.nellie, 45)]], ["mint: the cuddler", [D(BK.jam, 45)]],
+    ["terracotta: the foodie", [D(BK.terra, 45)]], ["blue: the good boy", [D(BK.bo, 45)]], ["honeycomb: the diva", [D(BK.honey, 60)]]];
+    return fast("dg9", g.flatMap((x) => x[1]), (n) => [persist(n, "pick a bowl,", "I'll guess your dog's personality", 230, 70), ...runs(g).slice(1)]); })(),
+  DgInspiration: fast("dg10", [["d_sofa", 1, 1, 45], D(PR.close, 30), ["pu_9430", 2, 1.4, 30], JF("pu_6158", 5.8, { after: 30 }), D(BK.amy, 45)],
+    (n) => [low(0, n, "when your dog is your inspiration")]),
+  DgBeLike: fast("dg11", [D(PR.wide, 30), ...(["orange", "blue", "green", "mint", "pyr", "diag", "amy", "theo", "bo", "pumba", "swane", "bruno", "honey", "jam", "terra", "phoebe"] as string[]).map((k) => D(BK[k], 15))],
+    (n) => [persist(n, "dog owners with a 3D printer", "be like:", 230, 70)]),
+  DgAmyQC: fast("dg12", [["d_studio", 0.3, 1, 60], D(PR.mint, 30), D(BK.blue, 30), ["hb_0415", 0.3, 1, 90]],
+    () => [two(0, 60, "some people", "call her Amy.", { top: 90, size: 84 }), two(60, 150, "we call her", "quality control.", { top: 240, size: 84 })]),
+  DgDayInLife: (() => { const steps: [string, string, Shot | Sc][] = [["7:00", "breakfast", ["dog", 0.3, 1, 36]], ["8:00", "new spool", D(PR.spool, 36)], ["9:00", "print", D(PR.pumba, 36)],
+    ["13:00", "walk", ["d_grass", 0.5, 1, 36]], ["16:00", "off the printer", D(PR.terraOff, 36)], ["17:00", "click", JF("b_terra_asm", 3.45, { after: 30 })], ["19:00", "QC", ["dog2", 0, 1, 60]]];
+    let f = 0; const caps = steps.map(([t, w, sh]) => { const n = sumD([sh]); const c = chic(f, n, 1440, [W1(t, 0), W1(w, 0, "italic", true)], 70); f += n; return c; });
+    return reel("dg13", steps.map((x) => x[2]), [persist(f, "a day in the life of a dog owner", "with a 3D printer", 230, 66), ...caps]); })(),
+  DgSendThis: fast("dg14", [D(PR.mint, 30), D(PR.purpleOff, 30), JF("k_bp2", 1.38, { after: 30 }), D(BK.green, 30), AT("hb_0399", 2.5, 45, 30, 1, [1.02, 1.07]), D(BK.amy, 45)],
+    (n) => [persist(n, "send this to a dog owner", "who just got a 3D printer", 230, 70)]),
+  DgOvernight: fast("dg15", [["th_p3", 0, 2, 60, NAPS], JF("k_pink", 2.55, { after: 30 }), ["dog", 0.3, 1, 90]],
+    () => [one(0, 105, "printed overnight.", "serif", 260, 84), one(105, 90, "approved by breakfast.", "italic", 260, 84)]),
+  DgToolInspWork: fast("dg16", [D(PR.blue, 45), ["dog2", 0, 1, 45], AT("hb_0399", 2.5, 60, 30, 1, [1.02, 1.07]), D(BK.honey, 30)],
+    () => [low(0, 45, "the tool."), low(45, 45, "the inspiration."), low(90, 90, "the work.")]),
+  DgBeigeOver: fast("dg17", [["se_6177", 0.5, 1, 45, NAPS], D(BK.orange, 15), D(BK.honey, 15), D(BK.blue, 15), D(BK.mint, 15), D(BK.amy, 15), D(BK.green, 15), D(BK.bruno, 15), D(BK.pyr, 15), JF("k_pink", 2.55, { after: 30 })],
+    () => [chic(0, 45, 260, [W1("pov:", 2), W1("beige era is over", 8, "italic", true)], 84), chic(45, 210, 260, [W1("pov:", 0), W1("beige era is over", 0, "italic", true)], 84)]),
+  DgWtfBeige: fast("dg18", [D(BK.honey, 15), D(BK.nellie, 15), D(BK.bo, 15), D(BK.jam, 15), D(BK.olive, 15), D(BK.pumba, 15), D(BK.theo, 15), D(BK.terra, 15), JF("k_orange", 1.57, { after: 15 }), JF("k_green", 1.43, { after: 15 }), JF("k_bp2", 1.38, { after: 30 })],
+    (n) => [persist(n, "pov:", "wtf is beige", 240, 90)]),
+});

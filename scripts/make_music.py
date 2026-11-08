@@ -1,5 +1,5 @@
 """Synthesizes a reel soundtrack. Every style runs at 120 BPM so cuts land on beats (1 beat = 0.5s = 15 frames).
-usage: make_music.py <out.wav> <end-card time, s> [snap time(s), s, comma-separated | -] [pop|bounce|funk|lofi|dream|swing|chip|house|clicky] [transpose]"""
+usage: make_music.py <out.wav> <end-card time, s> [snap time(s), s, comma-separated | -] [pop|bounce|funk|lofi|dream|swing|chip|house|clicky|trap|reggaeton|garage|afro|synthwave|disco] [transpose]"""
 import numpy as np, wave, sys
 SR=44100; BEAT=0.5; S16=BEAT/4
 END=float(sys.argv[2])                                              # end card (must land on a beat)
@@ -61,6 +61,26 @@ def rim():
 def bass(m,l):
     t=np.arange(int(l*SR))/SR; fr=f(m)
     return (np.sin(2*np.pi*fr*t)+0.25*np.sin(2*np.pi*2*fr*t))*np.minimum(t/0.01,1)*np.exp(-t/(l*0.9))
+def saw(m,l,d=0.25,cut=6):
+    t=np.arange(int(l*SR))/SR; fr=f(m)
+    s=sum(np.sin(2*np.pi*k*fr*t)/k for k in range(1,cut+1))+sum(np.sin(2*np.pi*k*fr*1.006*t)/k for k in range(1,cut+1))
+    return s*0.5*np.minimum(t/0.004,1)*np.exp(-t/d)
+def b808(m,l,glide=0):
+    t=np.arange(int(l*SR))/SR; fr=f(m)*(1+glide*np.minimum(t/0.08,1))
+    ph=2*np.pi*np.cumsum(fr)/SR
+    return np.tanh(1.6*np.sin(ph))*np.minimum(t/0.004,1)*np.minimum((l-t)/0.03,1)*np.exp(-t/(l*1.4))
+def logdrum(m,l=0.35):
+    t=np.arange(int(l*SR))/SR; fr=f(m)*(1+0.5*np.exp(-t/0.02))
+    ph=2*np.pi*np.cumsum(fr)/SR
+    return (np.sin(ph)+0.3*np.sin(2*ph))*np.minimum(t/0.002,1)*np.exp(-t/0.12)
+def chop(m,l=0.18):   # vocal-ish formant chop
+    t=np.arange(int(l*SR))/SR; fr=f(m)
+    s=sum(np.sin(2*np.pi*k*fr*t)*np.exp(-((k*fr-fo)/250)**2) for k in range(1,14) for fo in (700,1150))
+    return s*np.minimum(t/0.005,1)*np.minimum((l-t)/0.02,1)
+def openhat(): return hat(0.12)
+def gated(l=0.3):
+    t=np.arange(int(l*SR))/SR; x=np.convolve(rng.standard_normal(len(t)),np.ones(3)/3,'same')
+    return (x*0.8+np.sin(2*np.pi*200*t))*(t<0.2)*np.minimum(t/0.002,1)
 
 STYLES={
  'clickonly': dict(ch=[[60,64,67,71]]*4, root=[36]*4),
@@ -73,6 +93,12 @@ STYLES={
  'chip':  dict(ch=[[69,72,76],[65,69,72],[60,64,67],[67,71,74]], root=[45,41,36,43]),
  'house': dict(ch=[[65,68,72,75],[61,65,68,72],[68,72,75,79],[63,67,70,74]], root=[41,37,44,39]),
  'clicky':dict(ch=[[60,64,67,71],[57,60,64,67],[60,64,67,71],[53,57,60,64]], root=[36,33,36,29]),
+ 'trap':  dict(ch=[[57,60,64,67],[53,57,60,64],[55,58,62,65],[52,55,59,62]], root=[33,29,31,28]),
+ 'reggaeton':dict(ch=[[62,65,69,72],[58,62,65,69],[60,64,67,70],[57,60,64,67]], root=[38,34,36,33]),
+ 'garage':dict(ch=[[63,67,70,74],[60,63,67,70],[65,68,72,75],[62,65,69,72]], root=[39,36,41,38]),
+ 'afro':  dict(ch=[[64,67,71,74],[60,64,67,71],[62,65,69,72],[59,62,66,69]], root=[40,36,38,35]),
+ 'synthwave':dict(ch=[[57,60,64,69],[53,57,60,65],[48,52,55,60],[55,59,62,67]], root=[33,29,24,31]),
+ 'disco': dict(ch=[[62,65,69,72],[67,71,74,77],[60,64,67,72],[57,60,64,69]], root=[38,43,36,45]),
 }
 CH=STYLES[STYLE]['ch']; ROOT=STYLES[STYLE]['root']
 def live(t): return t<END and not (SNAP and SNAP-1.0<=t<SNAP)   # drop-out before the snap
@@ -196,6 +222,82 @@ for bar in (range(0) if STYLE=='clickonly' else range(int(END//2)+1)):
         for s,a in ((0,0),(6,2),(12,3)):
             if at(s)<END: add(pluck(c[a]+12,0.8,0.25), at(s), 0.12)
         if live(at(8)): add(bass(r+12,0.5), at(8), 0.22)
+    elif STYLE=='trap':     # half-time: big 808 with glides, triplet hat rolls, dark bells
+        for s in (0,6,10):
+            if at(s)<END: add(pluck(c[[0,2,3][(s//4)%3]]+24,0.9,0.35), at(s), 0.10)
+        for s,ln,g in ((0,0.7,0),(7,0.35,0),(10,0.5,0.06 if bar%2 else 0)):
+            if live(at(s)) and (full or s==0): add(b808(r+12,ln,g), at(s), 0.45)
+        for s in range(16):
+            t=at(s)
+            if not live(t): continue
+            if s in (0,7,10) and (full or s==0): add(kick(0.06), t, 0.6)
+            if full and s==8: add(clap(), t, 0.32); add(snare(), t, 0.15)
+            if s%2==0 or full: add(hat(0.012), t, 0.03)
+        if full and bar%2==1 and at(12)<END:
+            for i in range(6): add(hat(0.008), at(12)+i*S16*2/3, 0.03)      # triplet roll
+    elif STYLE=='reggaeton':  # dembow
+        for b in range(2):
+            h=t0+b*1.0
+            for s,fn,g in ((0,'k',0.85),(3,'s',0.25),(4,'k',0.7),(6,'s',0.25)):
+                tt=h+s*S16
+                if not live(tt) or (not full and fn=='s' and s==3): continue
+                if fn=='k': add(kick(0.09), tt, g)
+                else: add(snare(), tt, g); add(rim(), tt, 0.08)
+            for s in range(0,8,2):
+                if live(h+s*S16): add(hat(0.015), h+s*S16+S16, 0.03)
+        for s,a in ((0,0),(3,2),(6,1),(8,3),(11,2),(14,1)):
+            if at(s)<END and (full or s<8): add(pluck(c[a]+12,0.4,0.12), at(s), 0.18)
+        for s in (0,6,8,14):
+            if live(at(s)): add(bass(r+(7 if s==6 else 0),S16*2), at(s), 0.34)
+    elif STYLE=='garage':   # UK 2-step: skippy kicks, swung hats, organ stabs, vocal chops
+        sw=S16*0.3
+        for s in range(16):
+            t=at(s)+(sw if s%2 else 0)
+            if not live(t): continue
+            if s in (0,10): add(kick(0.08), t, 0.85)
+            if s in (4,12): add(snare(), t, 0.22); add(clap(), t, 0.15)
+            if s%2==1: add(hat(0.02), t, 0.04)
+        for s in (2,7,11):
+            if at(s)<END: add(stab(c,0.25), at(s)+sw, 0.13)
+        if full:
+            for s,a in ((0,3),(3,2),(6,3),(9,1)) if bar%2==0 else ((1,2),(4,3),(8,1),(13,0)):
+                if at(s)<END: add(chop(c[a]+12), at(s), 0.06)
+        for s in (0,3,10):
+            if live(at(s)): add(bass(r+(12 if s==3 else 0),S16*2.5), at(s), 0.34)
+    elif STYLE=='afro':     # afrobeats: log drum, shaker, 3-3-2 rims, marimba hook
+        for s in range(16):
+            t=at(s)
+            if not live(t): continue
+            add(hat(0.01), t, 0.025 if s%2 else 0.04)                        # shaker
+            if s in (0,8): add(kick(0.1), t, 0.75)
+            if s in (3,6,11,14): add(rim(), t, 0.09)                         # 3-3-2 feel
+            if full and s in (4,12): add(clap(), t, 0.22)
+        for s,dn in ((0,0),(3,7),(6,5),(10,0),(13,3)):
+            if live(at(s)) and (full or s in (0,10)): add(logdrum(r+12+dn), at(s), 0.42)
+        for s,a in ((2,2),(4,3),(7,1),(10,2),(12,0)):
+            if at(s)<END and full: add(marimba(c[a]+12,0.4), at(s), 0.2)
+    elif STYLE=='synthwave':  # saw arps, gated snare, wide pad
+        add(pad(c,2.0), t0, 0.10)
+        for s in range(16):
+            t=at(s)
+            if t<END: add(saw(c[s%4]+12,0.2,0.08), t, 0.06 if full else 0.04)
+            if not live(t): continue
+            if s in (0,8): add(kick(0.12), t, 0.85)
+            if full and s in (4,12): add(gated(), t, 0.25)
+            if s%2==0: add(bass(r+(12 if s%4==2 else 0),S16*1.8), t, 0.3)
+            if full and s%4==2: add(hat(0.03), t, 0.035)
+    elif STYLE=='disco':    # four-on-the-floor, open hats, octave bass, string stabs
+        for b in range(4):
+            t=t0+b*BEAT
+            if not live(t): continue
+            add(kick(0.1), t, 0.85); add(openhat(), t+BEAT/2, 0.05)
+            if full and b in (1,3): add(clap(), t, 0.25); add(snare(), t, 0.1)
+            for i in (0,1): add(bass(r+12*i,BEAT*0.4), t+i*BEAT/2, 0.32)
+            if full: add(hat(0.01), t+BEAT/4, 0.015); add(hat(0.01), t+3*BEAT/4, 0.015)
+        for s in (3,6,11) if full else (6,):
+            if at(s)<END: add(saw([m+12 for m in c][0],0.18,0.07)+saw(c[2]+12,0.18,0.07), at(s), 0.08)
+        if full and bar%2==1 and at(12)<END:
+            for i,m in enumerate(c): add(saw(m+12,0.5,0.25), at(12)+i*0.04, 0.05)
 if STYLE=='lofi':           # tape warmth + vinyl crackle
     out=np.convolve(out,np.ones(7)/7,'same')
     cr=(rng.random(n)>0.9996)*rng.standard_normal(n)*0.25
