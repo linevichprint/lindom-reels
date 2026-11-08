@@ -2572,3 +2572,11 @@ export const batch39: Record<string, ReelConfig> = pinkify({
   DgWtfBeige: fast("dg18", [D(BK.honey, 15), D(BK.nellie, 15), D(BK.bo, 15), D(BK.jam, 15), D(BK.olive, 15), D(BK.pumba, 15), D(BK.theo, 15), D(BK.terra, 15), JF("k_orange", 1.57, { after: 15 }), JF("k_green", 1.43, { after: 15 }), JF("k_bp2", 1.38, { after: 30 })],
     (n) => [persist(n, "pov:", "wtf is beige", 240, 90)]),
 });
+
+// voiced "beige era is now officially over" (Kokoro am_michael): "So, the beige era?" (plain "Beige era" is heard as "Bays era") over the beige bowl in black & white, "Now officially over." as the colour starts
+batch39.VoiceBeigeOver = pinkify({ x: reel("dgv1", [
+  { ...shots([["se_6177", 0.5, 1, 45, NAPS]])[0], vo: "bg_vo1" } as Sc,
+  { ...shots([D(BK.orange, 15)])[0], vo: "bg_vo2" } as Sc,
+  ...shots([D(BK.honey, 15), D(BK.blue, 15), D(BK.mint, 15), D(BK.amy, 15), D(BK.green, 15), D(BK.bruno, 15), D(BK.pyr, 15)]),
+  JF("k_pink", 2.55, { after: 30 }),
+], [chic(0, 45, 260, [W1("beige era", 2)], 90), chic(45, 165, 260, [W1("beige era", 0), W1("is now officially over", 4, "italic", true)], 84)]) }).x;
