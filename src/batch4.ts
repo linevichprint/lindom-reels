@@ -2580,3 +2580,26 @@ batch39.VoiceBeigeOver = pinkify({ x: reel("dgv1", [
   ...shots([D(BK.honey, 15), D(BK.blue, 15), D(BK.mint, 15), D(BK.amy, 15), D(BK.green, 15), D(BK.bruno, 15), D(BK.pyr, 15)]),
   JF("k_pink", 2.55, { after: 30 }),
 ], [chic(0, 45, 260, [W1("beige era", 2)], 90), chic(45, 165, 260, [W1("beige era", 0), W1("is now officially over", 4, "italic", true)], 84)]) }).x;
+
+// ---- Batch 40: "wait until you see", "started as an STL file", "favorite print yet" (a flower pot / flower holder take and a bowl take each),
+// and two plate-pull compilations. fp_*: stacking flower pot, fh_*: hexagon plant trellis. No map pulls. ----
+const PULLS2: Shot[] = [["r_olive", 2, 1.5, 30], ["p_mint_remove", 1, 1.6, 30], ["t_purplepull", 5, 1.6, 30], ["hb_6272", 3, 1.5, 30], ["p_yellow_remove", 4, 1.6, 30],
+  ["pu_9430", 2, 1.4, 30], ["fp_0551", 3.5, 1.5, 30], ["br_6183", 1.2, 1.3, 30], ["p_terra_peel", 1, 2, 30], ["se_6134", 2, 1.4, 30], ["fh_6263", 2, 1.5, 30], ["r_grey", 1.5, 1.4, 45]];
+// real sound: each take at real speed around its pull, windows picked by the loudest moment of the take (sv5.wav carries the takes' own audio under quiet music)
+export const ASMR2: Shot[] = [["as_7057", 5.0, 1, 45], ["as_7687", 5.9, 1, 45], ["as_6831", 2.6, 1, 60], ["as_8171", 6.6, 1, 45], ["as_7051", 4.2, 1, 60], ["as_7673", 9.8, 1, 60]];
+export const batch40: Record<string, ReelConfig> = pinkify({
+  SvWaitPot: fast("sv1", [["fp_0551", 0.5, 1, 45], ["fp_0551", 4, 1.5, 45], ["fp_0552", 0.3, 1, 60], ["fp_0552", 2.5, 1.2, 60], ["fp_0552", 7.5, 1, 60]],
+    (n) => [persist(n, "wait until you see", "what this becomes", 230, 80), bottom(210, 60, "a flower pot.", 80)]),
+  SvWaitBowl: fast("sv2", [["pu_9403", 0.5, 1, 45], ["pu_9427", 1, 6, 30], ["pu_9433", 2, 6, 30], ["pu_9430", 2, 1.4, 30], JF("pu_6158", 5.8, { after: 30 }), ["pu_6160", 0.5, 1, 45]],
+    (n) => [persist(n, "wait until you see", "what this becomes", 230, 80), bottom(180, n - 180, "a bowl for Pumba.", 80)]),
+  SvStlFlower: fast("sv3", [["fh_6263", 1, 1.5, 45], ["fh_0353", 1, 1.5, 45], ["fh_0355", 20, 3, 45], ["fh_0356", 1, 1, 75]],
+    (n) => [persist(n, "this started", "as an STL file", 230, 84)]),
+  SvStlBowl: fast("sv4", [["p_cad_blue", 1, 1, 45], ["t_blue1", 2, 4, 30], ["th_p4", 1, 3, 30], ["t_bluepull", 2, 1.5, 30], JF("k_bp2", 1.38, { after: 30 }), ["t_steel1", 0.5, 1, 45]],
+    (n) => [persist(n, "this started", "as an STL file", 230, 84)]),
+  SvFavPot: fast("sv6", [["fp_0551", 4, 1.5, 45], ["fp_0552", 0.3, 1, 45], ["fp_0552", 2.5, 1.2, 60], ["fp_0552", 7.4, 1, 75]],
+    (n) => [persist(n, "this might be", "my favorite print yet", 230, 80)]),
+  SvFavBowl: fast("sv7", [D(BK.orange, 15), D(BK.mint, 15), D(BK.bruno, 15), D(BK.pumba, 15), D(BK.swane, 15), D(BK.theo, 15), D(PR.honey, 30), AT("hb_0399", 2.5, 45, 30, 1, [1.02, 1.07]), ["hb_0415", 0.3, 1, 90]],
+    (n) => [persist(n, "this might be", "my favorite print yet", 230, 80)]),
+  SvMostSatisfying: fast("sv8", PULLS2, (n) => [persist(n, "the most satisfying part", "of 3D printing", 230, 80)]),
+  SvOddly: fast("sv5", ASMR2, (n) => [persist(n, "3D printing is", "oddly satisfying", 230, 84), bottom(0, n, "sound on", 60)]),
+});
