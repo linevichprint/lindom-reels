@@ -2584,7 +2584,7 @@ batch39.VoiceBeigeOver = pinkify({ x: reel("dgv1", [
 // ---- Batch 40: "wait until you see", "started as an STL file", "favorite print yet" (a flower pot / flower holder take and a bowl take each),
 // and two plate-pull compilations. fp_*: stacking flower pot, fh_*: hexagon plant trellis. No map pulls. ----
 const PULLS2: Shot[] = [["r_olive", 2, 1.5, 30], ["p_mint_remove", 1, 1.6, 30], ["t_purplepull", 5, 1.6, 30], ["hb_6272", 3, 1.5, 30], ["p_yellow_remove", 4, 1.6, 30],
-  ["pu_9430", 2, 1.4, 30], ["fp_0551", 3.5, 1.5, 30], ["br_6183", 1.2, 1.3, 30], ["p_terra_peel", 1, 2, 30], ["se_6134", 2, 1.4, 30], ["fh_6263", 2, 1.5, 30], ["r_grey", 1.5, 1.4, 45]];
+  ["pu_9430", 2, 1.4, 30], ["r_teo", 0.5, 1.3, 30], ["br_6183", 1.2, 1.3, 30], ["p_terra_peel", 1, 2, 30], ["se_6134", 2, 1.4, 30], ["as_5733", 4, 1.5, 30], ["r_grey", 1.5, 1.4, 45]];
 // real sound: each take at real speed around its pull, windows picked by the loudest moment of the take (sv5.wav carries the takes' own audio under quiet music)
 export const ASMR2: Shot[] = [["as_7057", 5.0, 1, 45], ["as_7687", 5.9, 1, 45], ["as_6831", 2.6, 1, 60], ["as_8171", 6.6, 1, 45], ["as_7051", 4.2, 1, 60], ["as_7673", 9.8, 1, 60]];
 export const batch40: Record<string, ReelConfig> = pinkify({
@@ -2606,29 +2606,29 @@ export const batch40: Record<string, ReelConfig> = pinkify({
 
 // ---- Batch 41: BamBam (pink + purple double bowl, bb_*: spools, loading, printing, joins at bb_0619 1.95 s in hand and bb_0617 4.2 s on the desk),
 // bigger plate-pull compilations, every bowl incl. BamBam, a dog-owner POV with the new Amy take, and the family studio.
-// Kids only from behind: f_kids3 whole, f_kids2 zoomed off the little one in the chair, qc_new zoomed off the adult at the edge; f_kids1/ks_*/desk show faces. ----
+// Kids only from behind: f_kids3 whole, f_kids2 zoomed off the little one in the chair, kf_4573/4574/4576/4581 (first upload: kids with dad at the studio desk, from behind; later parts show faces); f_kids1/ks_*/desk show faces. ----
 const BB_SNAP_HAND = (d = 60, lead = 30) => AT("bb_0619", 1.95, d, lead, 1, [1.02, 1.07]);
 const PULLS3: Shot[] = [...PULLS2.slice(0, -1), ["t_bluepull", 2, 1.5, 30], ["p_tan_peel", 2, 1.6, 30], ["r_greydiag", 3, 1.8, 30], ["r_nellie", 2, 1.6, 30],
-  ["p_green_peel", 3, 1.6, 30], ["hb_0395", 3, 1.5, 30], ["sk_0258", 2, 1.5, 30], ["sk_6267", 4, 1.5, 30], ["r_grey", 1.5, 1.4, 45]];
+  ["p_green_peel", 3, 1.6, 30], ["hb_0395", 3, 1.5, 30], ["r_grey", 1.5, 1.4, 45]];
 export const ASMR3: Shot[] = [...ASMR2, ["as_4268", 5.6, 1, 45], ["as_5825", 2.6, 1, 45]];
 const KIDS3: Shot = ["f_kids3", 6.5, 1, 75], KIDS2: Shot = ["f_kids2", 7, 1, 60, { zoom: [1.5, 1.55], origin: "50% 22%" }], QC: Shot = ["qc_new", 2.6, 1, 60, { zoom: [1.4, 1.45], origin: "20% 80%" }];
 export const batch41: Record<string, ReelConfig> = pinkify({
-  BmWait: fast("bm1", [["bb_0591", 0.5, 1, 30], ["bb_0592", 0.5, 1.5, 30], ["bb_0598", 2, 4, 30], ["bb_0598", 12, 4, 30], JF("bb_0619", 1.95, { after: 30 }), ["bb_0618", 2.5, 1, 60]],
+  BmWait: fast("bm1", [["bb_0591", 0.5, 1, 30], ["bb_0592", 0.5, 1.5, 30], ["bb_0598", 2, 4, 30], ["bb_0598", 12, 4, 30], JF("bb_0619", 1.95, { after: 30 }), ["bb_0619", 6, 1, 60]],
     (n) => [persist(n, "wait until you see", "what this becomes", 230, 80), bottom(165, n - 165, "a bowl for BamBam.", 80)]),
   BmStl: fast("bm2", [["bb_0588", 45, 2, 30], ["bb_0598", 6, 4, 30], ["bb_0598", 18, 4, 30], AT("bb_0617", 4.2, 60, 36, 1, [1.02, 1.07]), ["bb_0617", 7, 1.5, 45], ["bb_0619", 6, 1, 45]],
     (n) => [persist(n, "this started", "as an STL file", 230, 84)]),
-  BmFav: fast("bm3", [["bb_0618", 0.3, 1, 45], BB_SNAP_HAND(60, 30), ["bb_0617", 12, 1.5, 45], ["bb_0589", 0, 1, 30], ["bb_0618", 3, 1, 60]],
+  BmFav: fast("bm3", [["bb_0618", 0.3, 1, 45], BB_SNAP_HAND(60, 30), ["bb_0617", 12, 1.5, 45], ["bb_0589", 0, 1, 30], ["bb_0619", 4, 1, 60]],
     (n) => [persist(n, "this might be", "my favorite print yet", 230, 80)]),
-  BmBeforeAfter: beforeAfter("bm4", ["bb_0589", 0, 0.5, 105], ["bb_0618", 2, 1, 120], [[W1("BEFORE", 0, "bold")], [W1("AFTER", 0, "bold")]], 260),
+  BmBeforeAfter: beforeAfter("bm4", ["bb_0589", 0, 0.5, 105], ["bb_0619", 3, 1, 120], [[W1("BEFORE", 0, "bold")], [W1("AFTER", 0, "bold")]], 260),
   SvMostSatisfying2: fast("sv9", PULLS3, (n) => [persist(n, "the most satisfying part", "of 3D printing", 230, 80)]),
   SvOddly2: fast("sv10", ASMR3, (n) => [persist(n, "3D printing is", "oddly satisfying", 230, 84), bottom(0, n, "sound on", 60)]),
-  DgWtfBeige2: fast("bm7", [D(BK.honey, 15), ["bb_0618", 3.5, 1, 15], D(BK.nellie, 15), D(BK.bo, 15), D(BK.jam, 15), D(BK.olive, 15), D(BK.pumba, 15), D(BK.theo, 15),
+  DgWtfBeige2: fast("bm7", [D(BK.honey, 15), ["bb_0619", 6, 1, 15], D(BK.nellie, 15), D(BK.bo, 15), D(BK.jam, 15), D(BK.olive, 15), D(BK.pumba, 15), D(BK.theo, 15),
     D(BK.terra, 15), D(BK.bruno, 15), D(BK.swane, 15), D(BK.amy, 15), JF("k_orange", 1.57, { after: 15 }), JF("hb_0399", 2.5, { after: 15 }), JF("bb_0619", 1.95, { after: 30 })],
     (n) => [persist(n, "pov:", "wtf is beige", 240, 90)]),
   DgPovBeing: fast("bm8", [["am_0601", 1, 1, 60], D(PR.close, 30), ["bb_0598", 12, 4, 30], JF("bb_0619", 1.95, { after: 30 }), D(BK.amy, 30), ["dog", 0.3, 1, 60]],
     (n) => [persist(n, "pov: being a dog owner", "with a 3D printer", 230, 76)]),
-  FamStudioReal: fast("bm9", [KIDS3, ["n_workshop", 1, 2, 45], QC, ["w_8791", 0.5, 1.5, 45], KIDS2, D(PR.terraOff, 30)],
+  FamStudioReal: fast("bm9", [["kf_4581", 0.3, 1, 60], ["kf_4573", 6, 1, 45], ["n_workshop", 1, 2, 45], ["kf_4574", 0.3, 1, 60], KIDS3, ["w_8791", 0.5, 1.5, 45], ["kf_4576", 0.5, 1, 45], D(PR.terraOff, 30)],
     (n) => [persist(n, "pov: this is how a family 3D printing studio", "really looks like", 230, 62)]),
-  FamStudioMean: fast("bm10", [["w_8803", 0, 3, 60], ["f_kids3", 9, 1, 60], ["d_studio", 0.3, 1, 45], KIDS2, QC, ["n_pack", 4, 2, 45]],
+  FamStudioMean: fast("bm10", [["w_8803", 0, 3, 60], ["kf_4576", 0.5, 1, 60], ["kf_4573", 6.5, 1, 45], ["kf_4581", 2, 1, 45], KIDS2, ["kf_4574", 8, 1, 45], ["n_pack", 4, 2, 45]],
     (n) => [persist(n, "pov: this is what we mean by", "“we are a small family 3D studio”", 230, 62)]),
 });
