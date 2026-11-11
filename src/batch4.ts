@@ -2585,8 +2585,8 @@ batch39.VoiceBeigeOver = pinkify({ x: reel("dgv1", [
 // and two plate-pull compilations. fp_*: stacking flower pot, fh_*: hexagon plant trellis. No map pulls. ----
 const PULLS2: Shot[] = [["r_olive", 2, 1.5, 30], ["p_mint_remove", 1, 1.6, 30], ["t_purplepull", 5, 1.6, 30], ["hb_6272", 3, 1.5, 30], ["p_yellow_remove", 4, 1.6, 30],
   ["pu_9430", 2, 1.4, 30], ["r_teo", 0.5, 1.3, 30], ["br_6183", 1.2, 1.3, 30], ["p_terra_peel", 1, 2, 30], ["se_6134", 2, 1.4, 30], ["as_5733", 4, 1.5, 30], ["r_grey", 1.5, 1.4, 45]];
-// real sound: each take at real speed around its pull, windows picked by the loudest moment of the take (sv5.wav carries the takes' own audio under quiet music)
-export const ASMR2: Shot[] = [["as_7057", 5.0, 1, 45], ["as_7687", 5.9, 1, 45], ["as_6831", 2.6, 1, 60], ["as_8171", 6.6, 1, 45], ["as_7051", 4.2, 1, 60], ["as_7673", 9.8, 1, 60]];
+// real sound: each take at real speed around its pull, windows picked by the loudest moment of the take; sv5/sv10 are mixed with scripts/mix_real.py (sv5.wav carries the takes' own audio under quiet music)
+export const ASMR2: Shot[] = [["as_7687", 5.9, 1, 45], ["as_6831", 2.6, 1, 60], ["as_7051", 4.2, 1, 60], ["as_7673", 9.8, 1, 60], ["as_4268", 5.6, 1, 45]]; // no as_7057 (empty plate), no as_8171 (steel bowl going in)
 export const batch40: Record<string, ReelConfig> = pinkify({
   SvWaitPot: fast("sv1", [["fp_0551", 0.5, 1, 45], ["fp_0551", 4, 1.5, 45], ["fp_0552", 0.3, 1, 60], ["fp_0552", 2.5, 1.2, 60], ["fp_0552", 7.5, 1, 60]],
     (n) => [persist(n, "wait until you see", "what this becomes", 230, 80), bottom(210, 60, "a flower pot.", 80)]),
@@ -2608,9 +2608,9 @@ export const batch40: Record<string, ReelConfig> = pinkify({
 // bigger plate-pull compilations, every bowl incl. BamBam, a dog-owner POV with the new Amy take, and the family studio.
 // Kids only from behind: f_kids3 whole, f_kids2 zoomed off the little one in the chair, kf_4573/4574/4576/4581 (first upload: kids with dad at the studio desk, from behind; later parts show faces); f_kids1/ks_*/desk show faces. ----
 const BB_SNAP_HAND = (d = 60, lead = 30) => AT("bb_0619", 1.95, d, lead, 1, [1.02, 1.07]);
-const PULLS3: Shot[] = [...PULLS2.slice(0, -1), ["t_bluepull", 2, 1.5, 30], ["p_tan_peel", 2, 1.6, 30], ["r_greydiag", 3, 1.8, 30], ["r_nellie", 2, 1.6, 30],
+const PULLS3: Shot[] = [...PULLS2.slice(0, -1), ["t_bluepull", 2, 1.5, 30], ["p_tan_peel", 2, 1.6, 30], ["r_nellie", 2, 1.6, 30],
   ["p_green_peel", 3, 1.6, 30], ["hb_0395", 3, 1.5, 30], ["r_grey", 1.5, 1.4, 45]];
-export const ASMR3: Shot[] = [...ASMR2, ["as_4268", 5.6, 1, 45], ["as_5825", 2.6, 1, 45]];
+export const ASMR3: Shot[] = [...ASMR2, ["as_5825", 2.6, 1, 45], ["as_5733", 4.5, 1, 45]];
 const KIDS3: Shot = ["f_kids3", 6.5, 1, 75], KIDS2: Shot = ["f_kids2", 7, 1, 60, { zoom: [1.5, 1.55], origin: "50% 22%" }], QC: Shot = ["qc_new", 2.6, 1, 60, { zoom: [1.4, 1.45], origin: "20% 80%" }];
 export const batch41: Record<string, ReelConfig> = pinkify({
   BmWait: fast("bm1", [["bb_0591", 0.5, 1, 30], ["bb_0592", 0.5, 1.5, 30], ["bb_0598", 2, 4, 30], ["bb_0598", 12, 4, 30], JF("bb_0619", 1.95, { after: 30 }), ["bb_0619", 6, 1, 60]],
