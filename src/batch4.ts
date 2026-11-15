@@ -2636,5 +2636,7 @@ export const batch41: Record<string, ReelConfig> = pinkify({
 // ---- Batch 42: the tulip pot (tp_*: spool in hand, pot and saucer off the printer, pot set on its saucer and turned on the black wall) ----
 export const batch42: Record<string, ReelConfig> = pinkify({
   TulipPot: fast("tlp1", [["tp_0796", 2, 1, 30], ["tp_0776", 0.3, 1, 30], ["tp_0776", 2.8, 1.3, 45], ["tp_0791", 3.4, 1.5, 45], ["tp_0793", 1.2, 1.2, 60], ["tp_0793", 10.4, 1, 75]],
-    (n) => [persist(n, "wait until you see", "what this becomes", 230, 80), one(210, n - 210, "a tulip pot.", "italic", 450, 90)]), // the pot fills the lower half, so the answer sits under the hook
+    (n) => [persist(n, "wait until you see", "what this becomes", 230, 80), one(210, n - 210, "a tulip pot.", "italic", 450, 90)]),
+  TulipStl: fast("tlp2", [["tp_0791", 0.5, 1, 30], ["tp_0791", 3.4, 1.5, 45], ["tp_0776", 2.8, 1.3, 45], ["tp_0793", 0.3, 1.2, 75], ["tp_0793", 11, 1, 75]],
+    (n) => [persist(n, "this started", "as an STL file", 230, 84)]), // the pot fills the lower half, so the answer sits under the hook
 });
