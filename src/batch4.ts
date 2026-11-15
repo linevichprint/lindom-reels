@@ -2640,3 +2640,117 @@ export const batch42: Record<string, ReelConfig> = pinkify({
   TulipStl: fast("tlp2", [["tp_0791", 0.5, 1, 30], ["tp_0791", 3.4, 1.5, 45], ["tp_0776", 2.8, 1.3, 45], ["tp_0793", 0.3, 1.2, 75], ["tp_0793", 11, 1, 75]],
     (n) => [persist(n, "this started", "as an STL file", 230, 84)]), // the pot fills the lower half, so the answer sits under the hook
 });
+
+// ---- Batch 43: the user's theme list (3D printing in-jokes, STL / licences, bowls & dogs, kids' pegboard, family studio).
+// Rules: bowls end on the black wall; plate pulls are bowls only; maps never share a reel with bowls; kids only from behind; nothing over Amy's face. ----
+const G = (t: string, shots: (Shot | Sc)[]): [string, (Shot | Sc)[]] => [t, shots];
+const listReel = (music: string, a: string, b: string, groups: [string, (Shot | Sc)[]][], size = 70, hs = 68) =>
+  fast(music, groups.flatMap((g) => g[1]), (n) => [persist(n, a, b, 230, hs), ...runs(groups, size)]);
+// caption A over the first `cut` frames, then B (A stays as the white line)
+const flip = (music: string, list: (Shot | Sc)[], a: string, cut: number, b: string, size = 76) =>
+  fast(music, list, (n) => [chic(0, cut, 250, [W1(a, 2)], size), chic(cut, n - cut, 250, [W1(a, 0), W1(b, 4, "italic", true)], size)]);
+const BLUR: Shot[] = [D(PR.close, 15), D(PR.mint, 15), D(PR.green, 15), D(PR.blue, 15), D(PR.theo, 15), D(PR.pumba, 15), D(PR.swane, 15), D(PR.honey, 15),
+  ["bb_0598", 12, 4, 15], ["tp_0776", 0.3, 1, 15], D(PR.bruno, 15), ["print_wide", 0.5, 1, 15]];
+const KF = { a: ["kf_4581", 0.3, 1, 45] as Shot, b: ["kf_4573", 6, 1, 45] as Shot, c: ["kf_4574", 0.3, 1, 45] as Shot, d: ["kf_4576", 0.5, 1, 45] as Shot };
+const MAP: Record<string, Shot> = { pin: ["mp_0604", 1, 1, 60], pin2: ["mp_0606", 2, 1, 60], eu: ["mp_9376", 0.3, 1, 45], world: ["mp_9372", 0.5, 1, 60, { zoom: [1, 1.3] }],
+  aus: ["w_8839", 3, 1, 45], am: ["w_8841", 1, 1, 45], close: ["mp_0605", 0, 1, 15], wall: ["w_8810", 0.5, 1, 45], new1: ["mp_0172", 1.5, 1, 45], new2: ["mp_0173", 3, 1.2, 45], new3: ["mp_0175", 0.5, 1, 45] };
+
+export const batch43: Record<string, ReelConfig> = pinkify({
+  // 3D printing, for makers
+  QSatOnly: listReel("q01", "things only 3D printing people", "find satisfying", [G("a clean first layer", [D(PR.green, 30)]), G("the plate pop", [["as_6831", 2.6, 1, 45]]),
+    G("the click", [JF("k_green", 1.43, { after: 30 })]), G("a full spool", [["bb_0591", 0.5, 1, 30]]), G("this.", [D(BK.honey, 45)])]),
+  QUnderstand: fast("q02", [["fail", 1, 1, 30], ["th_p3", 0, 3, 30, NAPS], D(PR.close, 30), ["as_7051", 4.2, 1.2, 30], JF("k_bp2", 1.38, { after: 30 }), D(BK.theo, 45)],
+    (n) => [persist(n, "3D printing people", "will understand", 230, 80)]),
+  QFiveTypes: listReel("q03", "the 5 types of people", "with a 3D printer", [G("1. checks the print every 5 min", [D(PR.close, 45)]), G("2. owns 40 spools", [["b_spools", 0, 1, 45]]),
+    G("3. prints only for the dog", [D(BK.amy, 45)]), G("4. calls this “research”", [["fail", 1, 1, 45]]), G("5. all of the above", [["print_wide", 0.5, 1, 60]])], 62),
+  QHearVs: fast("q04", [["print_wide", 0.5, 1, 90, NAPS], D(PR.close, 45), ["as_7687", 5.9, 1, 45]],
+    () => [chic(0, 90, 250, [W1("what non-printers hear:", 2), W1("noise.", 14, "italic", true)], 74), chic(90, 90, 250, [W1("what we hear:", 2), W1("progress.", 14, "italic", true)], 74)]),
+  QSpaghetti: fast("q05", [["fail", 0, 0.7, 75, { zoom: [1.1, 1.5], origin: "50% 60%" }], ["fail", 2.5, 0.6, 75, { zoom: [1.5, 1.05] }]],
+    (n) => [persist(n, "if you know, you know:", "the spaghetti moment", 230, 80)]),
+  QJustCheck: fast("q06", [D(PR.wide, 45), D(PR.close, 60), ["print_blue", 0.5, 0.5, 60], ["print_mint", 5, 0.5, 60]],
+    () => [chic(0, 45, 250, [W1("me: I'll just check the print.", 2)], 72), chic(45, 180, 250, [W1("also me, 40 minutes later:", 2, "italic")], 72)]),
+  QNeverDo: listReel("q07", "things I said I'd never do", "before I got a 3D printer", [G("check a print at 3 a.m.", [["th_p3", 0, 2, 45, NAPS]]), G("own this many spools", [["b_spools", 0, 1, 45]]),
+    G("name my printer", [["print_wide", 0.5, 1, 45]]), G("print my dog a bowl. or five.", [D(BK.orange, 15), D(BK.mint, 15), D(BK.blue, 15), D(BK.amy, 30)])], 64),
+  QCameraRoll: fast("q08", BLUR, (n) => [persist(n, "my camera roll is", "90% prints in progress", 230, 80)]),
+  QTooLong: listReel("q09", "signs you've been", "3D printing too long", [G("you hear the click in your sleep", [JF("k_orange", 1.57, { after: 30 })]), G("you know every spool by colour", [["b_spools", 0, 1, 45]]),
+    G("you plan dinner around a print", [D(PR.swane, 45)]), G("your dog has more bowls than you", [D(BK.jam, 15), D(BK.olive, 15), D(BK.honey, 15), ["dog", 0.3, 1, 45]])], 62, 76),
+  QPlatePop: fast("q10", [["as_6831", 2.6, 1, 60], ["as_4268", 5.6, 1, 45], ["as_5825", 2.6, 1, 45], ["as_7051", 4.2, 1, 60]],
+    (n) => [persist(n, "the plate pop", "is my ASMR", 230, 84), bottom(0, n, "sound on", 60)]),
+  QFailTeachers: fast("q11", [["fail", 1, 1, 60], D(PR.close, 30), ["as_7687", 5.9, 1.2, 30], JF("b_terra_asm", 3.45, { after: 30 }), D(BK.terra, 45)],
+    (n) => [chic(0, n, 250, [W1("unpopular opinion:", 4), W1("failed prints are", 18, "italic", true), W1("the best teachers", 18, "italic", true)], 74)]),
+  QNobodyTells: listReel("q12", "things nobody tells you", "about your first 3D printer", [G("you'll watch it for hours", [D(PR.close, 45)]), G("the first print will fail", [["fail", 1, 1, 45]]),
+    G("you'll need more spools", [["unbox", 3, 1.5, 45]]), G("it's so worth it", [JF("k_pink", 2.55, { after: 30 }), D(BK.amy, 30)])], 66),
+  Q700Layers: fast("q13", [["se_9451", 0.5, 1, 30], ["se_9452", 10, 8, 45], ["se_9455", 2, 8, 45], ["se_9493", 4, 8, 45], ["se_6134", 2, 1.4, 30], JF("se_6169", 3.9, { after: 30 }), D(BK.swane, 30)],
+    (n) => [persist(n, "what 700 layers look like", "in 10 seconds", 230, 76)]),
+  QNetflix: fast("q14", [["w_8669", 0.3, 1, 60], D(PR.close, 60), ["print_mint", 3, 0.5, 60]],
+    () => [chic(0, 60, 90, [W1("normal people:", 2), W1("Netflix.", 12, "italic", true)], 80), chic(60, 120, 90, [W1("us:", 2), W1("watching the printer.", 12, "italic", true)], 80)]),
+  QTellMyself: listReel("q15", "things I'd tell myself", "before my first print", [G("clean the plate", [["t_load", 4, 2, 45]]), G("slow is fine", [["print_mint", 0, 0.5, 45]]),
+    G("it's okay to fail", [["fail", 1, 1, 45]]), G("the click is worth it", [JF("k_blue", 3.17, { after: 30 })]), G("print one for the dog", [["dog", 0.3, 1, 45]])], 68),
+  QJustPlastic: fast("q16", [D(BK.blue, 60), ["t_blue1", 2, 8, 30], ["th_p2", 2, 8, 30], ["t_blue2", 2, 8, 30], JF("k_bp2", 1.38, { after: 30 }), D(BK.theo, 30)],
+    () => [chic(0, 60, 250, [W1("“it's just plastic.”", 2)], 84), chic(60, 165, 250, [W1("it's 6 hours", 2), W1("of patience.", 10, "italic", true)], 84)]),
+
+  // STL files and printing to sell
+  QLicence10: listReel("q26", "what a commercial license means", "(in 10 seconds)", [G("you buy the file once", [["p_cad_blue", 1, 1, 45]]), G("print it as often as you like", [["t_blue1", 2, 6, 30], ["t_bluepull", 2, 1.5, 30]]),
+    G("sell the prints in your shop", [["p_lineup", 0.3, 1, 60]]), G("the design stays ours", [D(BK.theo, 45)])], 62, 66),
+  QFileVsProduct: splitReel("q27", [["p_cad_green", 1, 1, 90, { window: { pos: "50% 50%" } }], ["print_green", 0.5, 1, 90]], [["c_green", 0.3, 1, 90, { window: { pos: "50% 55%" } }], ["n_green", 2, 1, 90, { window: { pos: "50% 55%" } }]], [
+    chic(0, 180, 110, [W1("buying the file:", 4), W1("print it again and again", 4, "italic", true)], 60), chic(0, 180, 1010, [W1("buying the product:", 30), W1("one bowl", 30, "italic", true)], 60)]),
+  QWhyFiles: listReel("q28", "why we sell files,", "not just bowls", [G("your colours", [D(BK.orange, 30), D(BK.blue, 30)]), G("no shipping across the world", [["box", 0, 0.7, 45]]),
+    G("your printer, your rules", [["print_wide", 0.5, 1, 45]]), G("same click", [JF("k_green", 1.43, { after: 30 })])], 66),
+  QKitchens: fast("q29", [MAP.world, MAP.new1, MAP.new2, MAP.am, MAP.aus], (n) => [persist(n, "one file,", "printed in kitchens around the world", 230, 70)]),
+  QAcrossOcean: fast("q30", [MAP.pin2, MAP.am, MAP.new3, MAP.eu], (n) => [persist(n, "POV: someone across the ocean", "just printed your design", 230, 70)]),
+  QPersonalVsCommercial: splitReel("q31", [["n_amy_hands", 0.3, 1, 180, { window: { pos: "50% 55%" } }]], [["p_lineup", 0.3, 1, 180, { window: { pos: "50% 50%" } }]], [
+    chic(0, 180, 110, [W1("personal license:", 4), W1("for your dog", 4, "italic", true)], 62), chic(0, 180, 1010, [W1("commercial license:", 30), W1("for your shop", 30, "italic", true)], 62)]),
+  QRedFlags: listReel("q32", "red flags", "when buying STL files to sell", [G("no license in writing", [["p_cad_green", 1, 1, 45]]), G("no real prints, only renders", [["p_cad_blue2", 1, 1, 45]]),
+    G("nobody tested it", [["fail", 1, 1, 45]]), G("“just trust me”", [["fail", 3, 0.7, 45]])], 64, 72),
+  QGreenFlags: listReel("q33", "green flags", "when buying STL files to sell", [G("a clear commercial license", [["p_cad_blue", 1, 1, 45]]), G("real prints, real photos", [D(BK.orange, 20), D(BK.honey, 20)]),
+    G("tested on real printers", [["as_6831", 2.6, 1.3, 40]]), G("parts that actually click", [JF("k_orange", 1.57, { after: 30 })]), G("a dog approved it", [["dog", 0.3, 1, 45]])], 62, 72),
+  QPinkStar: fast("q34", [MAP.pin, ["mp_0605", 0, 1, 15, { zoom: [1.6, 1.7], origin: "35% 30%" }], MAP.new1, MAP.wall], (n) => [persist(n, "pink star =", "someone, somewhere, pressed print", 230, 70)]),
+  QBarcelona: fast("q35", [["w_8803", 0, 3, 60], MAP.new2, MAP.new3, MAP.aus], (n) => [persist(n, "designed in Barcelona,", "printed wherever you are", 230, 74)]),
+  QYourShop: fast("q36", [["p_cad_blue", 1, 1, 30], D(BK.orange, 15), D(BK.blue, 15), D(BK.mint, 15), D(BK.green, 15), D(BK.pyr, 15), D(BK.honey, 15), D(BK.jam, 15), ["p_lineup", 0.3, 1, 30], D(BK.honey, 30)],
+    (n) => [chic(0, n, 250, [W1("our design,", 2), W1("your colors,", 20, "italic", true), W1("your shop", 60, "italic", true)], 80)]),
+
+  // bowls and dogs
+  QDogWouldPrint: listReel("q46", "things your dog would 3D print", "if they could", [G("a bigger bowl", [D(BK.honey, 45)]), G("a second bowl", [D(BK.nellie, 45)]),
+    G("a bowl with her name", [D(BK.amy, 45)]), G("a third bowl", [D(BK.jam, 45)]), G("you know where this is going", [["dog2", 0, 1, 60]])], 66),
+  QZodiac: listReel("q47", "which bowl colour matches", "your dog's zodiac sign", [G("fire signs: orange", [D(BK.nellie, 45)]), G("earth signs: olive", [D(BK.olive, 45)]),
+    G("air signs: mint", [D(BK.jam, 45)]), G("water signs: blue", [D(BK.bo, 45)])], 72),
+  QLoveLanguage: listReel("q48", "pick a colour, I'll tell you", "your dog's love language", [G("pink: cuddles", [D(BK.amy, 40)]), G("orange: snacks", [D(BK.orange, 40)]),
+    G("blue: long walks", [D(BK.blue, 40)]), G("mint: belly rubs", [D(BK.mint, 40)]), G("honeycomb: zoomies", [D(BK.honey, 40)])], 72, 68),
+  QSaysAboutYou: listReel("q49", "your dog's bowl", "says a lot about you", [G("pyramid: you love a plan", [D(BK.pyr, 45)]), G("wave: you go with the flow", [D(BK.pumba, 45)]),
+    G("honeycomb: you're a little extra", [D(BK.honey, 45)]), G("her name on it: obsessed", [D(BK.amy, 45)])], 64, 78),
+  QReasonLearned: fast("q50", [["d_sofa", 1, 1, 45], ["p_cad_blue", 1, 1, 30], D(PR.theo, 30), D(PR.blueOff, 30), JF("k_bp2", 1.38, { after: 30 }), D(BK.theo, 45)],
+    (n) => [persist(n, "POV: your dog is the reason", "you learned 3D printing", 90, 70)]),
+  QDogPeople: fast("q51", [["am_0601", 1, 1, 45], ["d_treat", 3, 1, 45], D(BK.amy, 30), ["w_8669", 0.3, 1, 45], ["dog2", 0, 1, 45]],
+    (n) => [persist(n, "dog people", "will understand", 230, 84)]),
+  QWhichPick: fast("q52", [D(BK.orange, 30), D(BK.honey, 30), D(BK.jam, 30), D(BK.pumba, 30), ["bb_0619", 6, 1, 30], D(BK.terra, 45)],
+    (n) => [persist(n, "which bowl", "would your dog pick?", 230, 84), ...["1", "2", "3", "4", "5", "6"].map((t, i) => bottom(i * 30, i === 5 ? 45 : 30, t, 110))]),
+  QDoesntCare: fast("q53", [["w_8669", 0.3, 1, 75], D(BK.honey, 15), D(BK.orange, 15), D(BK.pyr, 15), D(BK.mint, 15), JF("k_pink", 2.55, { after: 30 })],
+    () => [chic(0, 75, 240, [W1("my dog doesn't care.", 2)], 84), chic(75, 105, 240, [W1("my dog doesn't care.", 0), W1("I care.", 4, "italic", true)], 84)]),
+  QDogMoms: fast("q54", [["am_0601", 1, 1, 45], ["d_sofa", 1, 1, 45], ["p_cad_blue2", 1, 1, 30], D(BK.amy, 45), ["dog", 0.3, 1, 60]],
+    (n) => [persist(n, "dog moms", "will get this", 90, 84)]),
+  QAmyReview: fast("q55", [["hb_0374", 6, 4, 30], AT("hb_0399", 2.5, 60, 30, 1, [1.02, 1.07]), ["hb_0399", 7, 1, 45], ["hb_0415", 0.3, 1, 90]],
+    (n) => [persist(n, "Amy's honest review", "of our newest bowl", 150, 76), one(30, 60, "the click: 10/10", "italic", 420, 80), one(90, 45, "the look: 10/10", "italic", 420, 80), one(135, 90, "the food: still waiting", "italic", 420, 80)]),
+
+  // kids' pegboard (kids from behind only)
+  QKidsRoom: fast("q71", [SKW.room, ["sk_0284", 4, 1, 45], d(SKW.wall, 45), SKW.lampOn], (n) => [persist(n, "what a 3D printing family's", "kids' room looks like", 230, 70)]),
+  QDadsBeLike: fast("q72", [d(SKO.scallop, 24), d(SKO.drawers, 24), d(SKO.bunny, 24), d(SKO.parts, 24), d(SKO.lilacSmall, 24), d(SKO.pinkParts, 24), d(SKO.stripes, 24), d(SKW.wall, 60)],
+    (n) => [persist(n, "dads with a 3D printer", "be like:", 230, 80)]),
+  QKidsAsked: listReel("q73", "things my kids asked me", "to print this week", [G("a bunny cup", [d(SKP.bunny, 30), d(SKW.bunny, 30)]), G("tiny drawers", [d(SKO.drawers, 30), d(SKW.drawers, 30)]),
+    G("a heart lamp", [d(SKD.lamp, 30), d(SKW.lampOn, 45)]), G("“more drawers”", [d(SKD.drawers2, 45)])], 72),
+  QNoBeige: fast("q74", [d(SKD.baskets, 24), d(SKD.drawers, 24), d(SKD.lamp, 24), d(SKD.scallop, 24), d(SKW.stripes, 30), d(SKW.wall, 60)], (n) => [persist(n, "a kids' room", "with no beige allowed", 230, 80)]),
+  QDopamine: fast("q75", [d(SKP.pink, 30), d(SKP.lilac, 30), d(SKW.bunny, 30), d(SKW.basket, 30), d(SKW.lights, 30), d(SKW.lampOn, 45)], (n) => [persist(n, "dopamine colours", "for a kids' room wall", 230, 80)]),
+  QToyFloor: fast("q76", [["sk_0213", 0.2, 0.3, 45], ["sk_0432", 3, 1.5, 45], d(SKW.hook, 45), d(SKW.basket, 30), d(SKW.wall, 60)], (n) => [persist(n, "the pegboard that ended", "the toy-on-the-floor era", 230, 72)]),
+  QKidLayout: fast("q77", [["sk_0289", 0.3, 1, 60], ["sk_0284", 4, 1, 45], ["sk_0432", 16, 1.5, 45], ["sk_0432", 22, 1.5, 45], d(SKW.stripes, 45)], (n) => [persist(n, "when your kid decides", "the pegboard layout", 230, 76)]),
+
+  // studio, small business, family
+  QTwoKidsDog: listReel("q91", "running a tiny print studio", "with two kids and a dog", [G("two kids", [KF.a, KF.c]), G("one dog", [["dog", 0.3, 1, 45]]), G("a few printers", [["print_wide", 0.5, 1, 45]]),
+    G("a lot of bowls", [D(BK.orange, 15), D(BK.honey, 15), D(BK.jam, 15), ["bb_0619", 6, 1, 30]])], 74),
+  QMonday: (() => { const steps: [string, string, Shot | Sc][] = [["8:00", "school run", ["d_grass", 0.5, 1, 36]], ["9:00", "prints on", ["print_wide", 0.5, 1, 36]],
+    ["12:00", "off the printer", D(PR.terraOff, 36)], ["15:00", "kids are back", KF.d], ["17:00", "click", JF("b_terra_asm", 3.45, { after: 30 })], ["18:00", "packing", ["n_pack", 4, 2, 45]]];
+    let f = 0; const caps = steps.map(([t, w, sh]) => { const n = sumD([sh]); const c = chic(f, n, 1440, [W1(t, 0), W1(w, 0, "italic", true)], 70); f += n; return c; });
+    return reel("q92", steps.map((x) => x[2]), [persist(f, "what a family 3D print studio", "looks like on a Monday", 230, 66), ...caps]); })(),
+  QBestPart: listReel("q93", "the best part of running", "a small print studio", [G("the first layer", [D(PR.green, 30)]), G("the plate pop", [["as_4268", 5.6, 1, 45]]), G("the click", [JF("k_orange", 1.57, { after: 30 })]),
+    G("this crew", [KF.b, ["dog2", 0, 1, 45]])], 74),
+  QSoundtrack: fast("q94", [["print_wide", 0.5, 1, 45], ["as_6831", 2.6, 1, 60], ["as_7051", 4.2, 1, 60], ["as_5825", 2.6, 1, 45]],
+    (n) => [persist(n, "if our studio had a soundtrack,", "it'd be printer noises", 230, 70), bottom(0, n, "sound on", 60)]),
+});
