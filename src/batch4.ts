@@ -2632,3 +2632,9 @@ export const batch41: Record<string, ReelConfig> = pinkify({
   FamStudioMean: fast("bm10", [["w_8803", 0, 3, 60], ["kf_4576", 0.5, 1, 60], ["kf_4573", 6.5, 1, 45], ["kf_4581", 2, 1, 45], KIDS2, ["kf_4574", 8, 1, 45], ["n_pack", 4, 2, 45]],
     (n) => [persist(n, "pov: this is what we mean by", "“we are a small family 3D studio”", 230, 62)]),
 });
+
+// ---- Batch 42: the tulip pot (tp_*: spool in hand, pot and saucer off the printer, pot set on its saucer and turned on the black wall) ----
+export const batch42: Record<string, ReelConfig> = pinkify({
+  TulipPot: fast("tlp1", [["tp_0796", 2, 1, 30], ["tp_0776", 0.3, 1, 30], ["tp_0776", 2.8, 1.3, 45], ["tp_0791", 3.4, 1.5, 45], ["tp_0793", 1.2, 1.2, 60], ["tp_0793", 10.4, 1, 75]],
+    (n) => [persist(n, "wait until you see", "what this becomes", 230, 80), one(210, n - 210, "a tulip pot.", "italic", 450, 90)]), // the pot fills the lower half, so the answer sits under the hook
+});
