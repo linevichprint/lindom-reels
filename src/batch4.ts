@@ -2815,3 +2815,28 @@ export const batch46: Record<string, ReelConfig> = pinkify({
     (n) => [persist(n, "working on a fully custom order today:", "an epoxy mold and a cookie cutter", 120, 62),
       ...([[0, 45, "the parts"], [45, 60, "fitting them together"], [105, 45, "checking every piece"], [150, 45, "packing"], [195, 45, "off it goes"]] as [number, number, string][]).map(([f, d, t]) => bottom(f, d, t, 72))]),
 });
+
+// ---- Batch 47: vertical twin of HzAllModels: every bowl, its pull off the printer, then its join (or the bowl held on the black wall), name on the pink block ----
+const PULL_RUN: [Shot, Sc, string][] = [
+  [["r_nellie", 2, 1.6, 30], JF("k_orange", 1.57, { after: 30 }), "Nellie"],
+  [["p_green_peel", 3, 1.6, 30], JF("k_green", 1.43, { after: 30 }), "Nugget"],
+  [["p_mint_remove", 1, 1.6, 30], shots([["n_mint2", 3.5, 1, 45]])[0], "Jam"],
+  [["r_olive", 2, 1.5, 30], JF("j_olive", 1.15, { after: 30 }), "Phoebe"],
+  [["p_terra_peel", 1, 2, 30], JF("b_terra_asm", 3.45, { after: 30 }), "Chips & Beer"],
+  [["p_yellow_remove", 4, 1.6, 30], shots([["b_yp2", 0.5, 1, 45]])[0], "Theo"],
+  [["pu_9430", 2, 1.4, 30], JF("pu_6158", 5.8, { after: 30 }), "Pumba"],
+  [["se_6134", 2, 1.4, 30], JF("se_6169", 3.9, { after: 30 }), "Swane & Eddy"],
+  [["br_6183", 1.2, 1.3, 30], JF("br_9574", 0.95, { after: 30 }), "Bruno"],
+  [["hb_6272", 3, 1.5, 30], JF("hb_0399", 2.5, { after: 30 }), "Honeycomb"],
+  [["bb_0598", 12, 4, 30], JF("bb_0619", 1.95, { after: 30 }), "BamBam"],
+  [["fr_0966", 1, 1.4, 30], JF("fr_1061", 1.1, { after: 30 }), "Frank"],
+  [["rv_1064", 2.5, 1, 30], shots([["rv_1048", 0.3, 1, 60]])[0], "Ravi"],
+];
+export const batch47: Record<string, ReelConfig> = pinkify({
+  AllPullsBowls: (() => {
+    const list: (Shot | Sc)[] = PULL_RUN.flatMap(([p, b]) => [p, b]);
+    let f = 0; const labels: any[] = [];
+    for (const [p, b, name] of PULL_RUN) { f += p[3]; labels.push(one(f, b.d, name, "italic", 300, 96)); f += b.d; }
+    return fast("ap1", list, (n) => [chic(0, 30, 300, [W1("all our bowls", 0)], 84), ...labels]);
+  })(),
+});
