@@ -2754,3 +2754,47 @@ export const batch43: Record<string, ReelConfig> = pinkify({
   QSoundtrack: fast("q94", [["print_wide", 0.5, 1, 45], ["as_6831", 2.6, 1, 60], ["as_7051", 4.2, 1, 60], ["as_5825", 2.6, 1, 45]],
     (n) => [persist(n, "if our studio had a soundtrack,", "it'd be printer noises", 230, 70), bottom(0, n, "sound on", 60)]),
 });
+
+// ---- Batch 44: horizontal (1920×1080) "all our bowl models" for Patreon / YouTube: each model = a shot of it printing or coming off the plate,
+// then its join (hz_*, HJ) or the finished bowl held on the black wall. hzv_* are 4:3 windows cut from the vertical clips, all shown with fit "blur". ----
+const HV = (clip: string, st: number, rate: number, d: number, extra: any = {}): Sc => ({ d, v: [`hzv_${clip}`, { startFrom: Math.round(st * 30), rate, fit: "blur", zoom: [1, 1.05], ...extra }] as V });
+const HVJ = (clip: string, snapSec: number, after = 45, lead = 1.2): Sc => { // join from an hzv_ window, same shape as HJ
+  const rate = Math.max(1, (lead * 30) / 15), pre = Math.round((lead * 30) / rate);
+  return { d: pre + after, v: [[`hzv_${clip}`, { startFrom: Math.round((snapSec - lead) * 30), rate, dur: pre, fit: "blur", zoom: [1, 1.03] }],
+    [`hzv_${clip}`, { startFrom: Math.round(snapSec * 30), rate: 1, dur: after, fit: "blur", snapAt: 0, zoom: [1.03, 1.06] }]] as V[] };
+};
+const hzLabel = (sc: Sc, t: string): Sc => ({ ...sc, c: { kind: "words", top: 50, size: 80, words: [{ t, at: 4, pink: true }] } });
+const MODEL_RUN: [Sc, Sc, string][] = [
+  [HV("r_nellie", 2, 1.6, 54), HJ("k_orange", 1.57, { after: 54 }), "Nellie"],
+  [HV("p_mint_remove", 1, 1.6, 54), HV("n_mint2", 3.5, 1, 69), "Jam"],
+  [HV("r_greydiag", 3, 1.8, 54), HJ("j_olive", 1.15, { after: 54 }), "Phoebe"],
+  [HV("p_terra_peel", 1, 2, 54), HJ("b_terra_asm", 3.45, { after: 54 }), "Chips & Beer"],
+  [HV("p_yellow_remove", 4, 1.6, 54), HV("b_yp2", 0.5, 1, 69), "Theo"],
+  [HV("pu_9427", 1, 6, 54), HJ("pu_6158", 5.8, { after: 54 }), "Pumba"],
+  [HV("se_9455", 2, 6, 54), HJ("se_6169", 3.9, { after: 54 }), "Swane & Eddy"],
+  [HV("br_6183", 1.2, 1.3, 54), HJ("br_9574", 0.95, { after: 54 }), "Bruno"],
+  [HV("hb_0374", 4, 4, 54), HVJ("hb_0399", 2.5, 54), "Honeycomb"],
+  [HV("bb_0598", 12, 4, 54), HVJ("bb_0619", 1.95, 54), "BamBam"],
+];
+export const batch44: Record<string, ReelConfig> = {
+  HzAllModels: hzReel("hzm1", "All our bowl models", [
+    HV("b_spools", 0, 1, 45), HV("print_wide", 0.5, 1, 45), HV("print_close", 1, 1.5, 45),
+    ...MODEL_RUN.flatMap(([a, b, name]) => [a, hzLabel(b, name)]),
+  ], 135),
+};
+
+// ---- Batch 45: Frank (blue + aqua double bowl, fr_*: spool unpacked, first layer, printing close-ups, pulls; joins at fr_1061 1.1 s in hand,
+// fr_1053 1.9 s on the black table, fr_6349 12.7 s on the desk) and Ravi (white + pink single bowl on the black wall, rv_*).
+// fr_1062 has the world map behind the bowls, left out; the custom-order take (co_6328) isn't a bowl. ----
+export const batch45: Record<string, ReelConfig> = pinkify({
+  FkWait: fast("fk1", [["fr_0970", 1, 1.2, 30], ["fr_1002", 2, 2, 30], ["fr_0997", 4, 3, 30], ["fr_0966", 1, 1.4, 45], JF("fr_1061", 1.1, { after: 30 }), ["fr_1060", 1, 1, 60]],
+    (n) => [persist(n, "wait until you see", "what this becomes", 230, 80), bottom(165, n - 165, "a bowl for Frank.", 80)]),
+  FkProcessResult: beforeAfter("fk2", ["fr_6344", 20, 6, 105], ["fr_1060", 0.5, 1, 120], [[W1("Process.", 0, "bold")], [W1("Result.", 0, "bold")]], 260),
+  FkFirstLayer: fast("fk3", [["fr_1002", 1, 1, 45], ["fr_6343", 5, 4, 30], ["fr_6346", 20, 6, 30], ["fr_6348", 2, 1.5, 45], JF("fr_1053", 1.9, { after: 30 }), ["fr_1060", 3, 1, 45]],
+    (n) => [persist(n, "POV: you watch the first layer", "like it's a movie", 230, 70)]),
+  FkClick: fast("fk4", [JF("fr_6349", 12.7, { after: 30 }), JF("fr_1053", 1.9, { after: 30 }), JF("fr_1061", 1.1, { after: 60 })], (n) => [persist(n, "watch it", "click.", 230, 90)]),
+  RvSimple: fast("rv1", [["rv_1048", 0.3, 1, 60], ["rv_1064", 3, 1, 45], ["rv_1065", 2, 1, 45], ["rv_1048", 3.5, 1, 60]],
+    (n) => [persist(n, "one bowl.", "one name.", 230, 90), bottom(150, n - 150, "for Ravi.", 84)]),
+  NewThisWeek: fast("fk5", [D(PR.close, 30), JF("fr_1061", 1.1, { after: 45 }), ["rv_1048", 0.3, 1, 60]],
+    (n) => [persist(n, "new on our", "black wall this week", 230, 76), bottom(30, 60, "Frank", 90), bottom(90, n - 90, "Ravi", 90)]),
+});
