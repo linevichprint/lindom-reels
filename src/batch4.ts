@@ -1947,7 +1947,7 @@ const J = (clip: string, snapSec: number, label?: string, d = 75, rate = 1) => {
 const ALL_JOINS: [string, number, string, string][] = [
   ["br_9574", 0.95, "Bruno", "Blue + violet"], ["pu_6158", 5.8, "Pumba", "Green + grey"], ["k_orange", 1.57, "Nellie", "White + orange"], ["se_6169", 3.9, "Swane & Eddy", "Sand + mauve"],
   ["k_green", 1.43, "Nugget", "Olive + pink"], ["k_pink", 2.55, "Amy", "Cream + pink"], ["k_blue", 3.17, "Bo", "Blue + stone"], ["k_bp2", 1.38, "Theo", "Blue + purple"],
-  ["b_terra_asm", 3.45, "Chips & Beef", "Terracotta + sand"], ["j_olive", 1.15, "Phoebe", "Olive + stone"],
+  ["b_terra_asm", 3.45, "Chips & Beer", "Terracotta + sand"], ["j_olive", 1.15, "Phoebe", "Olive + stone"],
 ];
 // fast join: the halves' approach squeezed into half a second (whole join, sped up), the click on the beat, then real speed.
 // slow = the last 0.3 s before the click and the click itself at 0.3x (speed ramp).
@@ -2765,7 +2765,7 @@ const HVJ = (clip: string, snapSec: number, after = 45, lead = 1.2): Sc => { // 
 };
 const hzLabel = (sc: Sc, t: string): Sc => ({ ...sc, c: { kind: "words", top: 50, size: 80, words: [{ t, at: 4, pink: true }] } });
 const MODEL_RUN: [Sc, Sc, string][] = [
-  [HV("r_nellie", 2, 1.6, 54), HJ("k_orange", 1.57, { after: 54 }), "Nellie"],
+  [HV("print_close", 1, 1.5, 54), HJ("k_orange", 1.57, { after: 54 }), "Nellie"], // not r_nellie: too soft blown up to 1080p
   [HV("p_mint_remove", 1, 1.6, 54), HV("n_mint2", 3.5, 1, 69), "Jam"],
   [HV("r_greydiag", 3, 1.8, 54), HJ("j_olive", 1.15, { after: 54 }), "Phoebe"],
   [HV("p_terra_peel", 1, 2, 54), HJ("b_terra_asm", 3.45, { after: 54 }), "Chips & Beer"],
@@ -2778,7 +2778,7 @@ const MODEL_RUN: [Sc, Sc, string][] = [
 ];
 export const batch44: Record<string, ReelConfig> = {
   HzAllModels: hzReel("hzm1", "All our bowl models", [
-    HV("b_spools", 0, 1, 45), HV("print_wide", 0.5, 1, 45), HV("print_close", 1, 1.5, 45),
+    HV("b_spools", 0, 1, 45), HV("print_wide", 0.5, 1, 90),
     ...MODEL_RUN.flatMap(([a, b, name]) => [a, hzLabel(b, name)]),
   ], 135),
 };
@@ -2797,4 +2797,21 @@ export const batch45: Record<string, ReelConfig> = pinkify({
     (n) => [persist(n, "one bowl.", "one name.", 230, 90), bottom(150, n - 150, "for Ravi.", 84)]),
   NewThisWeek: fast("fk5", [D(PR.close, 30), JF("fr_1061", 1.1, { after: 45 }), ["rv_1048", 0.3, 1, 60]],
     (n) => [persist(n, "new on our", "black wall this week", 230, 76), bottom(30, 60, "Frank", 90), bottom(90, n - 90, "Ravi", 90)]),
+});
+
+// ---- Batch 46: oval double joins only, black & white until the click (colour on the snap); every join incl. Honeycomb, BamBam and Frank;
+// the custom order (epoxy mold + cookie cutter, co_6328: hands only, laid out → fitted → packed → FRAGILE box) ----
+const JFC = (clip: string, snapSec: number, after = 30): Sc => { // like JF, but grey before the click and colour from it
+  const lead = Math.min(snapSec, 1.2);
+  return { d: 15 + after, v: [[clip, { startFrom: Math.round((snapSec - lead) * 30), rate: Math.max(1, (lead * 30) / 15), dur: 15, bw: true, snapAt: 999, zoom: [1.02, 1.06] }],
+    [clip, { startFrom: Math.round(snapSec * 30), rate: 1, dur: after, snapAt: 0, zoom: [1.06, 1.1] }]] as V[] };
+};
+const OVALS: [string, number][] = [["k_orange", 1.57], ["k_green", 1.43], ["k_pink", 2.55], ["k_blue", 3.17], ["k_bp2", 1.38], ["fr_1053", 1.9], ["fr_1061", 1.1]];
+const ALL_JOINS2: [string, number, string][] = [...ALL_JOINS.map(([c, t, n]) => [c, t, n] as [string, number, string]), ["hb_0399", 2.5, "Honeycomb"], ["bb_0619", 1.95, "BamBam"], ["fr_1061", 1.1, "Frank"]];
+export const batch46: Record<string, ReelConfig> = pinkify({
+  OvalBwJoins: joinsReel("jv1", "Just add some colour.", OVALS.map(([c, t], i) => JFC(c, t, i === OVALS.length - 1 ? 60 : 30))),
+  EveryJoin2: ((c: ReelConfig) => ({ ...c, captions: c.captions.map((x: any) => (x.top === 150 ? { ...x, top: 110, size: 60 } : x)) }))(joinsReel("jv2", "Every bowl has a name.", ALL_JOINS2.map(([c, t, name], i) => JF(c, t, { label: name, after: i === ALL_JOINS2.length - 1 ? 60 : 30 })))), // smaller hook, clear of the name labels
+  CustomOrder: fast("co1", [["co_6328", 0, 1.5, 45], ["co_6328", 3, 2, 60], ["co_6328", 8.5, 1.5, 45], ["co_6328", 17.5, 2, 45], ["co_6328", 23.6, 1.3, 45]],
+    (n) => [persist(n, "working on a fully custom order today:", "an epoxy mold and a cookie cutter", 120, 62),
+      ...([[0, 45, "the parts"], [45, 60, "fitting them together"], [105, 45, "checking every piece"], [150, 45, "packing"], [195, 45, "off it goes"]] as [number, number, string][]).map(([f, d, t]) => bottom(f, d, t, 72))]),
 });
