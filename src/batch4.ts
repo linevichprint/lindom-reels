@@ -2840,3 +2840,9 @@ export const batch47: Record<string, ReelConfig> = pinkify({
     return fast("ap1", list, (n) => [chic(0, 30, 300, [W1("all our bowls", 0)], 84), ...labels]);
   })(),
 });
+
+// ---- Batch 48: hexagon plant trellis: off the printer (fh_6263), assembled (fh_sk = the user's own assembly cut, sped up), in the pot (fh_0356) ----
+export const batch48: Record<string, ReelConfig> = pinkify({
+  PlantsPrint: fast("pl1", [["fh_6263", 1, 1.5, 45], ["fh_sk", 1, 4, 30], ["fh_sk", 21, 4, 30], ["fh_sk", 28, 4, 30], ["fh_sk", 38.5, 2, 45], ["fh_0356", 0.5, 1, 45], ["fh_0356", 6, 1, 60]],
+    (n) => [chic(0, n, 230, [W1("print it", 4, "italic"), W1("for your plants", 16, "italic", true)], 90)]), // both on the pink block: white text vanishes on the white table
+});
